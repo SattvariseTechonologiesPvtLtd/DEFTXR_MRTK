@@ -1,0 +1,366 @@
+fileFormatVersion: 2
+guid: 07fa561a2d449464ba381f1ad924bba8
+ModelImporter:
+  serializedVersion: 19300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Abductor_digiti_minimi_M
+    second: {fileID: 2100000, guid: aff3440745aca2f4b9a413af4203f810, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Abductor_pollicis_M
+    second: {fileID: 2100000, guid: 7affd4e894f2a1c4c8bec8d72f8e2e96, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Abductor_pollicis_brevis_M
+    second: {fileID: 2100000, guid: fd562cdee322e924285eb7010226d8bb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Anconeus_M
+    second: {fileID: 2100000, guid: f112432813b8cc844a71a5fb2eedff4a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Bicep_brachii_long_head_M
+    second: {fileID: 2100000, guid: d3638148a0339744d86cbbf23f4e8010, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Bicep_brachii_short_head_M
+    second: {fileID: 2100000, guid: 23ae52d09e30f064f87b54dbe560e7a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Brachialis_M
+    second: {fileID: 2100000, guid: 31fee633313c262468cf40a187e283d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Brachioradialis_M
+    second: {fileID: 2100000, guid: 0490207768bb94f4e94d5ff4f2a0c610, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Coracobrachialis_M
+    second: {fileID: 2100000, guid: 3170c2bde2f294c45828aa5bfa0cbabb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Deltoid_anterior_head_M
+    second: {fileID: 2100000, guid: 323b968ac9c3e3641ac9bd45e090f1ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Deltoid_middle_head_M
+    second: {fileID: 2100000, guid: 597a80f888c9df846a76b097344db5cc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Deltoid_posterior_head_M
+    second: {fileID: 2100000, guid: 2bae8f30c637ac845b9f198ca873dcc9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Extensor_carpi_radialis_brevis_M
+    second: {fileID: 2100000, guid: b6f66577be71c4941a5025715a529274, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Extensor_carpi_radialis_longus_M
+    second: {fileID: 2100000, guid: 3051f7929977620438fbef3aa38baf49, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Extensor_carpi_ulnaris_M
+    second: {fileID: 2100000, guid: b4fde3cd87b2ee742b0b5a2af2bdf1f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Extensor_digiti_minimi_M
+    second: {fileID: 2100000, guid: d5f2669cb12d2c14c9da9a9b9483cb85, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Extensor_digitorum_M
+    second: {fileID: 2100000, guid: a333135046b3c49448b9fc2fa44c395d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Extensor_indicis_M
+    second: {fileID: 2100000, guid: 351b39b6cd5eaf54bbb362a30ff210aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Extensor_pollicis_brevis_M
+    second: {fileID: 2100000, guid: c6fc7cee1cb80c34ba9421106d7a925b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Extensor_pollicis_longus_M
+    second: {fileID: 2100000, guid: d7fa0293545e06b46bb6464263cc11e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_First_dorsal_interosseous_M
+    second: {fileID: 2100000, guid: e6ff69b3efbb4bb45b0f6fb44e6938dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_First_lumbrical_M
+    second: {fileID: 2100000, guid: 1ea8c8aa4ab822e41b95a3c73b6ef417, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_First_palmar_interosseous_M
+    second: {fileID: 2100000, guid: 56bcb205b6ead8042bbed7f59b1e24c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Flexor_carpi_radialis_M
+    second: {fileID: 2100000, guid: baae40641df19c24a83aee4a4059934e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Flexor_carpi_ulnaris_M
+    second: {fileID: 2100000, guid: b36f9e6ec2024ca49a7ea331ddb927c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Flexor_digiti_minimi_brevis_M
+    second: {fileID: 2100000, guid: 272cb0e20bbfc074db64db9c4a11848a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Flexor_digitorum_superficialis_M
+    second: {fileID: 2100000, guid: 620f9a6dd6598254bae9ed1476f4f581, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Flexor_pollicis_brevis_M
+    second: {fileID: 2100000, guid: 3d8b4452319969b4893318e23a30ac44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Flexor_pollicis_longus_M
+    second: {fileID: 2100000, guid: 9b0a1caf0577a4348a98d6a02f74138e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Fourth_dorsal_interosseous_M
+    second: {fileID: 2100000, guid: 19d57deb6db9bf24a8c30c59563e8071, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Fourth_lumbrical_M
+    second: {fileID: 2100000, guid: d2a001b973937c045b14b4bd8f895be9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Infraspinatus_M
+    second: {fileID: 2100000, guid: fcc87e40f98569246ade1f4056bd0ce4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Opponens_digiti_minimi_M
+    second: {fileID: 2100000, guid: ceb27eecb7d318e4583022b4cbf59556, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Opponens_pollicis_M
+    second: {fileID: 2100000, guid: 6fab23be84d01f043bf58a10c8238415, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Palmaris_Brevis_M
+    second: {fileID: 2100000, guid: daafa73bdc5a7d9498223fc12d1599a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Palmaris_longus_M
+    second: {fileID: 2100000, guid: df9a581f43ce4154ea8ec00c2a3695d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Pronator_quadratus_M
+    second: {fileID: 2100000, guid: c57b476c7b4d95349beaa5f46c3fd505, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Pronator_teres_M
+    second: {fileID: 2100000, guid: 13b9372f8ba52e5449ea70422ff36f33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Second_dorsal_interosseous_M
+    second: {fileID: 2100000, guid: 7f9deb7f3bb5340488f620a2c135d94f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Second_lumbrical_M
+    second: {fileID: 2100000, guid: 174617be1c3694941af24403d1182e68, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Second_palmar_interosseous_M
+    second: {fileID: 2100000, guid: ba29e0da9db1d2e4ebccc81313bdad9e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Subscapularis_M
+    second: {fileID: 2100000, guid: 82f4fec147f066e4fa9f510c95086bcf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Supinator_M
+    second: {fileID: 2100000, guid: 54e0cf95a6a0bd840b794bd398f07d36, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Supraspinatus_M
+    second: {fileID: 2100000, guid: dfafaf9d106ce5f4b8b4c239028d9408, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Teres_Minor_M
+    second: {fileID: 2100000, guid: af90f21b6c592f6449948e259810596a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Third_dorsal_interosseous_M
+    second: {fileID: 2100000, guid: f764dd577104ea540986bba02ded841b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Third_lumbrical_M
+    second: {fileID: 2100000, guid: 22a548b9654338c46a34160fb0ed82be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Third_palmar_interosseous_M
+    second: {fileID: 2100000, guid: 8663db4a8bbe4ab40b4c67185bc0271a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Tricep_brachii_lateral_head_M
+    second: {fileID: 2100000, guid: 0db9f42e85dd5574cac652de2a4ade97, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Tricep_brachii_long_head_M
+    second: {fileID: 2100000, guid: 79d41535e22b68d4c83f5828320c2c11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Tricep_brachii_medial_head_M
+    second: {fileID: 2100000, guid: e13aa9f8e45b5484cb607553d9543730, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_Tricep_brachii_tendon_M
+    second: {fileID: 2100000, guid: f1a7e79d42d877c4cbf01366ab259ff0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skeletal_Abductor_pollicis_longus_M
+    second: {fileID: 2100000, guid: c0c88216ad82daa4390891140509d90d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skeletal_Flexor_digitorum_profundus_M
+    second: {fileID: 2100000, guid: 933b3536925111846a44e688045ec32c, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
