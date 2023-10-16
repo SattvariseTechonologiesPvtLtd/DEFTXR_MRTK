@@ -1,0 +1,7 @@
+/* New UI UX changes completed list on 26-09-2021 */
+1.Add header text on the left side menu panel to indicate user about the intration with each layers on button click.
+2.Arrange left side menu buttons in layers order.
+3.Add ON/OFF button indication in Left side menu panel
+4.Add lock / Unlock functionality. Steps : touch and select press X button on controller to lock the selected item.
+5.Change font of horizotal and vertical rotaion label,change position of them
+6.
