@@ -54,28 +54,6 @@ public class AssetManagementScript : MonoBehaviour
         isolatedBones = isolated_object.transform.Find("Bones").gameObject;
         isolatedArt = isolated_object.transform.Find("Arteries").gameObject;
         isolatedNerves = isolated_object.transform.Find("Nerves").gameObject;
-
-        /*if (DEFTXR_UI_Manager.Instance.region == DEFTXR_UI_Manager.Region.thorax)
-        {
-            if (isolated_object.transform.Find("Arteries") == null && isolated_object.transform.Find("Nerves") == null)
-            {
-                isolatedArt = isolatedNerves = DEFTXR_UI_Manager.Instance.emtryForTest;
-            }
-            else
-            {
-                isolatedArt = isolated_object.transform.Find("Arteries").gameObject;
-              
-
-                isolatedNerves = isolated_object.transform.Find("Nerves").gameObject;
-            }
-        }
-        else
-        {
-            isolatedArt = isolated_object.transform.Find("Arteries").gameObject;
-
-            isolatedNerves = isolated_object.transform.Find("Nerves").gameObject;
-        }*/
-
     }
 
     public void setIsolatedBonesData()
@@ -109,7 +87,6 @@ public class AssetManagementScript : MonoBehaviour
                 else
                 {
                     isolatedLowerLimbBonesMenuPanels[i].SetActive(false);
-
                 }
             }
         }
@@ -124,7 +101,6 @@ public class AssetManagementScript : MonoBehaviour
                 else
                 {
                     isolatedThoraxBonesMenuPanels[i].SetActive(false);
-
                 }
             }
         }
@@ -139,7 +115,6 @@ public class AssetManagementScript : MonoBehaviour
                 else
                 {
                     isolatedAbdomenBonesMenuPanels[i].SetActive(false);
-
                 }
             }
         }
@@ -154,7 +129,6 @@ public class AssetManagementScript : MonoBehaviour
                 else
                 {
                     isolatedHeadNeckBonesMenuPanels[i].SetActive(false);
-
                 }
             }
         }
@@ -170,7 +144,6 @@ public class AssetManagementScript : MonoBehaviour
                 else
                 {
                     isolatedSkeletonBonesMenuPanels[i].SetActive(false);
-
                 }
             }
         }

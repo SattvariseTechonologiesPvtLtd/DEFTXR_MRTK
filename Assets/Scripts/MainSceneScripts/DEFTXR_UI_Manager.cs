@@ -394,6 +394,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closetoWelcomeBtn.SetActive(false);
 
                 //New Changes.
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -424,6 +426,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closetoWelcomeBtn.SetActive(false);
 
                 //New Changes.
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -457,6 +461,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closetoWelcomeBtn.SetActive(false);
 
                 //New Changes.
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -486,6 +492,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closetoWelcomeBtn.SetActive(false);
 
                 //New Changes.
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -519,6 +527,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closetoWelcomeBtn.SetActive(false);
 
                 //New Changes.
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -551,6 +561,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closetoWelcomeBtn.SetActive(false);
 
                 //New Changes.
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -584,6 +596,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closetoWelcomeBtn.SetActive(false);
 
                 //New Changes
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -616,6 +630,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closetoWelcomeBtn.SetActive(false);
 
                 //New Chnages
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -649,6 +665,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closetoWelcomeBtn.SetActive(false);
 
                 //New Changes.
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -681,6 +699,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closetoWelcomeBtn.SetActive(false);
 
                 //New Changes.
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -708,6 +728,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 isIsolatedOn = false;
 
                 //New Changes
+
+                //Controller Buttons Highlights ON/OFF
                 XButtonHighLight.SetActive(false);
                 YButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
@@ -737,6 +759,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 MuscularSystem_FullBody.SetActive(true);
 
                 //New Changes
+
+                //Controller Buttons Highlights ON/OFF
                 XButtonHighLight.SetActive(false);
                 YButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
@@ -799,6 +823,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 //New Changes.
                 YPanel.SetActive(true);
                 LayersUI.SetActive(true);
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -821,13 +847,15 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 completeUpperBody.SetActive(false);
 
                 //New Changes.
+
+                //Controller Buttons Highlights ON/OFF
                 YButtonHighLight.SetActive(true);
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
-                LayersUI.SetActive(false);
                 XButtonHighLight.SetActive(true);
                 MenuButtonHighLight.SetActive(false);
 
+                LayersUI.SetActive(false);
                 closeButton.SetActive(true);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
@@ -865,6 +893,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 //New Changes.
                 YPanel.SetActive(false);
                 LayersUI.SetActive(false);
+
+                //Controller Buttons Highlights ON/OFF
                 YButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
                 BButtonHighLight.SetActive(false);
@@ -890,10 +920,13 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 //New Changes.
                 YPanel.SetActive(false);
                 MainUiPanel.SetActive(false);
+
+                //Controller Buttons Highlights ON/OFF
                 MenuButtonHighLight.SetActive(false);
                 YButtonHighLight.SetActive(false);
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
+
                 closeButtonNew.SetActive(true);
                 LayersUI.SetActive(false);
                 layerPressed.SetActive(false);
@@ -934,6 +967,8 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 //New Changes.
                 YPanel.SetActive(true);
                 LayersUI.SetActive(true);
+
+                //Controller Buttons Highlights ON/OFF
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 XButtonHighLight.SetActive(false);
@@ -957,6 +992,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 completeThorax.SetActive(false);
 
                 //New Changes.
+                //Controller Buttons Highlights ON/OFF
                 YButtonHighLight.SetActive(true);
                 BButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);

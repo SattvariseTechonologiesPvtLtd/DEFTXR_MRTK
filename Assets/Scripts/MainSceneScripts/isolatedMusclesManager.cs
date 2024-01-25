@@ -33,17 +33,12 @@ public class isolatedMusclesManager : MonoBehaviour
         index = -1;
 
         //slider init
-
         horizontalSlider.onValueChanged.AddListener(OnHorizontalSliderChanged);
         verticleSlider.onValueChanged.AddListener(OnVerticleSliderChanged);
         verticle_prevValue = horizontal_prevValue = 0.5f;
         horizontalSlider.value = 0.5f;
         verticleSlider.value = 0.5f;
 
-        //DEFTXR_UI_Manager.Instance.isolateMuscleBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
-        //DEFTXR_UI_Manager.Instance.isolateBoneBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
-        //DEFTXR_UI_Manager.Instance.isolateNervesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
-        //DEFTXR_UI_Manager.Instance.isolateArteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
     }
 
     void OnHorizontalSliderChanged(float value)

@@ -90,9 +90,6 @@ public class LowerLimb_UI_Manager : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     private void Reset()
     {
         //Gameobjects need to active on start
@@ -172,12 +169,9 @@ public class LowerLimb_UI_Manager : MonoBehaviour
             currentIsolatedObject = null;
             AssetManagementScript.Instance.resetData();
 
-
-
             completeLowerBody.SetActive(true);
             LeftSideMuscleIsolatePanel.SetActive(false);
             mainSystemPanel.SetActive(true);
-
 
             hideButton.SetActive(false);
             undoButton.SetActive(false);
@@ -195,15 +189,11 @@ public class LowerLimb_UI_Manager : MonoBehaviour
             content.text = "";
 
         }
-
     }
 
 
     public void isolateButtonClick()
     {
-        //deltoid_isolate_parent.SetActive(true);
-
-
         if (state == State.muscle)
         {
             currentIsolatedObject = AssetManagementScript.Instance.isolatedMuscleAssets[DEFTXR_UI_Manager.Instance.currentSelectedAssetNo];
@@ -213,7 +203,6 @@ public class LowerLimb_UI_Manager : MonoBehaviour
             completeLowerBody.SetActive(false);
             LeftSideMuscleIsolatePanel.SetActive(true);
             mainSystemPanel.SetActive(false);
-
 
             hideButton.SetActive(true);
             undoButton.SetActive(false);
@@ -225,9 +214,6 @@ public class LowerLimb_UI_Manager : MonoBehaviour
             isIsolatedOn = true;
             closeButton.SetActive(true);
             isolateButton.SetActive(false);
-
-            // contentPanel.SetActive(false);
-
         }
 
         if (state == State.bones)
@@ -243,9 +229,6 @@ public class LowerLimb_UI_Manager : MonoBehaviour
             closeButton.SetActive(true);
             isolateButton.SetActive(false);
             contentPanel.SetActive(false);
-
-
-
         }
 
     }
