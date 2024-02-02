@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
@@ -18,20 +18,17 @@
  * limitations under the License.
  */
 
-public class OVRVirtualKeyboardControllerInputHandler : OVRVirtualKeyboard.OVRVirtualKeyboardInput
+using System;
+using UnityEngine;
+
+
+[Obsolete]
+[ExecuteInEditMode]
+[HelpURL("https://developer.oculus.com/reference/unity/latest/class_o_v_r_virtual_keyboard_controller_input_handler")]
+public class OVRVirtualKeyboardControllerInputHandler : MonoBehaviour
 {
-    public override bool PositionValid => OVRInput.IsControllerConnected(InteractionDevice);
-
-    public override bool IsPressed => OVRInput.Get(
-        OVRInput.Button.PrimaryIndexTrigger |
-        OVRInput.Button.SecondaryIndexTrigger,
-        InteractionDevice);
-
-    public override OVRPlugin.Posef InputPose => new OVRPlugin.Posef()
+    void Awake()
     {
-        Position = transform.position.ToFlippedZVector3f(),
-        Orientation = transform.rotation.ToFlippedZQuatf(),
-    };
-
-    public override OVRPlugin.Posef InteractorRootPose => new OVRPlugin.Posef();
+        DestroyImmediate(this);
+    }
 }

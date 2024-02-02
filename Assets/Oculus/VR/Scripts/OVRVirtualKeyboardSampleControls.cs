@@ -18,14 +18,77 @@
  * limitations under the License.
  */
 
-using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(OVRVirtualKeyboardSampleInputHandler))]
+[HelpURL("https://developer.oculus.com/reference/unity/latest/class_o_v_r_virtual_keyboard_sample_controls")]
 public class OVRVirtualKeyboardSampleControls : MonoBehaviour
 {
+    private struct OVRVirtualKeyboardBackup
+    {
+        private readonly InputField _textCommitField;
+        private readonly Vector3 _position;
+        private readonly Quaternion _rotation;
+        private readonly Vector3 _scale;
+        private readonly Transform _rightControllerDirectTransform;
+        private readonly Transform _rightControllerRootTransform;
+        private readonly Transform _leftControllerDirectTransform;
+        private readonly Transform _leftControllerRootTransform;
+        private readonly bool _controllerRayInteraction;
+        private readonly bool _controllerDirectInteraction;
+        private readonly OVRHand _handLeft;
+        private readonly OVRHand _handRight;
+        private readonly bool _handRayInteraction;
+        private readonly bool _handDirectInteraction;
+        private readonly OVRPhysicsRaycaster _controllerRaycaster;
+        private readonly OVRPhysicsRaycaster _handRaycaster;
+
+        public OVRVirtualKeyboardBackup(OVRVirtualKeyboard keyboard)
+        {
+            _textCommitField = keyboard.TextCommitField;
+            _position = keyboard.transform.position;
+            _rotation = keyboard.transform.rotation;
+            _scale = keyboard.transform.localScale;
+
+            _rightControllerDirectTransform = keyboard.rightControllerDirectTransform;
+            _rightControllerRootTransform = keyboard.rightControllerRootTransform;
+            _leftControllerDirectTransform = keyboard.leftControllerDirectTransform;
+            _leftControllerRootTransform = keyboard.leftControllerRootTransform;
+            _controllerRayInteraction = keyboard.controllerRayInteraction;
+            _controllerDirectInteraction = keyboard.controllerDirectInteraction;
+            _controllerRaycaster = keyboard.controllerRaycaster;
+
+            _handLeft = keyboard.handLeft;
+            _handRight = keyboard.handRight;
+            _handRayInteraction = keyboard.handRayInteraction;
+            _handDirectInteraction = keyboard.handDirectInteraction;
+            _handRaycaster = keyboard.handRaycaster;
+        }
+
+        public void RestoreTo(OVRVirtualKeyboard keyboard)
+        {
+            keyboard.TextCommitField = _textCommitField;
+            keyboard.transform.SetPositionAndRotation(_position, _rotation);
+            keyboard.transform.localScale = _scale;
+
+            keyboard.rightControllerDirectTransform = _rightControllerDirectTransform;
+            keyboard.rightControllerRootTransform = _rightControllerRootTransform;
+            keyboard.leftControllerDirectTransform = _leftControllerDirectTransform;
+            keyboard.leftControllerRootTransform = _leftControllerRootTransform;
+            keyboard.controllerRayInteraction = _controllerRayInteraction;
+            keyboard.controllerDirectInteraction = _controllerDirectInteraction;
+            keyboard.controllerRaycaster = _controllerRaycaster;
+
+            keyboard.handLeft = _handLeft;
+            keyboard.handRight = _handRight;
+            keyboard.handRayInteraction = _handRayInteraction;
+            keyboard.handDirectInteraction = _handDirectInteraction;
+            keyboard.handRaycaster = _handRaycaster;
+        }
+    }
+
     private const float THUMBSTICK_DEADZONE = 0.2f;
 
     [SerializeField]
@@ -38,9 +101,13 @@ public class OVRVirtualKeyboardSampleControls : MonoBehaviour
     private Button HideButton;
 
     [SerializeField]
-    private Button ToggleInputModeButton;
+    private Button MoveNearButton;
 
-    private Text ToggleInputModeText;
+    [SerializeField]
+    private Button MoveFarButton;
+
+    [SerializeField]
+    private Button DestroyKeyboardButton;
 
     [SerializeField]
     private OVRVirtualKeyboard keyboard;
@@ -48,42 +115,76 @@ public class OVRVirtualKeyboardSampleControls : MonoBehaviour
     private OVRVirtualKeyboardSampleInputHandler inputHandler;
 
     private bool isMovingKeyboard_ = false;
+    private bool isMovingKeyboardFinished_ = false;
     private float keyboardMoveDistance_ = 0.0f;
     private float keyboardScale_ = 1.0f;
+    private OVRVirtualKeyboardBackup keyboardBackup;
 
     void Start()
     {
         inputHandler = GetComponent<OVRVirtualKeyboardSampleInputHandler>();
 
+        // If System Keyboard is enabled at the same time as Virtual Keyboard
+        // prevent the system keyboard from opening with input field focus
+        keyboard.TextCommitField.keyboardType = (TouchScreenKeyboardType)(-1);
+
         ShowKeyboard();
 
-        OVRVirtualKeyboard.Events.KeyboardHidden += OnHideKeyboard;
+        keyboard.KeyboardHiddenEvent.AddListener(OnHideKeyboard);
 
-        ToggleInputModeButton.onClick.AddListener(ToggleInputMode);
-        ToggleInputModeText = ToggleInputModeButton.gameObject.GetComponentInChildren<Text>();
+        MoveNearButton.onClick.AddListener(MoveKeyboardNear);
+        MoveFarButton.onClick.AddListener(MoveKeyboardFar);
+        DestroyKeyboardButton.onClick.AddListener(DestroyKeyboard);
     }
 
     private void OnDestroy()
     {
-        OVRVirtualKeyboard.Events.KeyboardHidden -= OnHideKeyboard;
+        if (keyboard == null)
+        {
+            return;
+        }
+
+        keyboard.KeyboardHiddenEvent.RemoveListener(OnHideKeyboard);
+        MoveNearButton.onClick.RemoveListener(MoveKeyboardNear);
+        MoveFarButton.onClick.RemoveListener(MoveKeyboardFar);
+        DestroyKeyboardButton.onClick.RemoveListener(DestroyKeyboard);
     }
 
     public void ShowKeyboard()
     {
+        if (keyboard == null)
+        {
+            var go = new GameObject();
+            keyboard = go.AddComponent<OVRVirtualKeyboard>();
+            keyboardBackup.RestoreTo(keyboard);
+            inputHandler.OVRVirtualKeyboard = keyboard;
+        }
+
         keyboard.gameObject.SetActive(true);
         UpdateButtonInteractable();
     }
 
     public void MoveKeyboard()
     {
-        if (keyboard.gameObject.activeSelf)
-        {
-            isMovingKeyboard_ = true;
-            var kbTransform = keyboard.transform;
-            keyboardMoveDistance_ = (inputHandler.InputRayPosition - kbTransform.position).magnitude;
-            keyboardScale_ = kbTransform.localScale.x;
-            UpdateButtonInteractable();
-        }
+        if (!keyboard.gameObject.activeSelf) return;
+        isMovingKeyboard_ = true;
+        var kbTransform = keyboard.transform;
+        keyboardMoveDistance_ = (inputHandler.InputRayPosition - kbTransform.position).magnitude;
+        keyboardScale_ = kbTransform.localScale.x;
+        UpdateButtonInteractable();
+        keyboard.InputEnabled = false;
+    }
+
+    public void MoveKeyboardNear()
+    {
+        if (!keyboard.gameObject.activeSelf) return;
+        keyboard.UseSuggestedLocation(OVRVirtualKeyboard.KeyboardPosition.Near);
+    }
+
+    public void MoveKeyboardFar()
+    {
+        if (!keyboard.gameObject.activeSelf) return;
+        keyboard.UseSuggestedLocation(OVRVirtualKeyboard.KeyboardPosition.Far);
     }
 
     public void HideKeyboard()
@@ -93,17 +194,15 @@ public class OVRVirtualKeyboardSampleControls : MonoBehaviour
         UpdateButtonInteractable();
     }
 
-    private void ToggleInputMode()
+    public void DestroyKeyboard()
     {
-        keyboard.InputMode = (OVRVirtualKeyboard.KeyboardInputMode)(int)keyboard.InputMode + 1;
-        if (keyboard.InputMode == OVRVirtualKeyboard.KeyboardInputMode.Max)
+        if (keyboard != null)
         {
-            keyboard.InputMode = (OVRVirtualKeyboard.KeyboardInputMode)0;
+            keyboardBackup = new OVRVirtualKeyboardBackup(keyboard);
+            GameObject.Destroy(keyboard.gameObject);
+            keyboard = null;
+            UpdateButtonInteractable();
         }
-
-        keyboard.SuggestVirtualKeyboardLocationForInputMode(keyboard.InputMode);
-        ToggleInputModeText.text =
-            $"Input Mode: {Enum.GetName(typeof(OVRVirtualKeyboard.KeyboardInputMode), keyboard.InputMode)}";
     }
 
     private void OnHideKeyboard()
@@ -113,15 +212,33 @@ public class OVRVirtualKeyboardSampleControls : MonoBehaviour
 
     private void UpdateButtonInteractable()
     {
-        ShowButton.interactable = !keyboard.gameObject.activeSelf;
-        MoveButton.interactable = keyboard.gameObject.activeSelf && !isMovingKeyboard_;
-        HideButton.interactable = keyboard.gameObject.activeSelf && !isMovingKeyboard_;
-        ToggleInputModeButton.interactable = keyboard.gameObject.activeSelf && !isMovingKeyboard_;
+        var kbExists = keyboard != null;
+        var kbActiveAndNotMoving = kbExists && keyboard.gameObject.activeSelf && !isMovingKeyboard_;
+        ShowButton.interactable = !kbExists || !keyboard.gameObject.activeSelf;
+        MoveButton.interactable = kbActiveAndNotMoving;
+        MoveNearButton.interactable = kbActiveAndNotMoving;
+        MoveFarButton.interactable = kbActiveAndNotMoving;
+        HideButton.interactable = kbActiveAndNotMoving;
+        DestroyKeyboardButton.interactable = kbExists;
     }
 
     void Update()
     {
-        if (isMovingKeyboard_)
+        var isPressed = OVRInput.Get(
+            OVRInput.Button.One | // right hand pinch
+            OVRInput.Button.Three | // left hand pinch
+            OVRInput.Button.PrimaryIndexTrigger |
+            OVRInput.Button.SecondaryIndexTrigger,
+            OVRInput.Controller.All);
+        if (isMovingKeyboardFinished_ && !isPressed)
+        {
+            keyboard.InputEnabled = true;
+            isMovingKeyboard_ = false;
+            isMovingKeyboardFinished_ = false;
+            UpdateButtonInteractable();
+        }
+
+        if (isMovingKeyboard_ && !isMovingKeyboardFinished_)
         {
             keyboardMoveDistance_ *= 1.0f + inputHandler.AnalogStickY * 0.01f;
             keyboardMoveDistance_ = Mathf.Clamp(keyboardMoveDistance_, 0.1f, 100.0f);
@@ -136,10 +253,10 @@ public class OVRVirtualKeyboardSampleControls : MonoBehaviour
                 rotation);
             kbTransform.localScale = Vector3.one * keyboardScale_;
 
-            if (inputHandler.IsPressed)
+            if (isPressed)
             {
-                isMovingKeyboard_ = false;
-                UpdateButtonInteractable();
+                // Delay the true finish by a frame
+                isMovingKeyboardFinished_ = true;
             }
         }
     }

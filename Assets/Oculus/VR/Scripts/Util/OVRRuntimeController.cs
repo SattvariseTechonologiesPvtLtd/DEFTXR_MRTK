@@ -22,6 +22,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[HelpURL("https://developer.oculus.com/reference/unity/latest/class_o_v_r_runtime_controller")]
 public class OVRRuntimeController : MonoBehaviour
 {
     /// <summary>
@@ -37,7 +38,7 @@ public class OVRRuntimeController : MonoBehaviour
     /// <summary>
     /// Support render model animation
     /// </summary>
-    public bool m_supportAnimation;
+    public bool m_supportAnimation = true;
 
     private GameObject m_controllerObject;
 

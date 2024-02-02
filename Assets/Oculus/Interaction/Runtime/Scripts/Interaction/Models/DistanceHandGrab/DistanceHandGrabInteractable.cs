@@ -36,7 +36,7 @@ namespace Oculus.Interaction.HandGrab
     /// </summary>
     [Serializable]
     public class DistanceHandGrabInteractable : PointerInteractable<DistanceHandGrabInteractor, DistanceHandGrabInteractable>,
-        IRigidbodyRef, IHandGrabbable, IRelativeToRef, ICollidersRef
+        IHandGrabInteractable, IRigidbodyRef, ICollidersRef
     {
         [SerializeField]
         private Rigidbody _rigidbody;
@@ -56,6 +56,27 @@ namespace Oculus.Interaction.HandGrab
             set
             {
                 _resetGrabOnGrabsUpdated = value;
+            }
+        }
+
+        [Space]
+        /// <summary>
+        /// Defines the slippiness threshold so the interactor can slide along the interactable based on the
+        /// strength of the grip. GrabSurfaces are required to slide. At min slippiness = 0, the interactor never moves.
+        /// </summary>
+        [SerializeField, Optional, Range(0f, 1f)]
+        [Tooltip("Defines the slippiness threshold so the interactor can slide along the interactable based on the" +
+            "strength of the grip. GrabSurfaces are required to slide. At min slippiness = 0, the interactor never moves.")]
+        private float _slippiness = 0f;
+        public float Slippiness
+        {
+            get
+            {
+                return _slippiness;
+            }
+            set
+            {
+                _slippiness = value;
             }
         }
 
@@ -174,7 +195,7 @@ namespace Oculus.Interaction.HandGrab
             _physicsGrabbable.ApplyVelocities(linearVelocity, angularVelocity);
         }
 
-        public bool CalculateBestPose(in Pose userPose, float handScale, Handedness handedness,
+        public bool CalculateBestPose(Pose userPose, float handScale, Handedness handedness,
             ref HandGrabResult result)
         {
             GrabPoseFinder.FindResult findResult = _grabPoseFinder.FindBestPose(userPose,
@@ -189,10 +210,7 @@ namespace Oculus.Interaction.HandGrab
             return findResult != GrabPoseFinder.FindResult.NotCompatible;
         }
 
-        public bool UsesHandPose()
-        {
-            return _grabPoseFinder.UsesHandPose();
-        }
+        public bool UsesHandPose => _grabPoseFinder.UsesHandPose;
 
         public bool SupportsHandedness(Handedness handedness)
         {

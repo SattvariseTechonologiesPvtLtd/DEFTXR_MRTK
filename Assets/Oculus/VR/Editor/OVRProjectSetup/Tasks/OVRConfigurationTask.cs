@@ -157,7 +157,7 @@ internal class OVRConfigurationTask
 
         var isDone = IsDone(buildTargetGroup);
 
-        OVRProjectSetupTelemetryEvent.Start(OVRProjectSetupTelemetryEvent.EventTypes.Fix)
+        OVRTelemetry.Start(OVRProjectSetupTelemetryEvent.EventTypes.Fix)
             .AddAnnotation(OVRProjectSetupTelemetryEvent.AnnotationTypes.Uid, Uid.ToString())
             .AddAnnotation(OVRProjectSetupTelemetryEvent.AnnotationTypes.Level,
                 Level.GetValue(buildTargetGroup).ToString())
@@ -245,4 +245,26 @@ internal class OVRConfigurationTask
 
         return _isDone(buildTargetGroup);
     }
+
+#if UNITY_XR_CORE_UTILS
+    internal Unity.XR.CoreUtils.Editor.BuildValidationRule ToValidationRule(BuildTargetGroup platform)
+    {
+        var validationRule = new Unity.XR.CoreUtils.Editor.BuildValidationRule
+        {
+            IsRuleEnabled = () => Valid.GetValue(platform),
+            Category = Group.ToString(),
+            Message = Message.GetValue(platform),
+            CheckPredicate = () => IsDone(platform),
+            FixIt = () => FixAction(platform),
+            FixItAutomatic = true,
+            FixItMessage = FixMessage.GetValue(platform),
+            HelpText = null,
+            HelpLink = null,
+            SceneOnlyValidation = false,
+            OnClick = null,
+            Error = Level.GetValue(platform) == OVRProjectSetup.TaskLevel.Required
+        };
+        return validationRule;
+    }
+#endif
 }

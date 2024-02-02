@@ -39,6 +39,7 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
 
     private Dictionary<BoneId, HumanBodyBones> _customBoneIdToHumanBodyBone =
         new Dictionary<BoneId, HumanBodyBones>();
+
     protected Dictionary<BoneId, HumanBodyBones> CustomBoneIdToHumanBodyBone
     {
         get => _customBoneIdToHumanBodyBone;
@@ -54,7 +55,8 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
 
     private int _lastSkelChangeCount = -1;
 
-    protected class JointAdjustment
+    [Serializable]
+    public class JointAdjustment
     {
         /// <summary>
         /// Joint to adjust.
@@ -90,7 +92,8 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
         _skeletonType = SkeletonType.Body;
     }
 
-    private readonly JointAdjustment[] _adjustments =
+    [SerializeField]
+    protected JointAdjustment[] _adjustments =
     {
         new JointAdjustment
         {
@@ -104,7 +107,8 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
         get => _adjustments;
     }
 
-    private readonly OVRHumanBodyBonesMappings.BodySection[] _bodySectionsToAlign =
+    [SerializeField]
+    protected OVRHumanBodyBonesMappings.BodySection[] _bodySectionsToAlign =
     {
         OVRHumanBodyBonesMappings.BodySection.LeftArm, OVRHumanBodyBonesMappings.BodySection.RightArm,
         OVRHumanBodyBonesMappings.BodySection.LeftHand, OVRHumanBodyBonesMappings.BodySection.RightHand,
@@ -114,10 +118,11 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
 
     protected OVRHumanBodyBonesMappings.BodySection[] BodySectionsToAlign
     {
-        get =>  _bodySectionsToAlign;
+        get => _bodySectionsToAlign;
     }
 
-    private readonly OVRHumanBodyBonesMappings.BodySection[] _bodySectionToPosition =
+    [SerializeField]
+    protected OVRHumanBodyBonesMappings.BodySection[] _bodySectionToPosition =
     {
         OVRHumanBodyBonesMappings.BodySection.LeftArm, OVRHumanBodyBonesMappings.BodySection.RightArm,
         OVRHumanBodyBonesMappings.BodySection.LeftHand, OVRHumanBodyBonesMappings.BodySection.RightHand,
@@ -134,13 +139,13 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
     {
         base.Start();
 
-        Assert.AreEqual(SkeletonType.Body, _skeletonType);
+        Assert.IsTrue(OVRSkeleton.IsBodySkeleton(_skeletonType));
 
         ValidateGameObjectForUnityHumanoidRetargeting(gameObject);
         _animatorTargetSkeleton = gameObject.GetComponent<Animator>();
 
         CreateCustomBoneIdToHumanBodyBoneMapping();
-        StoreTPoseRotations();
+        StoreTTargetPoseRotations();
 
         _targetSkeletonData = new OVRSkeletonMetadata(_animatorTargetSkeleton);
         _targetSkeletonData.BuildCoordinateAxesForAllBones();
@@ -155,7 +160,7 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
         }
     }
 
-    private void StoreTPoseRotations()
+    private void StoreTTargetPoseRotations()
     {
         for (var i = HumanBodyBones.Hips; i < HumanBodyBones.LastBone; i++)
         {
@@ -189,7 +194,6 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
             {
                 continue;
             }
-
             if (adjustment.BoneIdOverrideValue == OVRHumanBodyBonesMappings.BodyTrackingBoneId.Remove)
             {
                 RemoveMappingCorrespondingToHumanBodyBone(adjustment.Joint);
@@ -241,7 +245,8 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
 
         if (_sourceSkeletonData == null)
         {
-            _sourceSkeletonData = new OVRSkeletonMetadata(this, false, _customBoneIdToHumanBodyBone);
+            _sourceSkeletonData = new OVRSkeletonMetadata(this, false, _customBoneIdToHumanBodyBone
+            );
         }
         else
         {
@@ -252,7 +257,8 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
 
         if (_sourceSkeletonTPoseData == null)
         {
-            _sourceSkeletonTPoseData = new OVRSkeletonMetadata(this, true, _customBoneIdToHumanBodyBone);
+            _sourceSkeletonTPoseData = new OVRSkeletonMetadata(this, true, _customBoneIdToHumanBodyBone
+            );
         }
         else
         {
@@ -273,23 +279,35 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
                 continue;
             }
 
-            targetData.CorrectionQuaternion = Quaternion.identity;
             var bodySection = OVRHumanBodyBonesMappings.BoneToBodySection[humanBodyBone];
 
-            if (!IsBodySectionInArray(bodySection, _bodySectionsToAlign))
+            if (!IsBodySectionInArray(bodySection,
+                    _bodySectionsToAlign
+                ))
             {
                 continue;
             }
 
-            if (!_sourceSkeletonTPoseData.BodyToBoneData.TryGetValue(humanBodyBone, out var sourceData))
+            if (!_sourceSkeletonTPoseData.BodyToBoneData.TryGetValue(humanBodyBone, out var sourceTPoseData))
             {
                 continue;
             }
 
-            var forwardSource = sourceData.JointPairOrientation * Vector3.forward;
+            if (!_sourceSkeletonData.BodyToBoneData.TryGetValue(humanBodyBone, out var sourcePoseData))
+            {
+                continue;
+            }
+
+            // if encountered degenerate source bones, skip
+            if (sourceTPoseData.DegenerateJoint || sourcePoseData.DegenerateJoint)
+            {
+                targetData.CorrectionQuaternion = null;
+                continue;
+            }
+
+            var forwardSource = sourceTPoseData.JointPairOrientation * Vector3.forward;
             var forwardTarget = targetData.JointPairOrientation * Vector3.forward;
-            var targetToSrc = Quaternion.FromToRotation(forwardTarget,
-                forwardSource);
+            var targetToSrc = Quaternion.FromToRotation(forwardTarget, forwardSource);
 
             var sourceRotationValueInv = Quaternion.Inverse(BindPoses[i].Transform.rotation);
 
@@ -346,7 +364,9 @@ public partial class OVRUnityHumanoidSkeletonRetargeter : OVRSkeleton
 
             var bodySectionOfJoint = OVRHumanBodyBonesMappings.BoneToBodySection[humanBodyBone];
             var shouldUpdatePosition = IsBodySectionInArray(
-                bodySectionOfJoint, _bodySectionToPosition);
+                bodySectionOfJoint,
+                    _bodySectionToPosition
+            );
 
             if (adjustment == null)
             {

@@ -23,9 +23,7 @@ public class myCollisionBehaviour : MonoBehaviour
         
         if (String.Compare(other.gameObject.name, "TouchPos") == 0)
         {
-            OnHoverFx();
-            DEFTXR_UI_Manager.Instance.XButtonHighLight.SetActive(true);
-            DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
+            //OnHoverFx();
 
             if (String.Compare(IntractionManager.Instance.selectObjName, "") == 0)
             {
@@ -38,7 +36,7 @@ public class myCollisionBehaviour : MonoBehaviour
                     DEFTXR_UI_Manager.Instance.currentSelectedAssetNo = myAssetNo;
                 }
                
-                changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
+                //changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
 
                 if(myLable != null)
                 {
@@ -100,12 +98,12 @@ public class myCollisionBehaviour : MonoBehaviour
                         DEFTXR_UI_Manager.Instance.currentSelectedAssetNo = myAssetNo;
                     }
 
-                    changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
+                    //changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
                     if (myLable != null)
                     {
                         myLable.SetActive(true);
-                        DEFTXR_UI_Manager.Instance.XButtonHighLight.SetActive(true);
-                        DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
+                        //DEFTXR_UI_Manager.Instance.XButtonHighLight.SetActive(true);
+                        //DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
 
                         if (myEnglishName != null && myLatinName != null)
                         {
@@ -165,7 +163,7 @@ public class myCollisionBehaviour : MonoBehaviour
         myOriginalMat = this.gameObject.GetComponent<Renderer>().material;       
     }
 
-    void changeSelectionMaterialProperties(Material mat)
+    /*void changeSelectionMaterialProperties(Material mat)
     {
         selctionMaterial = mat;
 
@@ -247,11 +245,11 @@ public class myCollisionBehaviour : MonoBehaviour
 
             this.gameObject.GetComponent<Renderer>().material = DEFTXR_UI_Manager.Instance._hNervs;
         }
-    }
+    }*/
 
     void Update()
     {
-        if (String.Equals(this.gameObject.name, IntractionManager.Instance.selectObjName) == false)
+        /*if (String.Equals(this.gameObject.name, IntractionManager.Instance.selectObjName) == false)
         {
             //Debug.Log("called here" + this.gameObject.GetComponent<Renderer>().material.name);
             if (isBones)
@@ -302,7 +300,7 @@ public class myCollisionBehaviour : MonoBehaviour
             {
                 myLable.SetActive(false);
             }
-        }
+        }*/
     }
 
     public void OnHoverFx()

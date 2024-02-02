@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
@@ -29,10 +29,12 @@ using UnityEngine;
 /// Scene anchors can have one or more string labels associated with them that describes what the anchor represents,
 /// such as COUCH, or DESK. See <see cref="OVRSceneManager.Classification"/> for a list of possible labels.
 /// </remarks>
+[HelpURL("https://developer.oculus.com/reference/unity/latest/class_o_v_r_semantic_classification")]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(OVRSceneAnchor))]
 public class OVRSemanticClassification : MonoBehaviour, IOVRSceneComponent
 {
+    public const char LabelSeparator = ',';
     private readonly List<string> _labels = new List<string>();
 
     /// <summary>
@@ -75,12 +77,62 @@ public class OVRSemanticClassification : MonoBehaviour, IOVRSceneComponent
         if (OVRPlugin.GetSpaceSemanticLabels(GetComponent<OVRSceneAnchor>().Space, out var labels))
         {
             _labels.Clear();
-            _labels.AddRange(labels.Split(','));
+            _labels.AddRange(ValidateAndUpgradeLabels(labels).Split(LabelSeparator));
+
+            OVRSceneManager.Development.Log(nameof(OVRSemanticClassification),
+                $"[{GetComponent<OVRSceneAnchor>().Uuid}] {nameof(OVRSceneAnchor)} has labels: {labels}.",
+                gameObject);
         }
         else
         {
             OVRSceneManager.Development.LogWarning(nameof(OVRSemanticClassification),
-                $"[{GetComponent<OVRSceneAnchor>().Uuid}] {nameof(OVRSceneAnchor)} has no semantic labels.");
+                $"[{GetComponent<OVRSceneAnchor>().Uuid}] {nameof(OVRSceneAnchor)} has no semantic labels.",
+                gameObject);
+        }
+    }
+
+    /// <summary>
+    /// Checks labels to ensure that we've accounted for upgraded labels,
+    /// such as all Table labels also including Desk.
+    /// All InvisibleWallFace labels also include WallFace.
+    /// </summary>
+    internal static string ValidateAndUpgradeLabels(string labels)
+    {
+        using (new OVRObjectPool.ListScope<string>(out var newLabels))
+        {
+            var splitLabels = labels.Split(LabelSeparator);
+            var hasTable = false;
+            var hasDesk = false;
+            var hasInvisibleWallFace = false;
+            var hasWallFace = false;
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            // OpenXR will only return TABLE, but we support DESK as it's
+            // Obsolete. This code will be removed once we remove DESK.
+            foreach (var label in splitLabels)
+            {
+                newLabels.Add(label);
+
+                if (label == OVRSceneManager.Classification.Table)
+                    hasTable = true;
+                else if (label == OVRSceneManager.Classification.Desk)
+                    hasDesk = true;
+                else if (label == OVRSceneManager.Classification.InvisibleWallFace)
+                    hasInvisibleWallFace = true;
+                else if (label == OVRSceneManager.Classification.WallFace)
+                    hasWallFace = true;
+            }
+
+            if (hasTable && !hasDesk)
+                newLabels.Add(OVRSceneManager.Classification.Desk);
+            else if (hasDesk && !hasTable)
+                newLabels.Add(OVRSceneManager.Classification.Table);
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            if (hasInvisibleWallFace && !hasWallFace)
+                newLabels.Add(OVRSceneManager.Classification.WallFace);
+
+            return string.Join(LabelSeparator.ToString(), newLabels);
         }
     }
 }

@@ -2,8 +2,6 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Microsoft.MixedReality.Toolkit.UI;
-using Microsoft.MixedReality.Toolkit.UI.BoundsControl;
 
 public class isolatedMusclesManager : MonoBehaviour
 {
@@ -22,7 +20,6 @@ public class isolatedMusclesManager : MonoBehaviour
     private float horizontal_prevValue, verticle_prevValue;
 
     private GameObject boxCollider;
-    public BoundingBox targetBoundingBox;
 
     // Use this for initialization
     void Start()
@@ -175,18 +172,6 @@ public class isolatedMusclesManager : MonoBehaviour
             {
                 boxCollider.enabled = false;
                 Debug.Log("BoxCollider is NOT attached to the object.");
-            }
-
-            BoundsControl boundsControl = DEFTXR_UI_Manager.Instance.currentSelectObject.GetComponent<BoundsControl>();
-
-            if (boundsControl.enabled != true)
-            {
-                boundsControl.enabled = true;
-            }
-            else
-            {
-                boundsControl.enabled = false;
-                Debug.Log("BoundsControl script is NOT attached to the object.");
             }
         }
 

@@ -37,7 +37,7 @@ namespace Oculus.Interaction.HandGrab
     /// </summary>
     [Serializable]
     public partial class HandGrabInteractable : PointerInteractable<HandGrabInteractor, HandGrabInteractable>,
-        IRigidbodyRef, IHandGrabbable, ICollidersRef, IRelativeToRef
+        IHandGrabInteractable, IRigidbodyRef, ICollidersRef
     {
         [SerializeField]
         private Rigidbody _rigidbody;
@@ -62,6 +62,26 @@ namespace Oculus.Interaction.HandGrab
 
         [SerializeField, Optional]
         private PoseMeasureParameters _scoringModifier = new PoseMeasureParameters(0.8f);
+
+        /// <summary>
+        /// Defines the slippiness threshold so the interactor can slide along the interactable based on the
+        /// strength of the grip. GrabSurfaces are required to slide. At min slippiness = 0, the interactor never moves.
+        /// </summary>
+        [SerializeField, Optional, Range(0f, 1f)]
+        [Tooltip("Defines the slippiness threshold so the interactor can slide along the interactable based on the" +
+            "strength of the grip. GrabSurfaces are required to slide. At min slippiness = 0, the interactor never moves.")]
+        private float _slippiness = 0f;
+        public float Slippiness
+        {
+            get
+            {
+                return _slippiness;
+            }
+            set
+            {
+                _slippiness = value;
+            }
+        }
 
         [Space]
         [SerializeField]
@@ -189,10 +209,7 @@ namespace Oculus.Interaction.HandGrab
             return findResult != GrabPoseFinder.FindResult.NotCompatible;
         }
 
-        public bool UsesHandPose()
-        {
-            return _grabPoseFinder.UsesHandPose();
-        }
+        public bool UsesHandPose => _grabPoseFinder.UsesHandPose;
 
         public bool SupportsHandedness(Handedness handedness)
         {
