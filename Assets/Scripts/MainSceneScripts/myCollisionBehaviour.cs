@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using TMPro;
 using UnityEngine.UI;
 
 public class myCollisionBehaviour : MonoBehaviour
 {
-    Material myOriginalMat,selctionMaterial;
+
+    Material myOriginalMat, selctionMaterial;
     [SerializeField] GameObject myLable;
     public GameObject publicLable;
     string myEnglishName, myLatinName;
     [SerializeField] AudioClip myEnglishVO;
 
-    [SerializeField] bool isArtries, isBones,isMuscle, isVains, isLymphs,isNervs,isligaments;
+    [SerializeField] bool isArtries, isBones, isMuscle, isVains, isLymphs, isNervs, isligaments;
 
     [SerializeField] int myAssetNo;
 
@@ -20,46 +20,43 @@ public class myCollisionBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (String.Compare(other.gameObject.name, "TouchPos") == 0)
         {
-            //OnHoverFx();
-
             if (String.Compare(IntractionManager.Instance.selectObjName, "") == 0)
             {
                 IntractionManager.Instance.selectObjName = this.gameObject.name;
                 DEFTXR_UI_Manager.Instance.currentIsolatedObject = this.gameObject;
-                DEFTXR_UI_Manager.Instance.currentSelectObject = this.gameObject;             
+                DEFTXR_UI_Manager.Instance.currentSelectObject = this.gameObject;
 
                 if (myAssetNo > -1)
                 {
                     DEFTXR_UI_Manager.Instance.currentSelectedAssetNo = myAssetNo;
                 }
-               
-                //changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
 
-                if(myLable != null)
+                changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
+
+                if (myLable != null)
                 {
                     myLable.SetActive(true);
                     if (myEnglishName != null && myLatinName != null)
                     {
                         DEFTXR_UI_Manager.Instance.englishName.text = myEnglishName;
                         DEFTXR_UI_Manager.Instance.latinName.text = myLatinName;
-                        
+
                         DEFTXR_UI_Manager.Instance.VOButton.SetActive(true);
 
                         DEFTXR_UI_Manager.Instance.content.text = myContent;
                         DEFTXR_UI_Manager.Instance.seletcedEnglishVO = myEnglishVO;
-                   
+
                         if (isBones || isMuscle)
                         {
                             if (myAssetNo > -1 && DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
                             {
                                 if (DEFTXR_UI_Manager.Instance.isDisection == false)
                                 {
-                                    DEFTXR_UI_Manager.Instance.YButtonHighLight.SetActive(true);
-
-                                    //Enable/Disable - isolate/hide/undo keysssssss
+                                    DEFTXR_UI_Manager.Instance.isolationPanel.SetActive(true);
+                                    DEFTXR_UI_Manager.Instance.isolateButton.SetActive(true);
                                 }
                             }
                         }
@@ -73,7 +70,7 @@ public class myCollisionBehaviour : MonoBehaviour
                             {
                                 if (DEFTXR_UI_Manager.Instance.isDisection == false)
                                 {
-                                    //Enable/Disable - isolate/hide/undo keysssssss
+                                    DEFTXR_UI_Manager.Instance.isolationPanel.SetActive(true);
                                 }
                             }
                         }
@@ -82,10 +79,12 @@ public class myCollisionBehaviour : MonoBehaviour
             }
             else
             {
-                
+
                 if (String.Compare(this.gameObject.name, IntractionManager.Instance.selectObjName) == 0)
                 {
-                 
+
+
+
                 }
                 else
                 {
@@ -98,13 +97,10 @@ public class myCollisionBehaviour : MonoBehaviour
                         DEFTXR_UI_Manager.Instance.currentSelectedAssetNo = myAssetNo;
                     }
 
-                    //changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
+                    changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
                     if (myLable != null)
                     {
                         myLable.SetActive(true);
-                        //DEFTXR_UI_Manager.Instance.XButtonHighLight.SetActive(true);
-                        //DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
-
                         if (myEnglishName != null && myLatinName != null)
                         {
                             DEFTXR_UI_Manager.Instance.englishName.text = myEnglishName;
@@ -115,20 +111,18 @@ public class myCollisionBehaviour : MonoBehaviour
 
                             DEFTXR_UI_Manager.Instance.seletcedEnglishVO = myEnglishVO;
 
-
                             if (isBones || isMuscle)
                             {
                                 if (myAssetNo > -1 && DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
                                 {
                                     if (DEFTXR_UI_Manager.Instance.isDisection == false)
                                     {
-                                        DEFTXR_UI_Manager.Instance.YButtonHighLight.SetActive(true);
-
-                                        //Enable/Disable - isolate keysssssss
+                                        DEFTXR_UI_Manager.Instance.isolationPanel.SetActive(true);
+                                        DEFTXR_UI_Manager.Instance.isolateButton.SetActive(true);
                                     }
                                 }
                             }
-                            else 
+                            else
                             {
                                 if (DEFTXR_UI_Manager.Instance.isIsolatedOn == true)
                                 {
@@ -138,12 +132,14 @@ public class myCollisionBehaviour : MonoBehaviour
                                 {
                                     if (DEFTXR_UI_Manager.Instance.isDisection == false)
                                     {
-                                        //Enable/Disable - isolate keysssssss
+                                        DEFTXR_UI_Manager.Instance.isolationPanel.SetActive(true);
+                                       
                                     }
                                 }
                             }
                         }
                     }
+
                 }
             }
             Debug.Log("name : " + this.gameObject.name);
@@ -159,11 +155,12 @@ public class myCollisionBehaviour : MonoBehaviour
             myLable.SetActive(true);
             myEnglishName = myLable.transform.Find("LabelCanvas").transform.Find("Lable").transform.Find("EnglishName").gameObject.GetComponent<TMP_Text>().text;
             myLatinName = myLable.transform.Find("LabelCanvas").transform.Find("Lable").transform.Find("LatinName").gameObject.GetComponent<TMP_Text>().text;
+
         }
-        myOriginalMat = this.gameObject.GetComponent<Renderer>().material;       
+        myOriginalMat = this.gameObject.GetComponent<Renderer>().material;
     }
 
-    /*void changeSelectionMaterialProperties(Material mat)
+    void changeSelectionMaterialProperties(Material mat)
     {
         selctionMaterial = mat;
 
@@ -181,7 +178,6 @@ public class myCollisionBehaviour : MonoBehaviour
             selctionMaterial.color = myColor;
             selctionMaterial.SetFloat("_Glossiness", 0f);
         }
-
         if (isMuscle)
         {
             if (DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
@@ -195,7 +191,6 @@ public class myCollisionBehaviour : MonoBehaviour
             selctionMaterial.color = myColor;
             selctionMaterial.SetFloat("_Glossiness", 0f);
         }
-
         if (isligaments)
         {
 
@@ -212,87 +207,73 @@ public class myCollisionBehaviour : MonoBehaviour
             {
                 DEFTXR_UI_Manager.Instance.state = DEFTXR_UI_Manager.State.art;
             }
-
-            this.gameObject.GetComponent<Renderer>().material = DEFTXR_UI_Manager.Instance._hArt;
         }
-
         if (isVains)
         {
             if (DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
             {
                 DEFTXR_UI_Manager.Instance.state = DEFTXR_UI_Manager.State.vains;
             }
-
-            this.gameObject.GetComponent<Renderer>().material = DEFTXR_UI_Manager.Instance._hVains;
         }
-
         if (isLymphs)
         {
             if (DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
             {
                 DEFTXR_UI_Manager.Instance.state = DEFTXR_UI_Manager.State.lymph;
             }
-
-            this.gameObject.GetComponent<Renderer>().material = DEFTXR_UI_Manager.Instance._hLymph;
         }
-
         if (isNervs)
         {
             if (DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
             {
                 DEFTXR_UI_Manager.Instance.state = DEFTXR_UI_Manager.State.nerves;
             }
-
-            this.gameObject.GetComponent<Renderer>().material = DEFTXR_UI_Manager.Instance._hNervs;
         }
-    }*/
+    }
 
+    // Update is called once per frame
     void Update()
     {
-        /*if (String.Equals(this.gameObject.name, IntractionManager.Instance.selectObjName) == false)
+        if (String.Equals(this.gameObject.name, IntractionManager.Instance.selectObjName) == false)
         {
             //Debug.Log("called here" + this.gameObject.GetComponent<Renderer>().material.name);
             if (isBones)
             {
                 myOriginalMat = this.gameObject.GetComponent<Renderer>().material;
+
+
                 myOriginalMat.color = Color.white;
                 myOriginalMat.SetFloat("_Glossiness", 1f);
             }
-
             if (isMuscle)
             {
                 myOriginalMat = this.gameObject.GetComponent<Renderer>().material;
+
+
                 myOriginalMat.color = Color.white;
                 myOriginalMat.SetFloat("_Glossiness", 1f);
             }
-
             if (isligaments)
             {
                 myOriginalMat = this.gameObject.GetComponent<Renderer>().material;
+
                 myOriginalMat.color = Color.white;
                 myOriginalMat.SetFloat("_Glossiness", 1f);
             }
-
             if (isArtries)
             {
-                this.gameObject.GetComponent<Renderer>().material = DEFTXR_UI_Manager.Instance.orgArt;
-            }
 
+            }
             if (isVains)
             {
-                this.gameObject.GetComponent<Renderer>().material = DEFTXR_UI_Manager.Instance.orgVains;
 
             }
-
             if (isLymphs)
             {
-                this.gameObject.GetComponent<Renderer>().material = DEFTXR_UI_Manager.Instance.orgLymph;
 
             }
-
             if (isNervs)
             {
-                this.gameObject.GetComponent<Renderer>().material = DEFTXR_UI_Manager.Instance.orgNervs;
 
             }
 
@@ -300,13 +281,6 @@ public class myCollisionBehaviour : MonoBehaviour
             {
                 myLable.SetActive(false);
             }
-        }*/
-    }
-
-    public void OnHoverFx()
-    {
-        DEFTXR_UI_Manager.Instance.audioSource.pitch = 1f;
-        DEFTXR_UI_Manager.Instance.audioSource.volume = 0.5f;
-        DEFTXR_UI_Manager.Instance.audioSource.PlayOneShot(DEFTXR_UI_Manager.Instance.tickSound);
+        }
     }
 }

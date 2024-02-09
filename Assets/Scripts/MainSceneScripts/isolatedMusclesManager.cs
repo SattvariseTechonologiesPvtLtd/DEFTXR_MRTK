@@ -1,11 +1,14 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class isolatedMusclesManager : MonoBehaviour
 {
     public static isolatedMusclesManager Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public bool isNervesOn, isMusclesOn, isVainsOn, isBonesOn;
     public float angleX, angleY;
@@ -19,30 +22,33 @@ public class isolatedMusclesManager : MonoBehaviour
     int index;
     private float horizontal_prevValue, verticle_prevValue;
 
-    private GameObject boxCollider;
-
     // Use this for initialization
     void Start()
     {
-        isMusclesOn  = isVainsOn = isNervesOn = isBonesOn = true;
+        isMusclesOn = isVainsOn = isNervesOn = isBonesOn = true;
         speedSlider.value = 0.1f;
         parts = new List<GameObject>();
         index = -1;
 
         //slider init
+
         horizontalSlider.onValueChanged.AddListener(OnHorizontalSliderChanged);
         verticleSlider.onValueChanged.AddListener(OnVerticleSliderChanged);
         verticle_prevValue = horizontal_prevValue = 0.5f;
         horizontalSlider.value = 0.5f;
         verticleSlider.value = 0.5f;
 
+        //DEFTXR_UI_Manager.Instance.isolateMuscleBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+        //DEFTXR_UI_Manager.Instance.isolateBoneBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+        //DEFTXR_UI_Manager.Instance.isolateNervesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+        //DEFTXR_UI_Manager.Instance.isolateArteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
     }
 
     void OnHorizontalSliderChanged(float value)
     {
         // How much we've changed
 
-            //Debug.Log("Value" + value);
+        //Debug.Log("Value" + value);
         if (value == 0.5f)
         {
             Debug.Log("No Change" + value);
@@ -81,7 +87,7 @@ public class isolatedMusclesManager : MonoBehaviour
             }
 
             // Set our previous value for the next change
-             //horizontal_prevValue = value;
+            //horizontal_prevValue = value;
 
         }
 
@@ -101,7 +107,7 @@ public class isolatedMusclesManager : MonoBehaviour
             if (AssetManagementScript.Instance.isolated_object != null)
             {
                 //AssetManagementScript.Instance.isolated_object.transform.Rotate(Vector3.up * delta * 360f);
-                
+
                 if (DEFTXR_UI_Manager.Instance.region == DEFTXR_UI_Manager.Region.upperLimb)
                 {
                     AssetManagementScript.Instance.isolated_object.transform.rotation = Quaternion.AngleAxis(delta * 360f, Vector3.up);
@@ -128,7 +134,7 @@ public class isolatedMusclesManager : MonoBehaviour
                 }
             }
             // Set our previous value for the next change
-           // verticle_prevValue = value;
+            // verticle_prevValue = value;
 
         }
 
@@ -137,60 +143,22 @@ public class isolatedMusclesManager : MonoBehaviour
     void Update()
     {
         // Debug.Log("" + speedSlider.value*100);
-        if (OVRInput.GetDown(OVRInput.RawButton.B) == true || Input.GetKeyDown(KeyCode.N) == true) // Adjust the button to the desired input
-        {
-            parts.Add(DEFTXR_UI_Manager.Instance.currentSelectObject);
-            index++;
-            DEFTXR_UI_Manager.Instance.currentSelectObject.SetActive(false);
-            DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(true);
-        }
-
-        if (OVRInput.GetDown(OVRInput.RawButton.A) == true || Input.GetKeyDown(KeyCode.M) == true)
-        {
-            if (index >= 0)
-            {
-                DEFTXR_UI_Manager.Instance.currentSelectObject = parts[index];
-                DEFTXR_UI_Manager.Instance.currentSelectObject.SetActive(true);
-                parts.RemoveAt(index);
-                index--;
-            }
-            else
-            {
-                DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(false);
-            }
-        }
-
-        if (OVRInput.GetDown(OVRInput.RawButton.X) == true || Input.GetKeyDown(KeyCode.B) == true)
-        {
-            BoxCollider boxCollider = DEFTXR_UI_Manager.Instance.currentSelectObject.GetComponent<BoxCollider>();
-
-            if (boxCollider.enabled != true)
-            {
-                boxCollider.enabled = true;
-            }
-            else
-            {
-                boxCollider.enabled = false;
-                Debug.Log("BoxCollider is NOT attached to the object.");
-            }
-        }
-
     }
 
-   
+
 
     public void onMusclesButtonClick()
     {
         if (isMusclesOn == false)
         {
             AssetManagementScript.Instance.isolatedMuscles.SetActive(true);
-            //DEFTXR_UI_Manager.Instance.isolateMuscleBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+            DEFTXR_UI_Manager.Instance.isolateMuscleBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             isMusclesOn = true;
         }
         else
         {
             AssetManagementScript.Instance.isolatedMuscles.SetActive(false);
-            //DEFTXR_UI_Manager.Instance.isolateMuscleBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
+            DEFTXR_UI_Manager.Instance.isolateMuscleBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             isMusclesOn = false;
         }
     }
@@ -200,13 +168,13 @@ public class isolatedMusclesManager : MonoBehaviour
         if (isVainsOn == false)
         {
             AssetManagementScript.Instance.isolatedArt.SetActive(true);
-            //DEFTXR_UI_Manager.Instance.isolateArteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+            DEFTXR_UI_Manager.Instance.isolateArteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             isVainsOn = true;
         }
         else
         {
             AssetManagementScript.Instance.isolatedArt.SetActive(false);
-            //DEFTXR_UI_Manager.Instance.isolateArteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
+            DEFTXR_UI_Manager.Instance.isolateArteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             isVainsOn = false;
         }
     }
@@ -216,13 +184,13 @@ public class isolatedMusclesManager : MonoBehaviour
         if (isNervesOn == false)
         {
             AssetManagementScript.Instance.isolatedNerves.SetActive(true);
-            //DEFTXR_UI_Manager.Instance.isolateNervesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+            DEFTXR_UI_Manager.Instance.isolateNervesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             isNervesOn = true;
         }
         else
         {
             AssetManagementScript.Instance.isolatedNerves.SetActive(false);
-            //DEFTXR_UI_Manager.Instance.isolateNervesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
+            DEFTXR_UI_Manager.Instance.isolateNervesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             isNervesOn = false;
         }
     }
@@ -231,13 +199,13 @@ public class isolatedMusclesManager : MonoBehaviour
         if (isBonesOn == false)
         {
             AssetManagementScript.Instance.isolatedBones.SetActive(true);
-            //DEFTXR_UI_Manager.Instance.isolateBoneBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+            DEFTXR_UI_Manager.Instance.isolateBoneBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             isBonesOn = true;
         }
         else
         {
             AssetManagementScript.Instance.isolatedBones.SetActive(false);
-            //DEFTXR_UI_Manager.Instance.isolateBoneBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
+            DEFTXR_UI_Manager.Instance.isolateBoneBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             isBonesOn = false;
         }
     }
@@ -267,12 +235,28 @@ public class isolatedMusclesManager : MonoBehaviour
 
     public void hideButtonClick()
     {
-        
-        
+
+        parts.Add(DEFTXR_UI_Manager.Instance.currentSelectObject);
+        index++;
+        DEFTXR_UI_Manager.Instance.currentSelectObject.SetActive(false);
+        DEFTXR_UI_Manager.Instance.undoButton.SetActive(true);
+
     }
     public void undoButtonClick()
     {
-        
+        if (index >= 0)
+        {
+            DEFTXR_UI_Manager.Instance.currentSelectObject = parts[index];
+            DEFTXR_UI_Manager.Instance.currentSelectObject.SetActive(true);
+            parts.RemoveAt(index);
+            index--;
+        }
+        else
+        {
+            DEFTXR_UI_Manager.Instance.undoButton.SetActive(false);
+        }
+
+
     }
 }
 

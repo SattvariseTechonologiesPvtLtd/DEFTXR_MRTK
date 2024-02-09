@@ -7,17 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class DEFTXR_UI_Manager : MonoBehaviour
 {
-
     public static DEFTXR_UI_Manager Instance;
-
     public TextMeshPro content;
     public int clickCount;
-    public AudioClip tickSound;
-    public bool isDisection;
 
-    public GameObject HomeButton, LayersButton, ResetButton, ResetAllButton, EnviromentButton, LayersButtonPressed, EnviromentButtonPressed, ExploreButtonPressed;
-    public GameObject MainUiPanel, YPanel,LayersUI, SkyboxUI, layerbutton, layerPressed;
-    public GameObject MenuButtonHighLight, YButtonHighLight, BButtonHighLight, AButtonHighLight, XButtonHighLight;
+    public GameObject touchInteraction;
+    public bool isDisection;
+    [SerializeField]
+    GameObject welcomeUIPanel, humanAnatomyPanels, instructionPanel;
+
+    [Header("")]
+    [SerializeField]
+    GameObject regionsPanel, contentPanel;
+    [SerializeField] GameObject systemsPanel, grossAnatomyPanel, crossSectionsPanel, microanatomyPanel, muscleActionPanel;
+    [SerializeField] GameObject infoPanel;
 
     [Header("Upper Body Content")]
     [SerializeField] GameObject upperBodybones;
@@ -51,6 +54,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
     [SerializeField] GameObject SkeletonSystem_T_Pose;
     [SerializeField] GameObject MuscularSystem_FullBody, FpsShowText;
+    public GameObject table;
 
     [Header("")]
     [SerializeField] string selectedEnglishName, selectedLatinName;
@@ -63,23 +67,30 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
     private bool isSkinOn, isMusclesOn, isLigamentsOn, isArteriesOn, isVainsOn, isNervesOn, isBonesOn, isLyphaticOn, isOrgansOn;
 
+    public GameObject isolationPanel, mainSystemPanel, hideButton, undoButton, LeftSideMuscleIsolatePanel;
+    public GameObject label;
+
+    //[SerializeField] public GameObject deltoid_isolate, deltoid_isolate_parent;
     public GameObject currentSelectObject, currentIsolatedObject;
     public int currentSelectedAssetNo;
 
-    public Material orgVains, orgArt, orgLymph, orgNervs;
-    public Material _hVains, _hArt, _hLymph, _hNervs;
-
-    public GameObject closeButton, closetoWelcomeBtn, closeButtonNew;
+    public GameObject closeButton, closetoWelcomeBtn, closeButtonNew, isolateButton;
 
     public bool isIsolatedOn;
+
     public bool isBoneIsolated;
 
     public GameObject selectedBone;
-    public GameObject boneGrabRef;
     public bool isBoneGrab, isBoneGrabbed;
+
+    public float speed = 0.3f;
 
     public GameObject skinBtn, ligamentBtn, veinsBtn, nervesBtn, musclesBtn, bonesBtn, arteriesBtn, lymphBtn, organsBtn;
     public GameObject skinBtnPressed, ligamentBtnPressed, veinsBtnPressed, nervesBtnPressed, musclesBtnPressed, bonesBtnPressed, arteriesBtnPressed, lymphBtnPressed, organsBtnPressed;
+
+    public GameObject isolateMuscleBtn, isolateBoneBtn, isolateArteriesBtn, isolateNervesBtn;
+
+    //public GameObject microanatomyFemur, Platform, NervousSystemModel;
 
     public enum State
     {
@@ -102,6 +113,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         arteries,
         lymphs,
         organs,
+
     }
 
     public btnState Btn_state;
@@ -142,66 +154,80 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     {
         // Reset();
         FpsShowText.SetActive(false);
-
-        MenuButtonHighLight.SetActive(true);
-        YButtonHighLight.SetActive(false);
-        BButtonHighLight.SetActive(false);
-        AButtonHighLight.SetActive(false);
-        XButtonHighLight.SetActive(false);
-        MainUiPanel.SetActive(false);
-        YPanel.SetActive(false);
-        LayersUI.SetActive(false);
-        SkyboxUI.SetActive(false);
     }
+
 
     public void InstructionBtnClick()
     {
-
+        instructionPanel.SetActive(true);
+        welcomeUIPanel.SetActive(false);
     }
 
     public void backFromInstruBtnClick()
     {
-
-    }
-
-    public void onLayersPanelButtonClick()
-    {
-        layerbutton.SetActive(false);
-        layerPressed.SetActive(true);
-        LayersUI.SetActive(true);
-        YPanel.SetActive(false);
-    }
-
-    public void onLayersPanelPressedButtonClick()
-    {
-        layerbutton.SetActive(true);
-        layerPressed.SetActive(false);
-        LayersUI.SetActive(false);
+        instructionPanel.SetActive(false);
+        welcomeUIPanel.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Check for controller input
-        if (OVRInput.GetDown(OVRInput.Button.Start)) // Adjust the button to the desired input
+        if (OVRInput.GetDown(OVRInput.RawButton.X) == true || Input.GetKeyDown(KeyCode.A) == true)
         {
-            // Toggle the UI panel
-            MenuButtonHighLight.SetActive(!MenuButtonHighLight.activeSelf);
-            MainUiPanel.SetActive(!MainUiPanel.activeSelf);
+            isolateButtonClick();
+            if (isBoneIsolated == true)
+            {
+                if (selectedBone != null)
+                {
+                    if (isBoneGrab == false)
+                    {
+                        selectedBone.GetComponent<Rigidbody>().isKinematic = true;
+                        selectedBone.GetComponent<BoxCollider>().enabled = false;
+                        selectedBone.GetComponent<Rigidbody>().useGravity = false;
+
+                        isBoneGrabbed = true;
+                        isBoneGrab = true;
+
+                        IntractionManager.Instance.isDefaultHandGrabAllow = true;
+                    }
+                    else
+                    {
+                        isBoneGrabbed = false;
+                        isBoneGrab = false;
+
+                        selectedBone.GetComponent<Rigidbody>().isKinematic = false;
+                        selectedBone.GetComponent<BoxCollider>().enabled = true;
+                        selectedBone.GetComponent<Rigidbody>().useGravity = true;
+
+                        IntractionManager.Instance.isDefaultHandGrabAllow = false;
+                        clickCount = 0;
+                    }
+                }
+            }
+            else
+            {
+                
+            }
         }
 
-        if (OVRInput.GetDown(OVRInput.RawButton.Y)) // Adjust the button to the desired input
+        if (OVRInput.GetDown(OVRInput.RawButton.Y) || Input.GetKeyDown(KeyCode.N))
         {
-            // Toggle the UI panel
-            YButtonHighLight.SetActive(!YButtonHighLight.activeSelf);
-            YPanel.SetActive(!YPanel.activeSelf);
+            isolatedMusclesManager.Instance.hideButtonClick();
+      
+        }
+        if (OVRInput.GetDown(OVRInput.RawButton.Y) || Input.GetKeyDown(KeyCode.M))
+        {
+            isolatedMusclesManager.Instance.undoButtonClick();
         }
     }
 
     private void Reset()
     {
-        //gameobjects that need to disable on start
+        //Gameobjects need to active on start
+        welcomeUIPanel.SetActive(true);
+        instructionPanel.SetActive(false);
 
+        //gameobjects that need to disableld on start
         completeUpperBody.SetActive(false);
         completelowerBody.SetActive(false);
         completeThorax.SetActive(false);
@@ -211,12 +237,16 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         SkeletonSystem_T_Pose.SetActive(false);
         MuscularSystem_FullBody.SetActive(false);
 
+        humanAnatomyPanels.SetActive(false);
+        infoPanel.SetActive(false);
         closeButton.SetActive(false);
         closeButtonNew.SetActive(false);
         closetoWelcomeBtn.SetActive(false);
 
+        //
         isSkinOn = isMusclesOn = isLigamentsOn = isArteriesOn = isVainsOn = isNervesOn = isBonesOn = isLyphaticOn = true;
 
+        //
         upperBodySkin.SetActive(true);
         upperBodyMuscles.SetActive(false);
         upperBodyLigaments.SetActive(false);
@@ -243,6 +273,13 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         HeadNeckArteries.SetActive(false);
 
         isIsolatedOn = false;
+        hideButton.SetActive(false);
+        undoButton.SetActive(false);
+
+        isolationPanel.SetActive(false);
+        isolateButton.SetActive(false);
+
+        contentPanel.SetActive(false);
         VOButton.SetActive(false);
     }
 
@@ -258,6 +295,9 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         upperBodylyphaticSystem.SetActive(false);
 
         isSkinOn = true;
+
+        humanAnatomyPanels.SetActive(false);
+        infoPanel.SetActive(true);
     }
 
     public void resetLowerBody()
@@ -270,8 +310,10 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         lowerBodyNerves.SetActive(false);
         lowerBodyVains.SetActive(false);
         lowerBodylyphaticSystem.SetActive(false);
-
         isSkinOn = true;
+
+        humanAnatomyPanels.SetActive(false);
+        infoPanel.SetActive(true);
     }
 
     public void resetThorax()
@@ -285,8 +327,10 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         ThoraxVains.SetActive(false);
         ThoraxlyphaticSystem.SetActive(false);
         ThoraxOrgans.SetActive(false);
-
         isSkinOn = true;
+
+        humanAnatomyPanels.SetActive(false);
+        infoPanel.SetActive(true);
     }
 
     public void resetAbdomen()
@@ -300,8 +344,10 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         AbdomenVains.SetActive(false);
         AbdomenlyphaticSystem.SetActive(false);
         AbdomenOrgans.SetActive(false);
-
         isSkinOn = true;
+
+        humanAnatomyPanels.SetActive(false);
+        infoPanel.SetActive(true);
     }
 
     public void resetHeadNeck()
@@ -315,59 +361,27 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         HeadNeckVains.SetActive(false);
         HeadNecklyphaticSystem.SetActive(false);
         HeadNeckOrgans.SetActive(false);
-
         isSkinOn = true;
+
+        humanAnatomyPanels.SetActive(false);
+        infoPanel.SetActive(true);
     }
 
-    //Temp
-    /*public void CloseButtonNewClick()
+    public void CloseButtonNewClick()
     {
-        if (currentIsolatedObject != null)
-        {
-             Material myOriginalMat = currentIsolatedObject.gameObject.GetComponent<Renderer>().material;
-
-             myOriginalMat.color = Color.white;
-             myOriginalMat.SetFloat("_Glossiness", 1f);
-             if (currentIsolatedObject.GetComponent<myCollisionBehaviour>().publicLable != null)
-             {
-                 currentIsolatedObject.GetComponent<myCollisionBehaviour>().publicLable.SetActive(false);
-             }
-        }
-
-        IntractionManager.Instance.selectObjName = "";
-        closetoWelcomeBtn.SetActive(true);
-
-        //gameobjects that need to disableld on start
-        completeUpperBody.SetActive(false);
-        completelowerBody.SetActive(false);
-        completeThorax.SetActive(false);
-
-        closeButton.SetActive(false);
-        closeButtonNew.SetActive(false);
-
-        upperBodySkin.SetActive(true);
-        upperBodyMuscles.SetActive(false);
-        upperBodyLigaments.SetActive(false);
-        upperBodyArteries.SetActive(false);
-
-        lowerBodySkin.SetActive(true);
-        lowerBodyMuscles.SetActive(false);
-        lowerBodyLigaments.SetActive(false);
-        lowerBodyArteries.SetActive(false);
-
-        isIsolatedOn = false;
-        VOButton.SetActive(false);
-
         ChangeSceneGameManager.Instance.loginscreen = false;
         ChangeSceneGameManager.Instance.grossanatomyscreen = true;
         SceneManager.LoadScene("DEFTXR_Main");
-    }*/
+    }
 
     public void closeToWelcomebutton()
     {
         Reset();
+        welcomeUIPanel.SetActive(true);
         closeButtonNew.SetActive(false);
         closetoWelcomeBtn.SetActive(false);
+        humanAnatomyPanels.SetActive(false);
+        isolationPanel.SetActive(false);
     }
 
     public void CloseButtonClick()
@@ -382,30 +396,28 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 isBoneGrab = true;
                 IntractionManager.Instance.isDefaultHandGrabAllow = true;
 
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
 
                 completeUpperBody.SetActive(true);
 
+                mainSystemPanel.SetActive(true);
+                //  resetUpperBody();
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
-                //New Changes.
+                contentPanel.SetActive(true);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
 
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
 
                 if (selectedBone != null)
-                { 
-                    selectedBone.GetComponent<FloorCollision>().resetToOrgpos(); 
+                {
+                    selectedBone.GetComponent<FloorCollision>().resetToOrgpos();
                 }
                 selectedBone = null;
 
@@ -416,24 +428,23 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
             if (state == State.muscle)
             {
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
 
+                completeUpperBody.SetActive(true);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                mainSystemPanel.SetActive(true);
+
+                label.SetActive(false);
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
-                //New Changes.
-
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                contentPanel.SetActive(true);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);;
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
 
                 englishName.text = "";
                 latinName.text = "";
@@ -449,26 +460,22 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 isBoneGrab = true;
                 IntractionManager.Instance.isDefaultHandGrabAllow = true;
 
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
 
                 completelowerBody.SetActive(true);
-
+                mainSystemPanel.SetActive(true);
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
-                //New Changes.
+                contentPanel.SetActive(true);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
 
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
 
                 selectedBone.GetComponent<FloorCollision>().resetToOrgpos();
                 selectedBone = null;
@@ -480,26 +487,24 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
             if (state == State.muscle)
             {
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
 
                 completelowerBody.SetActive(true);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                mainSystemPanel.SetActive(true);
 
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
+
+                label.SetActive(false);
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
-                //New Changes.
-
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                contentPanel.SetActive(true);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
 
                 englishName.text = "";
                 latinName.text = "";
@@ -515,26 +520,20 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 isBoneGrab = true;
                 IntractionManager.Instance.isDefaultHandGrabAllow = true;
 
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
-
                 completeThorax.SetActive(true);
-
+                mainSystemPanel.SetActive(true);
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
-                //New Changes.
-
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                contentPanel.SetActive(true);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
 
                 if (selectedBone != null)
                 {
@@ -549,26 +548,27 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
             if (state == State.muscle)
             {
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
 
                 completeThorax.SetActive(true);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                mainSystemPanel.SetActive(true);
+
+                hideButton.SetActive(false);
+                undoButton.SetActive(false);
+                label.SetActive(false);
 
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
-                //New Changes.
+                contentPanel.SetActive(true);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
 
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
 
                 englishName.text = "";
                 latinName.text = "";
@@ -584,26 +584,22 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 isBoneGrab = true;
                 IntractionManager.Instance.isDefaultHandGrabAllow = true;
 
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
-
                 completeAbdomen.SetActive(true);
+                mainSystemPanel.SetActive(true);
 
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
-                //New Changes
+                contentPanel.SetActive(true);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
 
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
 
                 if (selectedBone != null)
                 {
@@ -618,26 +614,24 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
             if (state == State.muscle)
             {
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
-
                 completeAbdomen.SetActive(true);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                mainSystemPanel.SetActive(true);
 
+                hideButton.SetActive(false);
+                undoButton.SetActive(false);
+                label.SetActive(false);
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
-                //New Chnages
-
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                contentPanel.SetActive(true);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
 
                 englishName.text = "";
                 latinName.text = "";
@@ -653,26 +647,21 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 isBoneGrab = true;
                 IntractionManager.Instance.isDefaultHandGrabAllow = true;
 
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
-
                 completeHeadNeck.SetActive(true);
-
+                mainSystemPanel.SetActive(true);
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
-                //New Changes.
+                contentPanel.SetActive(true);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
 
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
 
                 if (selectedBone != null)
                 {
@@ -687,33 +676,29 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
             if (state == State.muscle)
             {
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
 
                 completeHeadNeck.SetActive(true);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                mainSystemPanel.SetActive(true);
 
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
+                label.SetActive(false);
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
-                //New Changes.
-
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                contentPanel.SetActive(true);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
 
                 englishName.text = "";
                 latinName.text = "";
                 content.text = "";
             }
         }
-
         if (region == Region.skeletonSystem)
         {
             if (state == State.bones)
@@ -721,57 +706,49 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 isBoneGrabbed = false;
                 isBoneGrab = true;
                 IntractionManager.Instance.isDefaultHandGrabAllow = true;
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
                 SkeletonSystem_T_Pose.SetActive(true);
+                table.SetActive(false);
                 isIsolatedOn = false;
-
-                //New Changes
-
-                //Controller Buttons Highlights ON/OFF
-                XButtonHighLight.SetActive(false);
-                YButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
-
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
+                contentPanel.SetActive(true);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
                 selectedBone.GetComponent<FloorCollision>().resetToOrgpos();
                 selectedBone = null;
+
                 englishName.text = "";
                 latinName.text = "";
                 content.text = "";
             }
-        }
 
+        }
         if (region == Region.muscularSystem)
         {
             if (state == State.muscle)
             {
-                currentIsolatedObject.SetActive(false);
-                currentIsolatedObject = null;
                 AssetManagementScript.Instance.resetData();
 
                 MuscularSystem_FullBody.SetActive(true);
-
-                //New Changes
-
-                //Controller Buttons Highlights ON/OFF
-                XButtonHighLight.SetActive(false);
-                YButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
+                LeftSideMuscleIsolatePanel.SetActive(false);
+                hideButton.SetActive(false);
+                undoButton.SetActive(false);
+                label.SetActive(false);
 
                 isIsolatedOn = false;
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
+
+                contentPanel.SetActive(true);
+                isolationPanel.SetActive(true);
+                isolateButton.SetActive(true);
+                hideButton.SetActive(true);
+                undoButton.SetActive(true);
 
                 englishName.text = "";
                 latinName.text = "";
@@ -783,12 +760,14 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
     public void isolateButtonClick()
     {
-        Material myOriginalMat = currentIsolatedObject.gameObject.GetComponent<Renderer>().material;
-        myOriginalMat.color = Color.white;
-        myOriginalMat.SetFloat("_Glossiness", 1f);
+        touchInteraction.GetComponent<BoxCollider>().enabled = true;
+
+        if (currentIsolatedObject.GetComponent<myCollisionBehaviour>().publicLable != null)
+        {
+            currentIsolatedObject.GetComponent<myCollisionBehaviour>().publicLable.SetActive(false);
+        }
 
         IntractionManager.Instance.selectObjName = "";
-
         isBoneIsolated = true;
         isBoneGrab = false;
 
@@ -801,7 +780,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
                 Debug.Log(currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount);
 
-                //New Changes
                 currentIsolatedObject.transform.GetChild(0).gameObject.SetActive(true);
                 for (int i = 0; i < currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount; i++)
                 {
@@ -819,19 +797,14 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 AssetManagementScript.Instance.setIsolatedMuscleData();
 
                 completeUpperBody.SetActive(false);
+                LeftSideMuscleIsolatePanel.SetActive(true);
+                mainSystemPanel.SetActive(false);
 
-                //New Changes.
-                YPanel.SetActive(true);
-                LayersUI.SetActive(true);
-
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                YButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
-
+                hideButton.SetActive(true);
+                undoButton.SetActive(false);
+                label.SetActive(true);
                 closeButton.SetActive(true);
+                isolateButton.SetActive(true);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
@@ -845,18 +818,12 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 AssetManagementScript.Instance.setIsolatedBonesData();
                 selectedBone = currentIsolatedObject;
                 completeUpperBody.SetActive(false);
+                isolationPanel.SetActive(false);
+                mainSystemPanel.SetActive(false);
 
-                //New Changes.
-
-                //Controller Buttons Highlights ON/OFF
-                YButtonHighLight.SetActive(true);
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(true);
-                MenuButtonHighLight.SetActive(false);
-
-                LayersUI.SetActive(false);
                 closeButton.SetActive(true);
+                isolateButton.SetActive(false);
+                contentPanel.SetActive(false);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
@@ -889,19 +856,15 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 }
 
                 completelowerBody.SetActive(false);
+                LeftSideMuscleIsolatePanel.SetActive(true);
+                mainSystemPanel.SetActive(false);
 
-                //New Changes.
-                YPanel.SetActive(false);
-                LayersUI.SetActive(false);
-
-                //Controller Buttons Highlights ON/OFF
-                YButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
+                hideButton.SetActive(true);
+                undoButton.SetActive(false);
+                label.SetActive(true);
 
                 closeButton.SetActive(true);
+                isolateButton.SetActive(true);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
@@ -916,23 +879,15 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 selectedBone = currentIsolatedObject;
 
                 completelowerBody.SetActive(false);
+                isolationPanel.SetActive(false);
+                mainSystemPanel.SetActive(false);
 
-                //New Changes.
-                YPanel.SetActive(false);
-                MainUiPanel.SetActive(false);
-
-                //Controller Buttons Highlights ON/OFF
-                MenuButtonHighLight.SetActive(false);
-                YButtonHighLight.SetActive(false);
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-
-                closeButtonNew.SetActive(true);
-                LayersUI.SetActive(false);
-                layerPressed.SetActive(false);
-                layerbutton.SetActive(true);
-                XButtonHighLight.SetActive(true);
                 closeButton.SetActive(true);
+                isolateButton.SetActive(false);
+                contentPanel.SetActive(false);
+
+                closeButtonNew.SetActive(false);
+                closetoWelcomeBtn.SetActive(false);
 
                 isIsolatedOn = true;
             }
@@ -963,19 +918,15 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 }
 
                 completeThorax.SetActive(false);
+                LeftSideMuscleIsolatePanel.SetActive(true);
+                mainSystemPanel.SetActive(false);
 
-                //New Changes.
-                YPanel.SetActive(true);
-                LayersUI.SetActive(true);
-
-                //Controller Buttons Highlights ON/OFF
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                XButtonHighLight.SetActive(false);
-                YButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
+                hideButton.SetActive(true);
+                undoButton.SetActive(false);
+                label.SetActive(true);
 
                 closeButton.SetActive(true);
+                isolateButton.SetActive(true);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
@@ -988,19 +939,13 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 currentIsolatedObject.SetActive(true);
                 AssetManagementScript.Instance.setIsolatedBonesData();
                 selectedBone = currentIsolatedObject;
-
                 completeThorax.SetActive(false);
-
-                //New Changes.
-                //Controller Buttons Highlights ON/OFF
-                YButtonHighLight.SetActive(true);
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                closeButtonNew.SetActive(true);
-                LayersUI.SetActive(false);
-                XButtonHighLight.SetActive(true);
+                isolationPanel.SetActive(false);
+                mainSystemPanel.SetActive(false);
 
                 closeButton.SetActive(true);
+                isolateButton.SetActive(false);
+                contentPanel.SetActive(false);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
@@ -1033,14 +978,15 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 }
 
                 completeAbdomen.SetActive(false);
+                LeftSideMuscleIsolatePanel.SetActive(true);
+                mainSystemPanel.SetActive(false);
 
-                //New Changes.
-                YPanel.SetActive(true);
-                LayersUI.SetActive(true);
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
+                hideButton.SetActive(true);
+                undoButton.SetActive(false);
+                label.SetActive(true);
 
                 closeButton.SetActive(true);
+                isolateButton.SetActive(true);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
@@ -1055,16 +1001,12 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 selectedBone = currentIsolatedObject;
 
                 completeAbdomen.SetActive(false);
-
-                //New Changes.
-                YButtonHighLight.SetActive(true);
-                BButtonHighLight.SetActive(false);
-                AButtonHighLight.SetActive(false);
-                closeButtonNew.SetActive(true);
-                LayersUI.SetActive(false);
-                XButtonHighLight.SetActive(true);
+                isolationPanel.SetActive(false);
+                mainSystemPanel.SetActive(false);
 
                 closeButton.SetActive(true);
+                isolateButton.SetActive(false);
+                contentPanel.SetActive(false);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
@@ -1074,67 +1016,64 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
         if (region == Region.headNeck)
         {
-             if (state == State.muscle)
-             {
-                 currentIsolatedObject = AssetManagementScript.Instance.isolatedHeadNeckMuscleAssets[DEFTXR_UI_Manager.Instance.currentSelectedAssetNo];
-                 currentIsolatedObject.SetActive(true);
-                 AssetManagementScript.Instance.setIsolatedMuscleData();
+            if (state == State.muscle)
+            {
+                currentIsolatedObject = AssetManagementScript.Instance.isolatedHeadNeckMuscleAssets[DEFTXR_UI_Manager.Instance.currentSelectedAssetNo];
+                currentIsolatedObject.SetActive(true);
+                AssetManagementScript.Instance.setIsolatedMuscleData();
 
-                 Debug.Log(currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount);
+                Debug.Log(currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount);
 
-                 currentIsolatedObject.transform.GetChild(0).gameObject.SetActive(true);
-                 for (int i = 0; i < currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount; i++)
-                 {
-                     GameObject chParent = currentIsolatedObject.transform.GetChild(0).transform.GetChild(i).gameObject;
-                     chParent.SetActive(true);
+                currentIsolatedObject.transform.GetChild(0).gameObject.SetActive(true);
+                for (int i = 0; i < currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount; i++)
+                {
+                    GameObject chParent = currentIsolatedObject.transform.GetChild(0).transform.GetChild(i).gameObject;
+                    chParent.SetActive(true);
 
-                     Debug.Log(chParent.transform.childCount);
+                    Debug.Log(chParent.transform.childCount);
 
-                     for (int j = 0; j < chParent.transform.childCount; j++)
-                     {
-                         chParent.transform.GetChild(j).gameObject.SetActive(true);
-                     }
-                 }
+                    for (int j = 0; j < chParent.transform.childCount; j++)
+                    {
+                        chParent.transform.GetChild(j).gameObject.SetActive(true);
+                    }
+                }
 
-                 completeHeadNeck.SetActive(false);
+                completeHeadNeck.SetActive(false);
+                LeftSideMuscleIsolatePanel.SetActive(true);
+                mainSystemPanel.SetActive(false);
 
-                 //New Changes.
-                 YPanel.SetActive(true);
-                 LayersUI.SetActive(true);
-                 BButtonHighLight.SetActive(false);
-                 AButtonHighLight.SetActive(false);
+                hideButton.SetActive(true);
+                undoButton.SetActive(false);
+                label.SetActive(true);
 
-                 closeButton.SetActive(true);
-                 closeButtonNew.SetActive(false);
-                 closetoWelcomeBtn.SetActive(false);
+                closeButton.SetActive(true);
+                isolateButton.SetActive(true);
+                closeButtonNew.SetActive(false);
+                closetoWelcomeBtn.SetActive(false);
 
-                 isIsolatedOn = true;
-             }
+                isIsolatedOn = true;
+            }
 
-             if (state == State.bones)
-             {
-                 currentIsolatedObject = AssetManagementScript.Instance.isolatedHeadNeckBonesAssets[DEFTXR_UI_Manager.Instance.currentSelectedAssetNo];
-                 currentIsolatedObject.SetActive(true);
-                 AssetManagementScript.Instance.setIsolatedBonesData();
-                 selectedBone = currentIsolatedObject;
+            if (state == State.bones)
+            {
+                currentIsolatedObject = AssetManagementScript.Instance.isolatedHeadNeckBonesAssets[DEFTXR_UI_Manager.Instance.currentSelectedAssetNo];
+                currentIsolatedObject.SetActive(true);
+                AssetManagementScript.Instance.setIsolatedBonesData();
+                selectedBone = currentIsolatedObject;
 
-                 completeHeadNeck.SetActive(false);
+                completeHeadNeck.SetActive(false);
+                isolationPanel.SetActive(false);
+                mainSystemPanel.SetActive(false);
 
-                 //New Changes.
-                 YButtonHighLight.SetActive(true);
-                 BButtonHighLight.SetActive(false);
-                 AButtonHighLight.SetActive(false);
-                 closeButtonNew.SetActive(true);
-                 LayersUI.SetActive(false);
-                 XButtonHighLight.SetActive(true);
- 
-                 closeButton.SetActive(true);
-                 closeButtonNew.SetActive(false);
-                 closetoWelcomeBtn.SetActive(false);
+                closeButton.SetActive(true);
+                isolateButton.SetActive(false);
+                contentPanel.SetActive(false);
+                closeButtonNew.SetActive(false);
+                closetoWelcomeBtn.SetActive(false);
 
-                 isIsolatedOn = true;
-             }
-         }
+                isIsolatedOn = true;
+            }
+        }
 
         if (region == Region.skeletonSystem)
         {
@@ -1145,10 +1084,17 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 AssetManagementScript.Instance.setIsolatedBonesData();
                 selectedBone = currentIsolatedObject;
                 SkeletonSystem_T_Pose.SetActive(false);
+                table.SetActive(true);
 
+                isolationPanel.SetActive(false);
                 closeButton.SetActive(true);
+                isolateButton.SetActive(false);
+
+                contentPanel.SetActive(false);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
+                hideButton.SetActive(false);
+                undoButton.SetActive(false);
 
                 isIsolatedOn = true;
             }
@@ -1179,8 +1125,15 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 }
 
                 MuscularSystem_FullBody.SetActive(false);
+                LeftSideMuscleIsolatePanel.SetActive(true);
+                mainSystemPanel.SetActive(false);
+
+                hideButton.SetActive(true);
+                undoButton.SetActive(false);
+                label.SetActive(true);
 
                 closeButton.SetActive(true);
+                isolateButton.SetActive(true);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
@@ -1190,6 +1143,9 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     }
     public void loginButtonClick()
     {
+        welcomeUIPanel.SetActive(false);
+        humanAnatomyPanels.SetActive(true);
+        grossAnatomyPanel.SetActive(false);
         closetoWelcomeBtn.SetActive(true);
         closeButton.SetActive(false);
         closeButtonNew.SetActive(false);
@@ -1199,12 +1155,20 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     {
         isDisection = false;
         completeUpperBody.SetActive(true);
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         region = Region.upperLimb;
         setContent();
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
 
+        mainSystemPanel.SetActive(true);
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(true);
+
+        hideButton.SetActive(true);
+        undoButton.SetActive(true);
         isSkinOn = false;
         onSkinButtonClick();
     }
@@ -1213,64 +1177,87 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     {
         isDisection = true;
         completeUpperBody.SetActive(true);
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
+        mainSystemPanel.SetActive(false);;
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(false);
     }
 
     public void LowerLimbsetDisection()
     {
         isDisection = true;
         completelowerBody.SetActive(true);
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
+        mainSystemPanel.SetActive(false);
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(false);
     }
 
     public void ThoraxsetDisection()
     {
         isDisection = true;
         completeThorax.SetActive(true);
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
-
+        mainSystemPanel.SetActive(false);
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(false);
     }
 
     public void AbdomensetDisection()
     {
         isDisection = true;
         completeAbdomen.SetActive(true);
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
+        mainSystemPanel.SetActive(false);
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(false);
     }
     public void HeadNecksetDisection()
     {
         isDisection = true;
         completeHeadNeck.SetActive(true);
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
+        mainSystemPanel.SetActive(false);
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(false);
     }
-
 
     public void lowerLimbButtonClick()
     {
         isDisection = false;
         completelowerBody.SetActive(true);
-
-        //New Changes.
-        MenuButtonHighLight.SetActive(true);
-        XButtonHighLight.SetActive(true);
-
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         region = Region.lowerLimb;
         setContent();
-
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
-
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(true);
+        hideButton.SetActive(true);
+        undoButton.SetActive(true);
+        mainSystemPanel.SetActive(true);
         isSkinOn = false;
         onSkinButtonClick();
     }
@@ -1279,18 +1266,18 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     {
         isDisection = false;
         completeThorax.SetActive(true);
-
-        //New Changes.
-        MenuButtonHighLight.SetActive(true);
-        XButtonHighLight.SetActive(true);
-
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         region = Region.thorax;
         setContent();
-
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
-
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(true);
+        hideButton.SetActive(true);
+        undoButton.SetActive(true);
+        mainSystemPanel.SetActive(true);
         isSkinOn = false;
         onSkinButtonClick();
     }
@@ -1299,18 +1286,18 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     {
         isDisection = false;
         completeAbdomen.SetActive(true);
-
-        //New Changes.
-        MenuButtonHighLight.SetActive(true);
-        XButtonHighLight.SetActive(true);
-
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         region = Region.abdomen;
         setContent();
-
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
-
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(true);
+        hideButton.SetActive(true);
+        undoButton.SetActive(true);
+        mainSystemPanel.SetActive(true);
         isSkinOn = false;
         onSkinButtonClick();
     }
@@ -1319,60 +1306,70 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     {
         isDisection = false;
         completeHeadNeck.SetActive(true);
-
-        //New Changes.
-        MenuButtonHighLight.SetActive(true);
-        XButtonHighLight.SetActive(true);
-
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         region = Region.headNeck;
         setContent();
-
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
-
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(true);
+        hideButton.SetActive(true);
+        undoButton.SetActive(true);
+        mainSystemPanel.SetActive(true);
         isSkinOn = false;
         onSkinButtonClick();
     }
-
     public void skeletonButtonClick()
     {
         SkeletonSystem_T_Pose.SetActive(true);
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         region = Region.skeletonSystem;
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(true);
+        hideButton.SetActive(true);
+        undoButton.SetActive(true);
     }
 
     public void muscularButtonClick()
     {
         MuscularSystem_FullBody.SetActive(true);
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
+        mainSystemPanel.SetActive(false);
         region = Region.muscularSystem;
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
+        isolationPanel.SetActive(true);
+        isolateButton.SetActive(true);
+        hideButton.SetActive(true);
+        undoButton.SetActive(true);
     }
 
     public void microAnatomyButtonClick()
     {
-
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         closeButtonNew.SetActive(true);
+        isolationPanel.SetActive(true);
 
         isBoneIsolated = true;
     }
 
     public void NervousSystemButtonClick()
     {
+        infoPanel.SetActive(true);
+        contentPanel.SetActive(true);
         closeButtonNew.SetActive(true);
     }
 
-
-
-    /// <summary>
-    /// Below methods consist of Panel Button click calls 
-    /// ------------------------------------------------ Start --------------------------------
-    /// </summary>
-    /*public void regionsPanelButtonClick()
+    public void regionsPanelButtonClick()
     {
         activatePanels(0);
     }
@@ -1458,125 +1455,83 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 break;
         }
 
-    }*/
-
-    /// <summary>
-    /// ------------------------------------------------ End --------------------------------
-    /// </summary>
-    /// 
-
-
-    /// <summary>
-    /// Below methods consist of physical Button click calls 
-    /// ------------------------------------------------ Start --------------------------------
-    /// </summary>
+    }
     public void onSkinButtonClick()
     {
 
         if (isSkinOn == false)
         {
             current_BodySkin.SetActive(true);
-            //skinBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             skinBtn.SetActive(false);
             skinBtnPressed.SetActive(true);
 
             current_BodyMuscles.SetActive(false);
-           // musclesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
-            musclesBtn.SetActive(true);
-            musclesBtnPressed.SetActive(false);
-
-            current_BodyLigaments.SetActive(false);
-            //ligamentBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
-            ligamentBtn.SetActive(true);
-            ligamentBtnPressed.SetActive(false);
-
-            current_BodyArteries.SetActive(false);
-           // arteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
-            arteriesBtn.SetActive(true);
-            arteriesBtnPressed.SetActive(false);
-
-            current_Bodybones.SetActive(false);
-           // bonesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
-            bonesBtn.SetActive(true);
-            bonesBtnPressed.SetActive(false);
-
-            current_BodyNerves.SetActive(false);
-           // nervesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
-            nervesBtn.SetActive(true);
-            nervesBtnPressed.SetActive(false);
-
-            current_BodyVains.SetActive(false);
-           // veinsBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
-            veinsBtn.SetActive(true);
-            veinsBtnPressed.SetActive(false);
-
-            current_BodylyphaticSystem.SetActive(false);
-           // lymphBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
-            lymphBtn.SetActive(true);
-            lymphBtnPressed.SetActive(false);
-
-            if (current_BodyOrgans != null)
-            {
-                current_BodyOrgans.SetActive(false);
-                //organsBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
-                organsBtn.SetActive(true);
-                organsBtnPressed.SetActive(false);
-            }
-
-            isSkinOn = true;
-
-        }
-        else
-        {
-            current_BodySkin.SetActive(false);
-            //skinBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
-            skinBtn.SetActive(true);
-            skinBtnPressed.SetActive(false);
-
-            current_BodyMuscles.SetActive(true);
-           // musclesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             musclesBtn.SetActive(false);
             musclesBtnPressed.SetActive(true);
 
-            current_BodyLigaments.SetActive(true);
-           // ligamentBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+            current_BodyLigaments.SetActive(false);
             ligamentBtn.SetActive(false);
             ligamentBtnPressed.SetActive(true);
 
-            current_BodyArteries.SetActive(true);
-           // arteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+            current_BodyArteries.SetActive(false);
             arteriesBtn.SetActive(false);
             arteriesBtnPressed.SetActive(true);
 
-            current_Bodybones.SetActive(true);
-           // bonesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+            current_Bodybones.SetActive(false);
             bonesBtn.SetActive(false);
             bonesBtnPressed.SetActive(true);
 
-            current_BodyNerves.SetActive(true);
-           // nervesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+            current_BodyNerves.SetActive(false);
             nervesBtn.SetActive(false);
             nervesBtnPressed.SetActive(true);
 
-            current_BodyVains.SetActive(true);
-          //  veinsBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+            current_BodyVains.SetActive(false);
             veinsBtn.SetActive(false);
             veinsBtnPressed.SetActive(true);
 
-            current_BodylyphaticSystem.SetActive(true);
-           // lymphBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+            current_BodylyphaticSystem.SetActive(false);
             lymphBtn.SetActive(false);
             lymphBtnPressed.SetActive(true);
 
             if (current_BodyOrgans != null)
             {
-                current_BodyOrgans.SetActive(true);
-             //   organsBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
+                current_BodyOrgans.SetActive(false);
                 organsBtn.SetActive(false);
                 organsBtnPressed.SetActive(true);
             }
 
+            isSkinOn = true;
+            hideButton.SetActive(false);
+            undoButton.SetActive(false);
+        }
+        else
+        {
+            current_BodySkin.SetActive(false);
+            skinBtn.SetActive(true);
+            skinBtnPressed.SetActive(false);
+
+            current_BodyMuscles.SetActive(true);
+
+            current_BodyLigaments.SetActive(true);
+
+            current_BodyArteries.SetActive(true);
+
+            current_Bodybones.SetActive(true);
+
+            current_BodyNerves.SetActive(true);
+
+            current_BodyVains.SetActive(true);
+
+            current_BodylyphaticSystem.SetActive(true);
+
+            if (current_BodyOrgans != null)
+            {
+                current_BodyOrgans.SetActive(true);
+            }
+
             isSkinOn = false;
+            hideButton.SetActive(true);
+            undoButton.SetActive(true);
         }
     }
 
@@ -1585,7 +1540,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isMusclesOn == true)
         {
             current_BodyMuscles.SetActive(true);
-           // musclesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             musclesBtn.SetActive(false);
             musclesBtnPressed.SetActive(true);
             isMusclesOn = false;
@@ -1593,7 +1547,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         else
         {
             current_BodyMuscles.SetActive(false);
-            //musclesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             musclesBtn.SetActive(true);
             musclesBtnPressed.SetActive(false);
             isMusclesOn = true;
@@ -1604,7 +1557,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isLigamentsOn == true)
         {
             current_BodyLigaments.SetActive(true);
-           // ligamentBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             ligamentBtn.SetActive(false);
             ligamentBtnPressed.SetActive(true);
             isLigamentsOn = false;
@@ -1612,7 +1564,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         else
         {
             current_BodyLigaments.SetActive(false);
-           // ligamentBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             ligamentBtn.SetActive(true);
             ligamentBtnPressed.SetActive(false);
             isLigamentsOn = true;
@@ -1623,7 +1574,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isArteriesOn == true)
         {
             current_BodyArteries.SetActive(true);
-           // arteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             arteriesBtn.SetActive(false);
             arteriesBtnPressed.SetActive(true);
             isArteriesOn = false;
@@ -1631,7 +1581,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         else
         {
             current_BodyArteries.SetActive(false);
-           // arteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             arteriesBtn.SetActive(true);
             arteriesBtnPressed.SetActive(false);
             isArteriesOn = true;
@@ -1643,7 +1592,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isVainsOn == true)
         {
             current_BodyVains.SetActive(true);
-           // veinsBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             veinsBtn.SetActive(false);
             veinsBtnPressed.SetActive(true);
             isVainsOn = false;
@@ -1651,7 +1599,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         else
         {
             current_BodyVains.SetActive(false);
-           // veinsBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             veinsBtn.SetActive(true);
             veinsBtnPressed.SetActive(false);
             isVainsOn = true;
@@ -1663,7 +1610,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isNervesOn == true)
         {
             current_BodyNerves.SetActive(true);
-           // nervesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             nervesBtn.SetActive(false);
             nervesBtnPressed.SetActive(true);
             isNervesOn = false;
@@ -1671,7 +1617,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         else
         {
             current_BodyNerves.SetActive(false);
-           // nervesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             nervesBtn.SetActive(true);
             nervesBtnPressed.SetActive(false);
             isNervesOn = true;
@@ -1682,7 +1627,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isBonesOn == true)
         {
             current_Bodybones.SetActive(true);
-           // bonesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             bonesBtn.SetActive(false);
             bonesBtnPressed.SetActive(true);
             isBonesOn = false;
@@ -1690,7 +1634,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         else
         {
             current_Bodybones.SetActive(false);
-           // bonesBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             bonesBtn.SetActive(true);
             bonesBtnPressed.SetActive(false);
             isBonesOn = true;
@@ -1702,7 +1645,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isLyphaticOn == true)
         {
             current_BodylyphaticSystem.SetActive(true);
-           // lymphBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             lymphBtn.SetActive(false);
             lymphBtnPressed.SetActive(true);
             isLyphaticOn = false;
@@ -1710,7 +1652,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         else
         {
             current_BodylyphaticSystem.SetActive(false);
-           // lymphBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             lymphBtn.SetActive(true);
             lymphBtnPressed.SetActive(false);
             isLyphaticOn = true;
@@ -1722,7 +1663,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isOrgansOn == true)
         {
             current_BodyOrgans.SetActive(true);
-           // organsBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
             organsBtn.SetActive(false);
             organsBtnPressed.SetActive(true);
             isOrgansOn = false;
@@ -1730,23 +1670,18 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         else
         {
             current_BodyOrgans.SetActive(false);
-           // organsBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             organsBtn.SetActive(true);
             organsBtnPressed.SetActive(false);
             isOrgansOn = true;
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public void playEnglishVO()
     {
         if (seletcedEnglishVO != null)
         {
             audioSource.PlayOneShot(seletcedEnglishVO);
             Debug.Log("caled");
-          //  StartCoroutine(waitForSound());
         }
     }
 
@@ -1754,20 +1689,15 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     {
         audioSource.PlayOneShot(seletcedEnglishVO);
         VOButton.GetComponent<Button>().interactable = false;
+
         //Wait Until Sound has finished playing
         while (audioSource.isPlaying)
         {
             yield return null;
         }
         VOButton.GetComponent<Button>().interactable = true;
-
-        //Auidio has finished playing, disable GameObject
-        //  other.gameObject.SetActive(false);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public void playLatinVO()
     {
         if (selectedLatinVO != null)
@@ -1775,7 +1705,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
             audioSource.PlayOneShot(selectedLatinVO);
         }
     }
-
 
     public void setContent()
     {
@@ -1842,10 +1771,4 @@ public class DEFTXR_UI_Manager : MonoBehaviour
             current_BodyOrgans = HeadNeckOrgans;
         }
     }
-
-    /// if region == Uperlimb/lowerlimb/thorax
-     //       current_Bodybones  = upperlimbbones,
-    /// currentbone =  selectedBones
-    ///
-
 }
