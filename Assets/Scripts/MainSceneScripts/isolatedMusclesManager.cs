@@ -11,12 +11,12 @@ public class isolatedMusclesManager : MonoBehaviour
     }
 
     public bool isNervesOn, isMusclesOn, isVainsOn, isBonesOn;
-    public float angleX, angleY;
+    //public float angleX, angleY;
 
-    public Slider speedSlider;
-    public float speedAngle;
+    //public Slider speedSlider;
+    //public float speedAngle;
 
-    [SerializeField] private Slider horizontalSlider, verticleSlider;
+    //[SerializeField] private Slider horizontalSlider, verticleSlider;
 
     List<GameObject> parts;
     int index;
@@ -26,17 +26,17 @@ public class isolatedMusclesManager : MonoBehaviour
     void Start()
     {
         isMusclesOn = isVainsOn = isNervesOn = isBonesOn = true;
-        speedSlider.value = 0.1f;
+        //speedSlider.value = 0.1f;
         parts = new List<GameObject>();
         index = -1;
 
         //slider init
 
-        horizontalSlider.onValueChanged.AddListener(OnHorizontalSliderChanged);
-        verticleSlider.onValueChanged.AddListener(OnVerticleSliderChanged);
-        verticle_prevValue = horizontal_prevValue = 0.5f;
-        horizontalSlider.value = 0.5f;
-        verticleSlider.value = 0.5f;
+        //horizontalSlider.onValueChanged.AddListener(OnHorizontalSliderChanged);
+        //verticleSlider.onValueChanged.AddListener(OnVerticleSliderChanged);
+        //verticle_prevValue = horizontal_prevValue = 0.5f;
+        //horizontalSlider.value = 0.5f;
+        //verticleSlider.value = 0.5f;
 
         //DEFTXR_UI_Manager.Instance.isolateMuscleBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
         //DEFTXR_UI_Manager.Instance.isolateBoneBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
@@ -212,22 +212,22 @@ public class isolatedMusclesManager : MonoBehaviour
 
     public void varticleRotateButtonClick()
     {
-        speedAngle = speedSlider.value * 100;
+        //speedAngle = speedSlider.value * 100;
         // DEFTXR_UI_Manager.Instance.deltoid_isolate.transform.Rotate(0, speedAngle, 0);
 
         //AssetManagementScript.Instance.isolated_object.transform.localEulerAngles += new Vector3(0, speedAngle, 0);
-        AssetManagementScript.Instance.isolated_object.transform.localEulerAngles += new Vector3(0, verticleSlider.value, 0);
+        //AssetManagementScript.Instance.isolated_object.transform.localEulerAngles += new Vector3(0, verticleSlider.value, 0);
 
         //angleY = AssetManagementScript.Instance.isolated_object.transform.rotation.y;
     }
 
     public void horizontalRotateButtonClick()
     {
-        speedAngle = speedSlider.value * 100;
+        //speedAngle = speedSlider.value * 100;
         //DEFTXR_UI_Manager.Instance.deltoid_isolate.transform.Rotate(speedAngle, 0, 0);
 
         //AssetManagementScript.Instance.isolated_object.transform.Rotate(speedAngle, 0, 0);
-        AssetManagementScript.Instance.isolated_object.transform.Rotate(horizontalSlider.value, 0, 0);
+        //AssetManagementScript.Instance.isolated_object.transform.Rotate(horizontalSlider.value, 0, 0);
 
         // AssetManagementScript.Instance.isolated_object.transform.localEulerAngles += new Vector3(speedAngle, 0, 0);
 
@@ -239,8 +239,9 @@ public class isolatedMusclesManager : MonoBehaviour
         parts.Add(DEFTXR_UI_Manager.Instance.currentSelectObject);
         index++;
         DEFTXR_UI_Manager.Instance.currentSelectObject.SetActive(false);
-        DEFTXR_UI_Manager.Instance.undoButton.SetActive(true);
 
+        DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(false);
+        DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(true); 
     }
     public void undoButtonClick()
     {
@@ -250,13 +251,14 @@ public class isolatedMusclesManager : MonoBehaviour
             DEFTXR_UI_Manager.Instance.currentSelectObject.SetActive(true);
             parts.RemoveAt(index);
             index--;
+
+            DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
+            DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(false);
         }
         else
         {
-            DEFTXR_UI_Manager.Instance.undoButton.SetActive(false);
+            DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(false);
         }
-
-
     }
 }
 

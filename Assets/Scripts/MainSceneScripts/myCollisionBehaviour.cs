@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class myCollisionBehaviour : MonoBehaviour
 {
-
     Material myOriginalMat, selctionMaterial;
     [SerializeField] GameObject myLable;
     public GameObject publicLable;
@@ -34,11 +33,14 @@ public class myCollisionBehaviour : MonoBehaviour
                     DEFTXR_UI_Manager.Instance.currentSelectedAssetNo = myAssetNo;
                 }
 
-                changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
+                //changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
 
                 if (myLable != null)
                 {
                     myLable.SetActive(true);
+
+                    DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
+
                     if (myEnglishName != null && myLatinName != null)
                     {
                         DEFTXR_UI_Manager.Instance.englishName.text = myEnglishName;
@@ -51,12 +53,13 @@ public class myCollisionBehaviour : MonoBehaviour
 
                         if (isBones || isMuscle)
                         {
+                            DEFTXR_UI_Manager.Instance.XButtonHighLight.SetActive(true);  
+
                             if (myAssetNo > -1 && DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
                             {
                                 if (DEFTXR_UI_Manager.Instance.isDisection == false)
                                 {
-                                    DEFTXR_UI_Manager.Instance.isolationPanel.SetActive(true);
-                                    DEFTXR_UI_Manager.Instance.isolateButton.SetActive(true);
+
                                 }
                             }
                         }
@@ -70,7 +73,6 @@ public class myCollisionBehaviour : MonoBehaviour
                             {
                                 if (DEFTXR_UI_Manager.Instance.isDisection == false)
                                 {
-                                    DEFTXR_UI_Manager.Instance.isolationPanel.SetActive(true);
                                 }
                             }
                         }
@@ -82,8 +84,6 @@ public class myCollisionBehaviour : MonoBehaviour
 
                 if (String.Compare(this.gameObject.name, IntractionManager.Instance.selectObjName) == 0)
                 {
-
-
 
                 }
                 else
@@ -117,8 +117,6 @@ public class myCollisionBehaviour : MonoBehaviour
                                 {
                                     if (DEFTXR_UI_Manager.Instance.isDisection == false)
                                     {
-                                        DEFTXR_UI_Manager.Instance.isolationPanel.SetActive(true);
-                                        DEFTXR_UI_Manager.Instance.isolateButton.SetActive(true);
                                     }
                                 }
                             }
@@ -132,14 +130,12 @@ public class myCollisionBehaviour : MonoBehaviour
                                 {
                                     if (DEFTXR_UI_Manager.Instance.isDisection == false)
                                     {
-                                        DEFTXR_UI_Manager.Instance.isolationPanel.SetActive(true);
-                                       
+                                    
                                     }
                                 }
                             }
                         }
                     }
-
                 }
             }
             Debug.Log("name : " + this.gameObject.name);
