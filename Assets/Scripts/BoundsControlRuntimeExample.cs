@@ -214,7 +214,7 @@ namespace MixedReality.Toolkit.Examples.Demos
         private BoundsControl InitializeBoundsControl(GameObject target)
         {
             target.AddComponent<ConstraintManager>();
-            target.AddComponent<ObjectManipulator>();
+            target.AddComponent<ObjectManipulator_Oculus>();
             var boundsControl = target.AddComponent<BoundsControl>();
             boundsControl.BoundsVisualsPrefab = boundsVisualsPrefab;
             boundsControl.HandlesActive = true;

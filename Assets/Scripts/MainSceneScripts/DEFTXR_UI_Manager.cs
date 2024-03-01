@@ -14,10 +14,10 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     public GameObject touchInteraction;
     public bool isDisection;
 
-    public GameObject MainUIPanel, HandMenuBar, LayersUIPanel, SkyboxUIPanel;
-    public GameObject LayerButton, SkyboxButton;
-    public GameObject LayerButtonPressed, SkyboxButtonPressed;
-    public GameObject XButtonHighLight, YButtonHighLight, AButtonHighLight, BButtonHighLight, MenuButtonHighLight;
+    public GameObject MenuParentObject, MainUIPanel, HandMenuBar, LayersUIPanel, SkyboxUIPanel, FeaturesUIPanel;
+    public GameObject MenuButton, LayerButton, SkyboxButton;
+    public GameObject MenuButtonPressed, LayerButtonPressed, SkyboxButtonPressed;
+    //public GameObject XButtonHighLight, YButtonHighLight, AButtonHighLight, BButtonHighLight, MenuButtonHighLight;
 
     [Header("")]
     [Header("Upper Body Content")]
@@ -137,28 +137,44 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        MenuParentObject.SetActive(false);
     }
 
     // Use this for initialization
-    void Start()
-    {
-        MainUIPanel.SetActive(true);
+    public void Start()
+    {  
+        MenuButton.SetActive(true);
+        MenuButtonPressed.SetActive(false);
+
+        MainUIPanel.SetActive(false);
         HandMenuBar.SetActive(false);
         LayersUIPanel.SetActive(false);
         SkyboxUIPanel.SetActive(false);
+        FeaturesUIPanel.SetActive(false);
 
-        LayerButton.SetActive(false);
-        SkyboxButton.SetActive(false);
+        LayerButton.SetActive(true);
+        SkyboxButton.SetActive(true);
         LayerButtonPressed.SetActive(false);
         SkyboxButtonPressed.SetActive(false);
 
-        XButtonHighLight.SetActive(false);
-        YButtonHighLight.SetActive(false);
-        AButtonHighLight.SetActive(false);
-        BButtonHighLight.SetActive(false);
-        MenuButtonHighLight.SetActive(true);
+        //XButtonHighLight.SetActive(false);
+        //YButtonHighLight.SetActive(false);
+        //AButtonHighLight.SetActive(false);
+        //BButtonHighLight.SetActive(false);
+        //MenuButtonHighLight.SetActive(true);
     }
-
+    public void OnMenuButtonClick()
+    {
+        MenuParentObject.SetActive(true);
+        MenuButton.SetActive(false);
+        MenuButtonPressed.SetActive(true);
+    }
+    public void OnMenuButtonPressedClick()
+    {
+        MenuParentObject.SetActive(false);
+        MenuButton.SetActive(true);
+        MenuButtonPressed.SetActive(false);
+    }
     public void InstructionBtnClick()
     {
 
@@ -168,7 +184,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     {
 
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -186,47 +201,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         {
             isolateButtonClick();
         }
-
-        if (OVRInput.GetDown(OVRInput.Button.Four) || Input.GetKeyDown(KeyCode.L))
-        {
-            //WholeBody Gizmo ON/OFF
-            HandMenuBar.SetActive(!HandMenuBar.activeSelf);
-            MenuButtonHighLight.SetActive(!MenuButtonHighLight.activeSelf);
-
-            MainUIPanel.SetActive(true);
-            LayersUIPanel.SetActive(false);
-            SkyboxUIPanel.SetActive(false);
-
-            LayerButton.SetActive(true);
-            SkyboxButton.SetActive(true);
-            LayerButtonPressed.SetActive(false);
-            SkyboxButtonPressed.SetActive(false);
-
-            XButtonHighLight.SetActive(false);
-            YButtonHighLight.SetActive(false);
-            AButtonHighLight.SetActive(false);
-            BButtonHighLight.SetActive(false);
-        }
-
-        if (OVRInput.GetDown(OVRInput.Button.Start) || Input.GetKeyDown(KeyCode.J))
-        {
-            HandMenuBar.SetActive(!HandMenuBar.activeSelf);
-            MenuButtonHighLight.SetActive(!MenuButtonHighLight.activeSelf);
-
-            MainUIPanel.SetActive(true);
-            LayersUIPanel.SetActive(false);
-            SkyboxUIPanel.SetActive(false);
-
-            LayerButton.SetActive(true);
-            SkyboxButton.SetActive(true);
-            LayerButtonPressed.SetActive(false);
-            SkyboxButtonPressed.SetActive(false);
-
-            XButtonHighLight.SetActive(false);
-            YButtonHighLight.SetActive(false);
-            AButtonHighLight.SetActive(false);
-            BButtonHighLight.SetActive(false);
-        }
     }
 
     public void OnLayersButtonClick()
@@ -236,16 +210,16 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         LayersUIPanel.SetActive(true);
         SkyboxUIPanel.SetActive(false);
 
-        LayerButton.SetActive(false);
+        LayerButton.SetActive(true);
         SkyboxButton.SetActive(true);
         LayerButtonPressed.SetActive(true);
         SkyboxButtonPressed.SetActive(false);
 
-        XButtonHighLight.SetActive(false);
-        YButtonHighLight.SetActive(false);
-        AButtonHighLight.SetActive(false);
-        BButtonHighLight.SetActive(false);
-        MenuButtonHighLight.SetActive(false);
+        //XButtonHighLight.SetActive(false);
+        //YButtonHighLight.SetActive(false);
+        //AButtonHighLight.SetActive(false);
+        //BButtonHighLight.SetActive(false);
+        //MenuButtonHighLight.SetActive(false);
     }
     public void OnLayersPressedButtonClick()
     {
@@ -259,11 +233,11 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         LayerButtonPressed.SetActive(false);
         SkyboxButtonPressed.SetActive(false);
 
-        XButtonHighLight.SetActive(false);
-        YButtonHighLight.SetActive(false);
-        AButtonHighLight.SetActive(false);
-        BButtonHighLight.SetActive(false);
-        MenuButtonHighLight.SetActive(false);
+        //XButtonHighLight.SetActive(false);
+        //YButtonHighLight.SetActive(false);
+        //AButtonHighLight.SetActive(false);
+        //BButtonHighLight.SetActive(false);
+        //MenuButtonHighLight.SetActive(false);
     }
     public void OnSkyboxButtonClick()
     {
@@ -277,11 +251,11 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         LayerButtonPressed.SetActive(false);
         SkyboxButtonPressed.SetActive(true);
 
-        XButtonHighLight.SetActive(false);
-        YButtonHighLight.SetActive(false);
-        AButtonHighLight.SetActive(false);
-        BButtonHighLight.SetActive(false);
-        MenuButtonHighLight.SetActive(false);
+        //XButtonHighLight.SetActive(false);
+        //YButtonHighLight.SetActive(false);
+        //AButtonHighLight.SetActive(false);
+        //BButtonHighLight.SetActive(false);
+        //MenuButtonHighLight.SetActive(false);
     }
     public void OnSkyboxPressedButtonClick()
     {
@@ -295,11 +269,11 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         LayerButtonPressed.SetActive(false);
         SkyboxButtonPressed.SetActive(false);
 
-        XButtonHighLight.SetActive(false);
-        YButtonHighLight.SetActive(false);
-        AButtonHighLight.SetActive(false);
-        BButtonHighLight.SetActive(false);
-        MenuButtonHighLight.SetActive(false);
+        //XButtonHighLight.SetActive(false);
+        //YButtonHighLight.SetActive(false);
+        //AButtonHighLight.SetActive(false);
+        //BButtonHighLight.SetActive(false);
+        //MenuButtonHighLight.SetActive(false);
     }
 
     private void Reset()
@@ -507,11 +481,11 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 LayerButtonPressed.SetActive(true);
                 SkyboxButtonPressed.SetActive(false);
 
-                XButtonHighLight.SetActive(false);
+                /*XButtonHighLight.SetActive(false);
                 YButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 BButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
+                MenuButtonHighLight.SetActive(false);*/
 
                 selectedBone.GetComponent<FloorCollision>().resetToOrgpos();
                 selectedBone = null;
@@ -543,11 +517,11 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 LayerButtonPressed.SetActive(true);
                 SkyboxButtonPressed.SetActive(false);
 
-                XButtonHighLight.SetActive(false);
+                /*XButtonHighLight.SetActive(false);
                 YButtonHighLight.SetActive(false);
                 AButtonHighLight.SetActive(false);
                 BButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
+                MenuButtonHighLight.SetActive(false);*/
 
                 englishName.text = "";
                 latinName.text = "";
@@ -801,7 +775,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 currentIsolatedObject.SetActive(true);
                 AssetManagementScript.Instance.setIsolatedMuscleData();
 
-                Debug.Log(currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount);
+                //Debug.Log(currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount);
 
                 currentIsolatedObject.transform.GetChild(0).gameObject.SetActive(true);
                 for (int i = 0; i < currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount; i++)
@@ -809,7 +783,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                     GameObject chParent = currentIsolatedObject.transform.GetChild(0).transform.GetChild(i).gameObject;
                     chParent.SetActive(true);
 
-                    Debug.Log(chParent.transform.childCount);
+                    //Debug.Log(chParent.transform.childCount);
 
                     for (int j = 0; j < chParent.transform.childCount; j++)
                     {
@@ -835,11 +809,11 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 LayerButtonPressed.SetActive(false);
                 SkyboxButtonPressed.SetActive(false);
 
-                XButtonHighLight.SetActive(false);
+                /*XButtonHighLight.SetActive(false);
                 YButtonHighLight.SetActive(true);
                 AButtonHighLight.SetActive(false);
                 BButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
+                MenuButtonHighLight.SetActive(false);*/
 
                 isIsolatedOn = true;
             }
@@ -867,11 +841,11 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 LayerButtonPressed.SetActive(false);
                 SkyboxButtonPressed.SetActive(false);
 
-                XButtonHighLight.SetActive(false);
+                /*XButtonHighLight.SetActive(false);
                 YButtonHighLight.SetActive(true);
                 AButtonHighLight.SetActive(false);
                 BButtonHighLight.SetActive(false);
-                MenuButtonHighLight.SetActive(false);
+                MenuButtonHighLight.SetActive(false);*/
 
                 isIsolatedOn = true;
             }
@@ -1114,6 +1088,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
     public void LowerLimbsetDisection()
     {
+
         isDisection = true;
         completelowerBody.SetActive(true);
         closeButtonNew.SetActive(true);
@@ -1160,20 +1135,20 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
         //UI Changes
         MainUIPanel.SetActive(true);
-        HandMenuBar.SetActive(false);
+        HandMenuBar.SetActive(true);
         LayersUIPanel.SetActive(false);
         SkyboxUIPanel.SetActive(false);
 
-        LayerButton.SetActive(false);
-        SkyboxButton.SetActive(false);
+        LayerButton.SetActive(true);
+        SkyboxButton.SetActive(true);
         LayerButtonPressed.SetActive(false);
         SkyboxButtonPressed.SetActive(false);
 
-        XButtonHighLight.SetActive(false);
+        /*XButtonHighLight.SetActive(false);
         YButtonHighLight.SetActive(false);
         AButtonHighLight.SetActive(false);
         BButtonHighLight.SetActive(false);
-        MenuButtonHighLight.SetActive(true);
+        MenuButtonHighLight.SetActive(true);*/
 
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
@@ -1260,35 +1235,27 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isSkinOn == false)
         {
             current_BodySkin.SetActive(true);
-            skinBtn.SetActive(false);
             skinBtnPressed.SetActive(true);
 
             current_BodyMuscles.SetActive(false);
-            musclesBtn.SetActive(false);
             musclesBtnPressed.SetActive(true);
 
             current_BodyLigaments.SetActive(false);
-            ligamentBtn.SetActive(false);
             ligamentBtnPressed.SetActive(true);
 
             current_BodyArteries.SetActive(false);
-            arteriesBtn.SetActive(false);
             arteriesBtnPressed.SetActive(true);
 
             current_Bodybones.SetActive(false);
-            bonesBtn.SetActive(false);
             bonesBtnPressed.SetActive(true);
 
             current_BodyNerves.SetActive(false);
-            nervesBtn.SetActive(false);
             nervesBtnPressed.SetActive(true);
 
             current_BodyVains.SetActive(false);
-            veinsBtn.SetActive(false);
             veinsBtnPressed.SetActive(true);
 
             current_BodylyphaticSystem.SetActive(false);
-            lymphBtn.SetActive(false);
             lymphBtnPressed.SetActive(true);
 
             if (current_BodyOrgans != null)
@@ -1303,7 +1270,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         else
         {
             current_BodySkin.SetActive(false);
-            skinBtn.SetActive(true);
             skinBtnPressed.SetActive(false);
 
             current_BodyMuscles.SetActive(true);
@@ -1334,7 +1300,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isMusclesOn == true)
         {
             current_BodyMuscles.SetActive(true);
-            musclesBtn.SetActive(false);
+            musclesBtn.SetActive(true);
             musclesBtnPressed.SetActive(true);
             isMusclesOn = false;
         }
@@ -1351,7 +1317,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isLigamentsOn == true)
         {
             current_BodyLigaments.SetActive(true);
-            ligamentBtn.SetActive(false);
+            ligamentBtn.SetActive(true);
             ligamentBtnPressed.SetActive(true);
             isLigamentsOn = false;
         }
@@ -1368,7 +1334,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isArteriesOn == true)
         {
             current_BodyArteries.SetActive(true);
-            arteriesBtn.SetActive(false);
+            arteriesBtn.SetActive(true);
             arteriesBtnPressed.SetActive(true);
             isArteriesOn = false;
         }
@@ -1386,7 +1352,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isVainsOn == true)
         {
             current_BodyVains.SetActive(true);
-            veinsBtn.SetActive(false);
+            veinsBtn.SetActive(true);
             veinsBtnPressed.SetActive(true);
             isVainsOn = false;
         }
@@ -1404,7 +1370,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isNervesOn == true)
         {
             current_BodyNerves.SetActive(true);
-            nervesBtn.SetActive(false);
+            nervesBtn.SetActive(true);
             nervesBtnPressed.SetActive(true);
             isNervesOn = false;
         }
@@ -1421,7 +1387,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isBonesOn == true)
         {
             current_Bodybones.SetActive(true);
-            bonesBtn.SetActive(false);
+            bonesBtn.SetActive(true);
             bonesBtnPressed.SetActive(true);
             isBonesOn = false;
         }
@@ -1439,7 +1405,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         if (isLyphaticOn == true)
         {
             current_BodylyphaticSystem.SetActive(true);
-            lymphBtn.SetActive(false);
+            lymphBtn.SetActive(true);
             lymphBtnPressed.SetActive(true);
             isLyphaticOn = false;
         }

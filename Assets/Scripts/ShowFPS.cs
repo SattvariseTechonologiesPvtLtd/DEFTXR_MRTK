@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ShowFPS : MonoBehaviour
 {
     public float timer, refresh, avgFramerate;
     public string display = "{0} FPS";
-    public Text m_Text;
+    public TextMeshPro m_Text;
 
     void Start()
     {

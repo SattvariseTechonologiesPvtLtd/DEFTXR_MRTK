@@ -2,6 +2,7 @@
 using System;
 using TMPro;
 using UnityEngine.UI;
+using MixedReality.Toolkit.SpatialManipulation;
 
 public class myCollisionBehaviour : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class myCollisionBehaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
+
         if (String.Compare(other.gameObject.name, "TouchPos") == 0)
         {
             if (String.Compare(IntractionManager.Instance.selectObjName, "") == 0)
@@ -33,13 +35,14 @@ public class myCollisionBehaviour : MonoBehaviour
                     DEFTXR_UI_Manager.Instance.currentSelectedAssetNo = myAssetNo;
                 }
 
-                //changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
+                changeSelectionMaterialProperties(this.gameObject.GetComponent<Renderer>().material);
 
                 if (myLable != null)
                 {
                     myLable.SetActive(true);
 
-                    DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
+                    //DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
+                    DEFTXR_UI_Manager.Instance.FeaturesUIPanel.SetActive(true);
 
                     if (myEnglishName != null && myLatinName != null)
                     {
@@ -53,7 +56,7 @@ public class myCollisionBehaviour : MonoBehaviour
 
                         if (isBones || isMuscle)
                         {
-                            DEFTXR_UI_Manager.Instance.XButtonHighLight.SetActive(true);  
+                            DEFTXR_UI_Manager.Instance.FeaturesUIPanel.SetActive(true);
 
                             if (myAssetNo > -1 && DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
                             {
@@ -139,8 +142,13 @@ public class myCollisionBehaviour : MonoBehaviour
                 }
             }
             Debug.Log("name : " + this.gameObject.name);
+            //tempmethod
+            LL_SceneManager.Instance.attachMRTK(this.gameObject);
         }
     }
+
+    
+
 
     // Use this for initialization
     void Start()
@@ -230,7 +238,7 @@ public class myCollisionBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (String.Equals(this.gameObject.name, IntractionManager.Instance.selectObjName) == false)
+        if (string.Equals(this.gameObject.name, IntractionManager.Instance.selectObjName) == false)
         {
             //Debug.Log("called here" + this.gameObject.GetComponent<Renderer>().material.name);
             if (isBones)

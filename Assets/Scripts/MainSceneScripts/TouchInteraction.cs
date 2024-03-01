@@ -16,7 +16,6 @@ public class TouchInteraction : MonoBehaviour
     void Update()
     {
         this.gameObject.transform.position = tracker.transform.position;
-
         this.gameObject.transform.rotation = tracker.transform.rotation;
     }
 }

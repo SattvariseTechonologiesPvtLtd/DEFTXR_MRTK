@@ -240,8 +240,8 @@ public class isolatedMusclesManager : MonoBehaviour
         index++;
         DEFTXR_UI_Manager.Instance.currentSelectObject.SetActive(false);
 
-        DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(false);
-        DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(true); 
+        //DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(false);
+        //DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(true); 
     }
     public void undoButtonClick()
     {
@@ -252,12 +252,12 @@ public class isolatedMusclesManager : MonoBehaviour
             parts.RemoveAt(index);
             index--;
 
-            DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
-            DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(false);
+            //DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
+            //DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(false);
         }
         else
         {
-            DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(false);
+            //DEFTXR_UI_Manager.Instance.AButtonHighLight.SetActive(false);
         }
     }
 }

@@ -15,7 +15,7 @@ public class SkyboxManager : MonoBehaviour
 
     public void Start()
     {
-        BeachButton.SetActive(false);
+        BeachButton.SetActive(true);
         BeachPressedButton.SetActive(true);
         BarrenLandButton.SetActive(true);
         BarrenLandPressedButton.SetActive(false);
@@ -31,7 +31,7 @@ public class SkyboxManager : MonoBehaviour
     {
         RenderSettings.skybox = BeachskyboxMaterial;
 
-        BeachButton.SetActive(false);
+        BeachButton.SetActive(true);
         BarrenLandButton.SetActive(true);
         BlockButton.SetActive(true);
         CyberpunkButton.SetActive(true);
@@ -49,7 +49,7 @@ public class SkyboxManager : MonoBehaviour
     {
         RenderSettings.skybox = BarrenLandskyboxMaterial;
 
-        BarrenLandButton.SetActive(false);
+        BarrenLandButton.SetActive(true);
         BeachButton.SetActive(true);
         BlockButton.SetActive(true);
         CyberpunkButton.SetActive(true);
@@ -65,7 +65,7 @@ public class SkyboxManager : MonoBehaviour
     {
         RenderSettings.skybox = BlockskyboxMaterial;
 
-        BlockButton.SetActive(false);
+        BlockButton.SetActive(true);
         BeachButton.SetActive(true);
         BarrenLandButton.SetActive(true);
         CyberpunkButton.SetActive(true);
@@ -81,7 +81,7 @@ public class SkyboxManager : MonoBehaviour
     {
         RenderSettings.skybox = CyberpunkskyboxMaterial;
 
-        CyberpunkButton.SetActive(false);
+        CyberpunkButton.SetActive(true);
         BeachButton.SetActive(true);
         BarrenLandButton.SetActive(true);
         BlockButton.SetActive(true);
@@ -97,7 +97,7 @@ public class SkyboxManager : MonoBehaviour
     {
         RenderSettings.skybox = ScifiskyboxMaterial;
 
-        ScifiButton.SetActive(false);
+        ScifiButton.SetActive(true);
         BeachButton.SetActive(true);
         BarrenLandButton.SetActive(true);
         BlockButton.SetActive(true);
