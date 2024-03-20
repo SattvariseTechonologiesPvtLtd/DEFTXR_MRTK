@@ -3,78 +3,48 @@ using MixedReality.Toolkit.SpatialManipulation;
 
 public class EnableDisableGizmo : MonoBehaviour
 {
-    public MonoBehaviour BoundsControl,ObjectManipulator;
-    public BoxCollider WholeBodyObject;
+    public static EnableDisableGizmo Instance;
 
-    // Assuming you have a reference to your BoundsControl component
-    public BoundsControl boundsControl;
-    public GameObject GizmoBorder;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        // Disable the targetScript at the start of the scene
-        if (BoundsControl != null)
-        {
-            BoundsControl.enabled = false;
-        }
-        if (ObjectManipulator != null)
-        {
-            ObjectManipulator.enabled = false;
-        }
-        if (WholeBodyObject != null)
-        {
-            WholeBodyObject.enabled = false;
-        }
-        if (GizmoBorder != null)
-        {
-            GizmoBorder.SetActive(false);
-        }
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public GameObject Target;
+    public GameObject BoundingBox;
+    public double DragToggleThreshold = 0.005;
+
+    public void Start()
     {
-        // Check for button click, e.g., the space key
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            // Toggle the enabled state of the targetScript
-            if (GizmoBorder != null)
-            {
-                GizmoBorder.SetActive(!GizmoBorder.activeSelf);
-            }
-            if (BoundsControl != null)
-            {
-                BoundsControl.enabled = !BoundsControl.enabled;
-            }
-            if (ObjectManipulator != null)
-            {
-                ObjectManipulator.enabled = !ObjectManipulator.enabled;
-            }
-            if (WholeBodyObject != null)
-            {
-                WholeBodyObject.enabled = !WholeBodyObject.enabled;
-            }
-        }
+
     }
+
     public void OnGizmoButtonClick()
     {
-        if (GizmoBorder != null)
-        {
-            GizmoBorder.SetActive(!GizmoBorder.activeSelf);
-        }
-        if (BoundsControl != null)
-        {
-            BoundsControl.enabled = !BoundsControl.enabled;
-            boundsControl.HandlesActive = !boundsControl.HandlesActive;
-        }
-        if (ObjectManipulator != null)
-        {
-            ObjectManipulator.enabled = !ObjectManipulator.enabled;
-        }
-        if (WholeBodyObject != null)
-        {
-            WholeBodyObject.enabled = !WholeBodyObject.enabled;
-        }
+        /*------------ Object Manipulator Script and Their Properties -------------*/
+        Target.AddComponent<ObjectManipulator>().EnableConstraints = true;
+
+        /*----------- Bounds Control Script and Their Properties -----------*/
+        var boundsControl = Target.AddComponent<BoundsControl>();
+        boundsControl.BoundsVisualsPrefab = BoundingBox;
+        boundsControl.HandlesActive = true;
+        boundsControl.IncludeInactiveObjects = true;
+        boundsControl.OverrideBounds = true;
+        boundsControl.FlattenMode = FlattenMode.Never;
+        boundsControl.BoundsCalculationMethod = BoundsCalculator.BoundsCalculationMethod.ColliderOnly;
+        boundsControl.BoundsOverride = Target.transform;
+        boundsControl.Target = Target.transform;
+        boundsControl.DragToggleThreshold = (float)DragToggleThreshold;
+        boundsControl.ConstraintsManager = Target.GetComponent<ConstraintManager>();
+        boundsControl.EnableConstraints = true;
+
+        /*----------- ConstraintManager Script and Their Properties -----------*/
+        Target.AddComponent<ConstraintManager>();
+
+        /*----------- MinMaxScaleConstraint Script and Their Properties -----------*/
+        var minMaxScaleConstraint = Target.AddComponent<MinMaxScaleConstraint>();
+        minMaxScaleConstraint.RelativeToInitialState = false;
+        minMaxScaleConstraint.MinimumScale = new Vector3(1, 1, 1);
+        minMaxScaleConstraint.MaximumScale = new Vector3(3, 3, 3);
     }
 }

@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MixedReality.Toolkit.SpatialManipulation;
 
 public class AssetManagementScript : MonoBehaviour
 {
+    private Quaternion originalRotation;
+    private Vector3 originalScale;
 
     [SerializeField]
     public GameObject[] isolatedMuscleAssets;
@@ -45,6 +48,8 @@ public class AssetManagementScript : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        originalRotation = transform.rotation;
+        originalScale = transform.localScale;
     }
     public void setIsolatedMuscleData()
     {
@@ -146,6 +151,28 @@ public class AssetManagementScript : MonoBehaviour
                     isolatedSkeletonBonesMenuPanels[i].SetActive(false);
                 }
             }
+        }
+    }
+
+    public void ResetIsolatedObj()
+    {
+        if (isolated_object != null)
+        {
+            // Reset rotation to the original rotation
+            isolated_object.transform.rotation = originalRotation;
+
+            // Reset scale to the original scale
+            isolated_object.transform.localScale = originalScale;
+
+            if (DEFTXR_UI_Manager.Instance.isIsolatedOn == true)
+            {
+                AttachMRTK.Instance.detachMRTKFromIsolate(AssetManagementScript.Instance.isolated_object);
+                isolated_object.GetComponent<BoxCollider>().enabled = false;
+            }
+
+            DEFTXR_UI_Manager.Instance.GizmoButtonPressed.SetActive(false);
+            DEFTXR_UI_Manager.Instance.GizmoButton.SetActive(true);
+
         }
     }
 

@@ -4,7 +4,6 @@
     "com.microsoft.mixedreality.openxr": "file:MixedReality/com.microsoft.mixedreality.openxr-1.10.0.tgz",
     "com.microsoft.mrtk.graphicstools.unity": "file:MixedReality/com.microsoft.mrtk.graphicstools.unity-0.6.7.tgz",
     "com.microsoft.mrtk.tts.windows": "file:MixedReality/com.microsoft.mrtk.tts.windows-1.0.4.tgz",
-    "com.unity.adaptiveperformance": "5.0.2",
     "com.unity.burst": "1.7.2",
     "com.unity.collab-proxy": "1.17.7",
     "com.unity.collections": "1.2.4",

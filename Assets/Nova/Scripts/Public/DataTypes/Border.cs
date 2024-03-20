@@ -54,6 +54,7 @@ namespace Nova
         /// </summary>
         [SerializeField]
         public BorderDirection Direction;
+        public static bool activeSelf;
 
         /// <summary>
         /// Constructs a new <see cref="Border"/>.

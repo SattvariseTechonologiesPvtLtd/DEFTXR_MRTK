@@ -6,6 +6,13 @@ using MixedReality.Toolkit.SpatialManipulation;
 
 public class myCollisionBehaviour : MonoBehaviour
 {
+    public static myCollisionBehaviour Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     Material myOriginalMat, selctionMaterial;
     [SerializeField] GameObject myLable;
     public GameObject publicLable;
@@ -18,10 +25,11 @@ public class myCollisionBehaviour : MonoBehaviour
 
     [SerializeField] string myContent;
 
+    public bool isAttach = false;
+    public bool enablehandles = false;
+
     private void OnTriggerEnter(Collider other)
     {
-
-
         if (String.Compare(other.gameObject.name, "TouchPos") == 0)
         {
             if (String.Compare(IntractionManager.Instance.selectObjName, "") == 0)
@@ -41,6 +49,9 @@ public class myCollisionBehaviour : MonoBehaviour
                 {
                     myLable.SetActive(true);
 
+                    DEFTXR_UI_Manager.Instance.HideButton.SetActive(true);
+                    //DEFTXR_UI_Manager.Instance.UndoButton.SetActive(true);
+
                     //DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
                     DEFTXR_UI_Manager.Instance.FeaturesUIPanel.SetActive(true);
 
@@ -57,6 +68,7 @@ public class myCollisionBehaviour : MonoBehaviour
                         if (isBones || isMuscle)
                         {
                             DEFTXR_UI_Manager.Instance.FeaturesUIPanel.SetActive(true);
+                            DEFTXR_UI_Manager.Instance.IsolateButton.SetActive(true);
 
                             if (myAssetNo > -1 && DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
                             {
@@ -76,6 +88,7 @@ public class myCollisionBehaviour : MonoBehaviour
                             {
                                 if (DEFTXR_UI_Manager.Instance.isDisection == false)
                                 {
+                                    DEFTXR_UI_Manager.Instance.IsolateButton.SetActive(true);
                                 }
                             }
                         }
@@ -116,6 +129,7 @@ public class myCollisionBehaviour : MonoBehaviour
 
                             if (isBones || isMuscle)
                             {
+                                DEFTXR_UI_Manager.Instance.IsolateButton.SetActive(true);
                                 if (myAssetNo > -1 && DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
                                 {
                                     if (DEFTXR_UI_Manager.Instance.isDisection == false)
@@ -141,15 +155,19 @@ public class myCollisionBehaviour : MonoBehaviour
                     }
                 }
             }
-            Debug.Log("name : " + this.gameObject.name);
-            //tempmethod
-            LL_SceneManager.Instance.attachMRTK(this.gameObject);
+
+            //Attach MRTK Components
+            if (isAttach == false && DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
+            {
+                AttachMRTK.Instance.attachMRTK(this.gameObject); // Attach them again
+                isAttach = true;            
+            }
+            else
+            {
+                PreviousCurrentObjects.Instance.AssignObjects(this.gameObject);
+            }
         }
     }
-
-    
-
-
     // Use this for initialization
     void Start()
     {
@@ -234,7 +252,6 @@ public class myCollisionBehaviour : MonoBehaviour
             }
         }
     }
-
     // Update is called once per frame
     void Update()
     {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using MixedReality.Toolkit.SpatialManipulation;
 
 public class ResetToOrgPos : MonoBehaviour
 {
@@ -8,66 +9,72 @@ public class ResetToOrgPos : MonoBehaviour
         public Vector3 position;
         public Quaternion rotation;
         public Vector3 scale;
-        //public bool hasBoxCollider;  // Flag to indicate if BoxCollider is attached
 
         public TransformProperties(Transform transform)
         {
             position = transform.localPosition;
             rotation = transform.localRotation;
             scale = transform.localScale;
-            //hasBoxCollider = transform.GetComponent<BoxCollider>() != null;
         }
     }
 
     private void Start()
     {
-        // Store the original properties of all child and subchild objects
+        // Store the original properties of the parent object
         StoreOriginalProperties(transform);
     }
 
-    private void StoreOriginalProperties(Transform parent)
+    private void StoreOriginalProperties(Transform obj)
     {
-        foreach (Transform child in parent)
-        {
-            // Store the original properties in the dictionary
-            TransformProperties originalProperties = new TransformProperties(child);
-            child.gameObject.AddComponent<Resettable>().originalProperties = originalProperties;
+        // Store the original properties in the dictionary
+        TransformProperties originalProperties = new TransformProperties(obj);
+        Resettable resettable = obj.gameObject.AddComponent<Resettable>();
+        resettable.originalProperties = originalProperties;
 
-            // Recursively store properties of subchild objects
+        // If BoundsControl is attached, get and store its handles
+        BoundsControl boundsControl = obj.GetComponent<BoundsControl>();
+        if (boundsControl != null)
+        {
+            resettable.boundsControlHandles = boundsControl.HandlesActive;
+        }
+
+        // Recursively store properties of child objects
+        foreach (Transform child in obj)
+        {
             StoreOriginalProperties(child);
         }
     }
 
     public void OnResetButtonClick()
     {
-        // Reset the properties of all child and subchild objects
+        // Reset the properties of the parent object and its children
         ResetObjectProperties(transform);
     }
 
-    private void ResetObjectProperties(Transform parent)
+    private void ResetObjectProperties(Transform obj)
     {
-        foreach (Transform child in parent)
+        // Retrieve the Resettable component from the object
+        Resettable resettable = obj.GetComponent<Resettable>();
+
+        // Check if the Resettable component is attached
+        if (resettable != null)
         {
-            // Retrieve the Resettable component from the child
-            Resettable resettable = child.GetComponent<Resettable>();
+            // Reset the transform properties
+            obj.localPosition = resettable.originalProperties.position;
+            obj.localRotation = resettable.originalProperties.rotation;
+            obj.localScale = resettable.originalProperties.scale;
 
-            // Check if the Resettable component is attached
-            if (resettable != null)
+            // If BoundsControl is attached, disable its handles
+            BoundsControl boundsControl = obj.GetComponent<BoundsControl>();
+            if (boundsControl != null)
             {
-                // Reset the transform properties
-                child.localPosition = resettable.originalProperties.position;
-                child.localRotation = resettable.originalProperties.rotation;
-                child.localScale = resettable.originalProperties.scale;
-
-                // Disable the BoxCollider if it is attached
-                /*BoxCollider boxCollider = child.GetComponent<BoxCollider>();
-                if (boxCollider != null && resettable.originalProperties.hasBoxCollider)
-                {
-                    boxCollider.enabled = false;
-                }*/
+                boundsControl.HandlesActive = false;
             }
+        }
 
-            // Recursively reset properties of subchild objects
+        // Recursively reset properties of child objects
+        foreach (Transform child in obj)
+        {
             ResetObjectProperties(child);
         }
     }
@@ -76,6 +83,7 @@ public class ResetToOrgPos : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
+            // Reset the properties of the parent object and its children
             ResetObjectProperties(transform);
         }
     }
@@ -84,5 +92,6 @@ public class ResetToOrgPos : MonoBehaviour
     private class Resettable : MonoBehaviour
     {
         public TransformProperties originalProperties;
+        public bool boundsControlHandles;
     }
 }
