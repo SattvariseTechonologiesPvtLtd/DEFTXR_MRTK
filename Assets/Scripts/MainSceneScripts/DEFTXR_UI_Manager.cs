@@ -23,9 +23,9 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
     [Header("")]
     [Header("Upper Body Content")]
-    GameObject upperBodybones;
-    GameObject upperBodyLigaments, upperBodyMuscles, upperBodyArteries, upperBodyNerves, upperBodySkin, upperBodyVains, upperBodylyphaticSystem;
-    GameObject completeUpperBody;
+    [SerializeField] GameObject upperBodybones;
+    [SerializeField] GameObject upperBodyLigaments, upperBodyMuscles, upperBodyArteries, upperBodyNerves, upperBodySkin, upperBodyVains, upperBodylyphaticSystem;
+    [SerializeField] GameObject completeUpperBody;
 
     [Header("Lower Body Content")]
     [SerializeField] GameObject lowerBodybones;
@@ -33,24 +33,24 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     [SerializeField] public GameObject completelowerBody;
 
     [Header("Thorax Content")]
-    GameObject Thoraxbones;
-    GameObject ThoraxLigaments, ThoraxSkin, ThoraxlyphaticSystem, ThoraxMuscles, ThoraxArteries, ThoraxNerves, ThoraxVains, ThoraxOrgans;
-    GameObject completeThorax;
+    [SerializeField] GameObject Thoraxbones;
+    [SerializeField] GameObject ThoraxLigaments, ThoraxSkin, ThoraxlyphaticSystem, ThoraxMuscles, ThoraxArteries, ThoraxNerves, ThoraxVains, ThoraxOrgans;
+    [SerializeField] GameObject completeThorax;
 
     [Header("Abdomen Content")]
-    GameObject Abdomenbones;
-    GameObject AbdomenLigaments, AbdomenSkin, AbdomenlyphaticSystem, AbdomenMuscles, AbdomenArteries, AbdomenNerves, AbdomenVains, AbdomenOrgans;
-    GameObject completeAbdomen;
+    [SerializeField] GameObject Abdomenbones;
+    [SerializeField] GameObject AbdomenLigaments, AbdomenSkin, AbdomenlyphaticSystem, AbdomenMuscles, AbdomenArteries, AbdomenNerves, AbdomenVains, AbdomenOrgans;
+    [SerializeField] GameObject completeAbdomen;
 
     [Header("Head & Neck Content")]
-    GameObject HeadNeckbones;
-    GameObject HeadNeckLigaments, HeadNeckSkin, HeadNecklyphaticSystem, HeadNeckMuscles, HeadNeckArteries, HeadNeckNerves, HeadNeckVains, HeadNeckOrgans;
-    GameObject completeHeadNeck;
+    [SerializeField] GameObject HeadNeckbones;
+    [SerializeField] GameObject HeadNeckLigaments, HeadNeckSkin, HeadNecklyphaticSystem, HeadNeckMuscles, HeadNeckArteries, HeadNeckNerves, HeadNeckVains, HeadNeckOrgans;
+    [SerializeField] GameObject completeHeadNeck;
 
     [Header("Current Body Content")]
-    GameObject current_Bodybones;
-    GameObject current_BodyLigaments, current_BodyMuscles, current_BodyArteries, current_BodyNerves, current_BodySkin, current_BodyVains, current_BodylyphaticSystem, current_BodyOrgans;
-    GameObject completecurrent_Body;
+    [SerializeField] GameObject current_Bodybones;
+    [SerializeField] GameObject current_BodyLigaments, current_BodyMuscles, current_BodyArteries, current_BodyNerves, current_BodySkin, current_BodyVains, current_BodylyphaticSystem, current_BodyOrgans;
+    [SerializeField] GameObject completecurrent_Body;
 
     [Header("")]
     [SerializeField] string selectedEnglishName, selectedLatinName;
@@ -437,6 +437,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(true);
+                SkyboxUIPanel.SetActive(false);
+
+                FeaturesUIPanel.SetActive(true);
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(true);
+                IsolateButtonPressed.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(false);
+                LayerButton.GetComponent<Interactable>().enabled = true;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<Interactable>().enabled = true;
+                LayerButtonPressed.SetActive(true);
+                SkyboxButtonPressed.SetActive(false);
+
                 if (selectedBone != null)
                 {
                     selectedBone.GetComponent<FloorCollision>().resetToOrgpos();
@@ -459,6 +479,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
+
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(true);
+                SkyboxUIPanel.SetActive(false);
+
+                FeaturesUIPanel.SetActive(true);
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(true);
+                IsolateButtonPressed.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(false);
+                LayerButton.GetComponent<BoxCollider>().enabled = true;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = true;
+                LayerButtonPressed.SetActive(true);
+                SkyboxButtonPressed.SetActive(false);
 
                 englishName.text = "";
                 latinName.text = "";
@@ -541,9 +581,9 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 UndoButton.SetActive(true);
 
                 LayerButton.SetActive(false);
-                LayerButton.GetComponent<Interactable>().enabled = true;
+                LayerButton.GetComponent<BoxCollider>().enabled = true;
                 SkyboxButton.SetActive(true);
-                SkyboxButton.GetComponent<Interactable>().enabled = true;
+                SkyboxButton.GetComponent<BoxCollider>().enabled = true;
                 LayerButtonPressed.SetActive(true);
                 SkyboxButtonPressed.SetActive(false);
 
@@ -575,6 +615,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(true);
+                SkyboxUIPanel.SetActive(false);
+
+                FeaturesUIPanel.SetActive(true);
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(true);
+                IsolateButtonPressed.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(false);
+                LayerButton.GetComponent<Interactable>().enabled = true;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<Interactable>().enabled = true;
+                LayerButtonPressed.SetActive(true);
+                SkyboxButtonPressed.SetActive(false);
+
                 if (selectedBone != null)
                 {
                     selectedBone.GetComponent<FloorCollision>().resetToOrgpos();
@@ -598,6 +658,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(true);
+                SkyboxUIPanel.SetActive(false);
+
+                FeaturesUIPanel.SetActive(true);
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(true);
+                IsolateButtonPressed.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(false);
+                LayerButton.GetComponent<BoxCollider>().enabled = true;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = true;
+                LayerButtonPressed.SetActive(true);
+                SkyboxButtonPressed.SetActive(false);
+
                 englishName.text = "";
                 latinName.text = "";
                 content.text = "";
@@ -620,6 +700,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(true);
+                SkyboxUIPanel.SetActive(false);
+
+                FeaturesUIPanel.SetActive(true);
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(true);
+                IsolateButtonPressed.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(false);
+                LayerButton.GetComponent<Interactable>().enabled = true;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<Interactable>().enabled = true;
+                LayerButtonPressed.SetActive(true);
+                SkyboxButtonPressed.SetActive(false);
+
                 if (selectedBone != null)
                 {
                     selectedBone.GetComponent<FloorCollision>().resetToOrgpos();
@@ -641,6 +741,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
+
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(true);
+                SkyboxUIPanel.SetActive(false);
+
+                FeaturesUIPanel.SetActive(true);
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(true);
+                IsolateButtonPressed.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(false);
+                LayerButton.GetComponent<BoxCollider>().enabled = true;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = true;
+                LayerButtonPressed.SetActive(true);
+                SkyboxButtonPressed.SetActive(false);
 
                 englishName.text = "";
                 latinName.text = "";
@@ -664,6 +784,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(true);
+                SkyboxUIPanel.SetActive(false);
+
+                FeaturesUIPanel.SetActive(true);
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(true);
+                IsolateButtonPressed.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(false);
+                LayerButton.GetComponent<Interactable>().enabled = true;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<Interactable>().enabled = true;
+                LayerButtonPressed.SetActive(true);
+                SkyboxButtonPressed.SetActive(false);
+
                 if (selectedBone != null)
                 {
                     selectedBone.GetComponent<FloorCollision>().resetToOrgpos();
@@ -686,6 +826,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(true);
+                SkyboxUIPanel.SetActive(false);
+
+                FeaturesUIPanel.SetActive(true);
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(true);
+                IsolateButtonPressed.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(false);
+                LayerButton.GetComponent<BoxCollider>().enabled = true;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = true;
+                LayerButtonPressed.SetActive(true);
+                SkyboxButtonPressed.SetActive(false);
+
                 englishName.text = "";
                 latinName.text = "";
                 content.text = "";
@@ -704,6 +864,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
+
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(true);
+                SkyboxUIPanel.SetActive(false);
+
+                FeaturesUIPanel.SetActive(true);
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(true);
+                IsolateButtonPressed.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(false);
+                LayerButton.GetComponent<Interactable>().enabled = true;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<Interactable>().enabled = true;
+                LayerButtonPressed.SetActive(true);
+                SkyboxButtonPressed.SetActive(false);
 
                 selectedBone.GetComponent<FloorCollision>().resetToOrgpos();
                 selectedBone = null;
@@ -725,6 +905,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButton.SetActive(false);
                 closeButtonNew.SetActive(true);
                 closetoWelcomeBtn.SetActive(false);
+
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(true);
+                SkyboxUIPanel.SetActive(false);
+
+                FeaturesUIPanel.SetActive(true);
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(true);
+                IsolateButtonPressed.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(false);
+                LayerButton.GetComponent<BoxCollider>().enabled = true;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = true;
+                LayerButtonPressed.SetActive(true);
+                SkyboxButtonPressed.SetActive(false);
 
                 englishName.text = "";
                 latinName.text = "";
@@ -754,7 +954,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 currentIsolatedObject = AssetManagementScript.Instance.isolatedMuscleAssets[DEFTXR_UI_Manager.Instance.currentSelectedAssetNo];
                 currentIsolatedObject.SetActive(true);
 
-                Debug.Log(currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount);
+                //Debug.Log(currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount);
 
                 currentIsolatedObject.transform.GetChild(0).gameObject.SetActive(true);
                 for (int i = 0; i < currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount; i++)
@@ -762,7 +962,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                     GameObject chParent = currentIsolatedObject.transform.GetChild(0).transform.GetChild(i).gameObject;
                     chParent.SetActive(true);
 
-                    Debug.Log(chParent.transform.childCount);
+                    //Debug.Log(chParent.transform.childCount);
 
                     for (int j = 0; j < chParent.transform.childCount; j++)
                     {
@@ -778,6 +978,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(false);
+                SkyboxUIPanel.SetActive(false);
+                FeaturesUIPanel.SetActive(true);
+
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(true);
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                LayerButtonPressed.SetActive(false);
+                SkyboxButtonPressed.SetActive(false);
+                IsolateButtonPressed.SetActive(true);
+
                 isIsolatedOn = true;
             }
 
@@ -792,6 +1012,27 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButton.SetActive(true);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
+
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(false);
+                SkyboxUIPanel.SetActive(false);
+
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(false);
+                HideButton.SetActive(false);
+                UndoButton.SetActive(false);
+
+                FeaturesUIPanel.SetActive(false);
+
+                LayerButton.SetActive(true);
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                LayerButtonPressed.SetActive(false);
+                SkyboxButtonPressed.SetActive(false);
+                IsolateButtonPressed.SetActive(true);
 
                 isIsolatedOn = true;
             }
@@ -886,9 +1127,9 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 FeaturesUIPanel.SetActive(false);
 
                 LayerButton.SetActive(true);
-                LayerButton.GetComponent<Interactable>().enabled = false;
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
                 SkyboxButton.SetActive(true);
-                SkyboxButton.GetComponent<Interactable>().enabled = false;
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
                 LayerButtonPressed.SetActive(false);
                 SkyboxButtonPressed.SetActive(false);
                 IsolateButtonPressed.SetActive(true);
@@ -934,6 +1175,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(false);
+                SkyboxUIPanel.SetActive(false);
+                FeaturesUIPanel.SetActive(true);
+
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(true);
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                LayerButtonPressed.SetActive(false);
+                SkyboxButtonPressed.SetActive(false);
+                IsolateButtonPressed.SetActive(true);
+
                 isIsolatedOn = true;
             }
 
@@ -948,6 +1209,27 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButton.SetActive(true);;
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
+
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(false);
+                SkyboxUIPanel.SetActive(false);
+
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(false);
+                HideButton.SetActive(false);
+                UndoButton.SetActive(false);
+
+                FeaturesUIPanel.SetActive(false);
+
+                LayerButton.SetActive(true);
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                LayerButtonPressed.SetActive(false);
+                SkyboxButtonPressed.SetActive(false);
+                IsolateButtonPressed.SetActive(true);
 
                 isIsolatedOn = true;
             }
@@ -984,6 +1266,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(false);
+                SkyboxUIPanel.SetActive(false);
+                FeaturesUIPanel.SetActive(true);
+
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(true);
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                LayerButtonPressed.SetActive(false);
+                SkyboxButtonPressed.SetActive(false);
+                IsolateButtonPressed.SetActive(true);
+
                 isIsolatedOn = true;
             }
 
@@ -999,6 +1301,27 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButton.SetActive(true);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
+
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(false);
+                SkyboxUIPanel.SetActive(false);
+
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(false);
+                HideButton.SetActive(false);
+                UndoButton.SetActive(false);
+
+                FeaturesUIPanel.SetActive(false);
+
+                LayerButton.SetActive(true);
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                LayerButtonPressed.SetActive(false);
+                SkyboxButtonPressed.SetActive(false);
+                IsolateButtonPressed.SetActive(true);
 
                 isIsolatedOn = true;
             }
@@ -1035,6 +1358,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(false);
+                SkyboxUIPanel.SetActive(false);
+                FeaturesUIPanel.SetActive(true);
+
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(true);
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                LayerButtonPressed.SetActive(false);
+                SkyboxButtonPressed.SetActive(false);
+                IsolateButtonPressed.SetActive(true);
+
                 isIsolatedOn = true;
             }
 
@@ -1050,6 +1393,27 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButton.SetActive(true);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
+
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(false);
+                SkyboxUIPanel.SetActive(false);
+
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(false);
+                HideButton.SetActive(false);
+                UndoButton.SetActive(false);
+
+                FeaturesUIPanel.SetActive(false);
+
+                LayerButton.SetActive(true);
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                LayerButtonPressed.SetActive(false);
+                SkyboxButtonPressed.SetActive(false);
+                IsolateButtonPressed.SetActive(true);
 
                 isIsolatedOn = true;
             }
@@ -1068,6 +1432,27 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
 
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(false);
+                SkyboxUIPanel.SetActive(false);
+
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(false);
+                HideButton.SetActive(false);
+                UndoButton.SetActive(false);
+
+                FeaturesUIPanel.SetActive(false);
+
+                LayerButton.SetActive(true);
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                LayerButtonPressed.SetActive(false);
+                SkyboxButtonPressed.SetActive(false);
+                IsolateButtonPressed.SetActive(true);
+
                 isIsolatedOn = true;
             }
         }
@@ -1080,7 +1465,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 currentIsolatedObject.SetActive(true);
                 AssetManagementScript.Instance.setIsolatedMuscleData();
 
-                Debug.Log(currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount);
+                //Debug.Log(currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount);
 
                 currentIsolatedObject.transform.GetChild(0).gameObject.SetActive(true);
                 for (int i = 0; i < currentIsolatedObject.transform.GetChild(0).gameObject.transform.childCount; i++)
@@ -1088,7 +1473,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                     GameObject chParent = currentIsolatedObject.transform.GetChild(0).transform.GetChild(i).gameObject;
                     chParent.SetActive(true);
 
-                    Debug.Log(chParent.transform.childCount);
+                    //Debug.Log(chParent.transform.childCount);
 
                     for (int j = 0; j < chParent.transform.childCount; j++)
                     {
@@ -1101,6 +1486,26 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 closeButton.SetActive(true);
                 closeButtonNew.SetActive(false);
                 closetoWelcomeBtn.SetActive(false);
+
+                //UI Changes
+                MainUIPanel.SetActive(true);
+                HandMenuBar.SetActive(true);
+                LayersUIPanel.SetActive(false);
+                SkyboxUIPanel.SetActive(false);
+                FeaturesUIPanel.SetActive(true);
+
+                GizmoButton.SetActive(true);
+                IsolateButton.SetActive(false);
+                HideButton.SetActive(true);
+                UndoButton.SetActive(true);
+
+                LayerButton.SetActive(true);
+                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                SkyboxButton.SetActive(true);
+                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                LayerButtonPressed.SetActive(false);
+                SkyboxButtonPressed.SetActive(false);
+                IsolateButtonPressed.SetActive(true);
 
                 isIsolatedOn = true;
             }
@@ -1152,6 +1557,30 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
         region = Region.upperLimb;
         setContent();
+
+        //UI Changes
+        MainUIPanel.SetActive(true);
+        HandMenuBar.SetActive(true);
+        LayersUIPanel.SetActive(false);
+        SkyboxUIPanel.SetActive(false);
+
+        LayerButton.SetActive(true);
+        SkyboxButton.SetActive(true);
+        LayerButtonPressed.SetActive(false);
+        SkyboxButtonPressed.SetActive(false);
+
+        FeaturesUIPanel.SetActive(true);
+        GizmoButton.SetActive(true);
+        IsolateButton.SetActive(false);
+        HideButton.SetActive(false);
+        UndoButton.SetActive(false);
+
+        /*XButtonHighLight.SetActive(false);
+        YButtonHighLight.SetActive(false);
+        AButtonHighLight.SetActive(false);
+        BButtonHighLight.SetActive(false);
+        MenuButtonHighLight.SetActive(true);*/
+
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
@@ -1255,6 +1684,30 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
         region = Region.thorax;
         setContent();
+
+        //UI Changes
+        MainUIPanel.SetActive(true);
+        HandMenuBar.SetActive(true);
+        LayersUIPanel.SetActive(false);
+        SkyboxUIPanel.SetActive(false);
+
+        LayerButton.SetActive(true);
+        SkyboxButton.SetActive(true);
+        LayerButtonPressed.SetActive(false);
+        SkyboxButtonPressed.SetActive(false);
+
+        FeaturesUIPanel.SetActive(true);
+        GizmoButton.SetActive(true);
+        IsolateButton.SetActive(false);
+        HideButton.SetActive(false);
+        UndoButton.SetActive(false);
+
+        /*XButtonHighLight.SetActive(false);
+        YButtonHighLight.SetActive(false);
+        AButtonHighLight.SetActive(false);
+        BButtonHighLight.SetActive(false);
+        MenuButtonHighLight.SetActive(true);*/
+
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
@@ -1270,6 +1723,30 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
         region = Region.abdomen;
         setContent();
+
+        //UI Changes
+        MainUIPanel.SetActive(true);
+        HandMenuBar.SetActive(true);
+        LayersUIPanel.SetActive(false);
+        SkyboxUIPanel.SetActive(false);
+
+        LayerButton.SetActive(true);
+        SkyboxButton.SetActive(true);
+        LayerButtonPressed.SetActive(false);
+        SkyboxButtonPressed.SetActive(false);
+
+        FeaturesUIPanel.SetActive(true);
+        GizmoButton.SetActive(true);
+        IsolateButton.SetActive(false);
+        HideButton.SetActive(false);
+        UndoButton.SetActive(false);
+
+        /*XButtonHighLight.SetActive(false);
+        YButtonHighLight.SetActive(false);
+        AButtonHighLight.SetActive(false);
+        BButtonHighLight.SetActive(false);
+        MenuButtonHighLight.SetActive(true);*/
+
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
@@ -1285,6 +1762,30 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
         region = Region.headNeck;
         setContent();
+
+        //UI Changes
+        MainUIPanel.SetActive(true);
+        HandMenuBar.SetActive(true);
+        LayersUIPanel.SetActive(false);
+        SkyboxUIPanel.SetActive(false);
+
+        LayerButton.SetActive(true);
+        SkyboxButton.SetActive(true);
+        LayerButtonPressed.SetActive(false);
+        SkyboxButtonPressed.SetActive(false);
+
+        FeaturesUIPanel.SetActive(true);
+        GizmoButton.SetActive(true);
+        IsolateButton.SetActive(false);
+        HideButton.SetActive(false);
+        UndoButton.SetActive(false);
+
+        /*XButtonHighLight.SetActive(false);
+        YButtonHighLight.SetActive(false);
+        AButtonHighLight.SetActive(false);
+        BButtonHighLight.SetActive(false);
+        MenuButtonHighLight.SetActive(true);*/
+
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
@@ -1295,17 +1796,71 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     public void skeletonButtonClick()
     {
         region = Region.skeletonSystem;
+
+        //UI Changes
+        MainUIPanel.SetActive(true);
+        HandMenuBar.SetActive(true);
+        LayersUIPanel.SetActive(false);
+        SkyboxUIPanel.SetActive(false);
+
+        LayerButton.SetActive(true);
+        SkyboxButton.SetActive(true);
+        LayerButtonPressed.SetActive(false);
+        SkyboxButtonPressed.SetActive(false);
+
+        FeaturesUIPanel.SetActive(true);
+        GizmoButton.SetActive(true);
+        IsolateButton.SetActive(false);
+        HideButton.SetActive(false);
+        UndoButton.SetActive(false);
+
+        /*XButtonHighLight.SetActive(false);
+        YButtonHighLight.SetActive(false);
+        AButtonHighLight.SetActive(false);
+        BButtonHighLight.SetActive(false);
+        MenuButtonHighLight.SetActive(true);*/
+
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
+
+        isSkinOn = false;
+        onSkinButtonClick();
     }
 
     public void muscularButtonClick()
     {
         region = Region.muscularSystem;
+
+        //UI Changes
+        MainUIPanel.SetActive(true);
+        HandMenuBar.SetActive(true);
+        LayersUIPanel.SetActive(false);
+        SkyboxUIPanel.SetActive(false);
+
+        LayerButton.SetActive(true);
+        SkyboxButton.SetActive(true);
+        LayerButtonPressed.SetActive(false);
+        SkyboxButtonPressed.SetActive(false);
+
+        FeaturesUIPanel.SetActive(true);
+        GizmoButton.SetActive(true);
+        IsolateButton.SetActive(false);
+        HideButton.SetActive(false);
+        UndoButton.SetActive(false);
+
+        /*XButtonHighLight.SetActive(false);
+        YButtonHighLight.SetActive(false);
+        AButtonHighLight.SetActive(false);
+        BButtonHighLight.SetActive(false);
+        MenuButtonHighLight.SetActive(true);*/
+
         closeButtonNew.SetActive(true);
         closetoWelcomeBtn.SetActive(false);
         closeButton.SetActive(false);
+
+        isSkinOn = false;
+        onSkinButtonClick();
     }
 
     public void microAnatomyButtonClick()
