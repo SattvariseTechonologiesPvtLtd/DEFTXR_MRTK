@@ -8,43 +8,22 @@ using UnityEngine.UI;
 public class Manubrium : MonoBehaviour
 {
     // public GameObject ZoneA, ZoneB, ZoneC;
-    //public GameObject zoneBObj;
+    public GameObject zoneBObj;
 
-    public GameObject originObj, DefaultObj;
-
-    public GameObject originDown, originUp;
-
-    // public GameObject featureSelectBtn, insertionSelectBtn, originSelectBtn, ligamentSelectBtn;
+    public GameObject originObj, femurDefaultObj;
 
     public bool attch, origAttach = false;
 
-    public Sprite enable, disable;
-
     public GameObject[] originsList;
 
-    public bool isAllOriginsSelected;
-
     public GameObject origin_dropdown;
-    public GameObject originsSelectAllButtonTick;
-    public GameObject originsSubButtonsParent;
 
     public GameObject originBtn;
-
-    public GameObject originSelectText;
-    public GameObject originDeselectText;
 
     // Use this for initialization
     void Start()
     {
-        isAllOriginsSelected = false;
-
         origin_dropdown.SetActive(false);
-
-        //featureBtn.GetComponent<Image>().sprite = disable;
-        //insertionBtn.GetComponent<Image>().sprite = disable;
-        //originBtn.GetComponent<Image>().sprite = disable;
-        //ligamentsBtn.GetComponent<Image>().sprite = disable;
-
     }
 
     // Update is called once per frame
@@ -137,49 +116,175 @@ public class Manubrium : MonoBehaviour
          }
      }*/
 
+    /* public void selectAllFeatures()
+     {
+         if (isAllFeaturesSelected == false)
+         {
+             featureSelectAllButtonTick.SetActive(true);
 
-    public void selectAllOrigins()
+             for (int j = 0; j < featuresList.Length; j++)
+             {
+                 featuresList[j].SetActive(true);
+             }
+             foreach (Transform t in subButtonsParent.transform)
+             {
+                 //t.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
+                 t.Find("TickParent").transform.GetChild(0).gameObject.SetActive(true);
+             }
+             isAllFeaturesSelected = true;
+             featureDeselectText.SetActive(true);
+             featureSelectText.SetActive(false);
+         }
+         else
+         {
+             featureSelectAllButtonTick.SetActive(false);
+
+             for (int j = 0; j < featuresList.Length; j++)
+             {
+                 featuresList[j].SetActive(false);
+             }
+
+             foreach (Transform s in subButtonsParent.transform)
+             {
+                // s.GetChild(1).transform.GetChild(0).gameObject.SetActive(false);
+                 s.Find("TickParent").transform.GetChild(0).gameObject.SetActive(false);
+
+             }
+
+             isAllFeaturesSelected = false;
+             featureDeselectText.SetActive(false);
+             featureSelectText.SetActive(true);
+         }
+     }
+
+     public void selectAllInsertions()
+     {
+         if (isAllInsertionsSelected == false)
+         {
+             insertionsSelectAllButtonTick.SetActive(true);
+
+             for (int i = 0; i < insertionsList.Length; i++)
+             {
+                 insertionsList[i].SetActive(true);
+             }
+             foreach (Transform a in insertionsSubButtonsParent.transform)
+             {
+                 // a.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
+                 a.Find("TickParent").transform.GetChild(0).gameObject.SetActive(true);
+             }
+             isAllInsertionsSelected = true;
+             insertionDeselectText.SetActive(true);
+             insertionSelectText.SetActive(false);
+         }
+         else
+         {
+             insertionsSelectAllButtonTick.SetActive(false);
+
+             for (int i = 0; i < insertionsList.Length; i++)
+             {
+                 insertionsList[i].SetActive(false);
+             }
+
+             foreach (Transform z in insertionsSubButtonsParent.transform)
+             {
+                // z.GetChild(1).transform.GetChild(0).gameObject.SetActive(false);
+                 z.Find("TickParent").transform.GetChild(0).gameObject.SetActive(false);
+
+             }
+
+             isAllInsertionsSelected = false;
+             insertionDeselectText.SetActive(false);
+             insertionSelectText.SetActive(true);
+         }
+
+     }
+
+     public void selectAllOrigins()
+     {
+         if (isAllOriginsSelected == false)
+         {
+             originsSelectAllButtonTick.SetActive(true);
+
+             for (int k = 0; k < originsList.Length; k++)
+             {
+                 originsList[k].SetActive(true);
+             }
+             foreach (Transform t in originsSubButtonsParent.transform)
+             {
+                // t.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
+                 t.Find("TickParent").transform.GetChild(0).gameObject.SetActive(true);
+             }
+             isAllOriginsSelected = true;
+             originDeselectText.SetActive(true);
+             originSelectText.SetActive(false);
+         }
+         else
+         {
+             originsSelectAllButtonTick.SetActive(false);
+
+             for (int k = 0; k < originsList.Length; k++)
+             {
+                 originsList[k].SetActive(false);
+             }
+
+             foreach (Transform t in originsSubButtonsParent.transform)
+             {
+                 //t.GetChild(1).transform.GetChild(0).gameObject.SetActive(false);
+                 t.Find("TickParent").transform.GetChild(0).gameObject.SetActive(false);
+
+             }
+
+             isAllOriginsSelected = false;
+             originDeselectText.SetActive(false);
+             originSelectText.SetActive(true);
+         }
+     }
+
+     public void selectAllLigaments()
+     {
+         if (isAllLigamentsSelected == false)
+         {
+             ligamentsSelectAllButtonTick.SetActive(true);
+
+             for (int l = 0; l < ligamentsList.Length; l++)
+             {
+                 ligamentsList[l].SetActive(true);
+             }
+             foreach (Transform t in ligamentsSubButtonsParent.transform)
+             {
+                // t.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
+                 t.Find("TickParent").transform.GetChild(0).gameObject.SetActive(true);
+             }
+
+             isAllLigamentsSelected = true;
+             ligamentsDeselectText.SetActive(true);
+             ligamentsSelectText.SetActive(false);
+         }
+         else
+         {
+             ligamentsSelectAllButtonTick.SetActive(false);
+
+             for (int l = 0; l < ligamentsList.Length; l++)
+             {
+                 ligamentsList[l].SetActive(false);
+             }
+
+             foreach (Transform t in ligamentsSubButtonsParent.transform)
+             {
+                 //t.GetChild(1).transform.GetChild(0).gameObject.SetActive(false);
+                 t.Find("TickParent").transform.GetChild(0).gameObject.SetActive(false);
+             }
+
+             isAllLigamentsSelected = false;
+             ligamentsDeselectText.SetActive(false);
+             ligamentsSelectText.SetActive(true);
+         }
+     }*/
+
+    private void insertionsButtonClickReset()
     {
-        if (isAllOriginsSelected == false)
-        {
-            originsSelectAllButtonTick.SetActive(true);
-
-            for (int k = 0; k < originsList.Length; k++)
-            {
-                originsList[k].SetActive(true);
-            }
-            foreach (Transform t in originsSubButtonsParent.transform)
-            {
-                //t.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
-                t.Find("TickParent").transform.GetChild(0).gameObject.SetActive(true);
-
-            }
-            isAllOriginsSelected = true;
-            originDeselectText.SetActive(true);
-            originSelectText.SetActive(false);
-        }
-        else
-        {
-            originsSelectAllButtonTick.SetActive(false);
-
-            for (int k = 0; k < originsList.Length; k++)
-            {
-                originsList[k].SetActive(false);
-            }
-
-            foreach (Transform t in originsSubButtonsParent.transform)
-            {
-                //Debug.Log("| " + t.GetChild(1).name + " | ");
-
-
-                t.Find("TickParent").transform.GetChild(0).gameObject.SetActive(false);
-
-            }
-
-            isAllOriginsSelected = false;
-            originDeselectText.SetActive(false);
-            originSelectText.SetActive(true);
-        }
+        origAttach = true;
+        onOriginsButtonClick();
     }
 
     private void originsButtonClickReset()
@@ -189,30 +294,20 @@ public class Manubrium : MonoBehaviour
 
     public void onOriginsButtonClick()
     {
-
-
         if (origAttach == false)
         {
             originsButtonClickReset();
             originObj.SetActive(true);
-            DefaultObj.SetActive(false);
+            femurDefaultObj.SetActive(false);
             origin_dropdown.SetActive(true);
-
-            originDown.SetActive(false);
-            originUp.SetActive(true);
-            //  originBtn.GetComponent<Image>().sprite = enable;
 
             origAttach = true;
         }
         else
         {
             originObj.SetActive(false);
-            DefaultObj.SetActive(true);
+            femurDefaultObj.SetActive(true);
             origin_dropdown.SetActive(false);
-
-            originDown.SetActive(true);
-            originUp.SetActive(false);
-            // originBtn.GetComponent<Image>().sprite = disable;
 
             origAttach = false;
         }
