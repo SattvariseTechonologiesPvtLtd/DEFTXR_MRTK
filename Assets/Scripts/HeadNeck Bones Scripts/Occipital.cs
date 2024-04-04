@@ -9,54 +9,54 @@ public class Occipital : MonoBehaviour
 
     public GameObject insertionObj, originObj, DefaultObj, featuresObj;
 
-    public GameObject insertionDown, insertionUp, originDown, originUp, featuresDown, featuresUp;
+    //public GameObject insertionDown, insertionUp, originDown, originUp, featuresDown, featuresUp;
 
     // public GameObject featureSelectBtn, insertionSelectBtn, originSelectBtn, ligamentSelectBtn;
 
     public bool attch, inserAttch, origAttach, featureAttach = false;
 
-    public Sprite enable, disable;
+    //public Sprite enable, disable;
 
     public GameObject[] featuresList;
     public GameObject[] insertionsList;
     public GameObject[] originsList;
 
-    public bool isAllFeaturesSelected;
-    public bool isAllInsertionsSelected;
-    public bool isAllOriginsSelected;
+    //public bool isAllFeaturesSelected;
+    //public bool isAllInsertionsSelected;
+    //public bool isAllOriginsSelected;
 
     public GameObject feature_dropdown;
-    public GameObject featureSelectAllButtonTick;
-    public GameObject subButtonsParent;
+    //public GameObject featureSelectAllButtonTick;
+    //public GameObject subButtonsParent;
 
     public GameObject origin_dropdown;
-    public GameObject originsSelectAllButtonTick;
-    public GameObject originsSubButtonsParent;
+    //public GameObject originsSelectAllButtonTick;
+    //public GameObject originsSubButtonsParent;
 
     public GameObject insertion_dropdown;
-    public GameObject insertionsSelectAllButtonTick;
-    public GameObject insertionsSubButtonsParent;
+    //public GameObject insertionsSelectAllButtonTick;
+    //public GameObject insertionsSubButtonsParent;
 
     public GameObject insertionBtn;
     public GameObject originBtn;
     public GameObject featureBtn;
 
-    public GameObject featureSelectText;
-    public GameObject featureDeselectText;
+    //public GameObject featureSelectText;
+    //public GameObject featureDeselectText;
 
-    public GameObject originSelectText;
-    public GameObject originDeselectText;
+    //public GameObject originSelectText;
+    //public GameObject originDeselectText;
 
-    public GameObject insertionSelectText;
-    public GameObject insertionDeselectText;
+    //public GameObject insertionSelectText;
+    //public GameObject insertionDeselectText;
 
     // Use this for initialization
     void Start()
     {
 
-        isAllFeaturesSelected = false;
-        isAllInsertionsSelected = false;
-        isAllOriginsSelected = false;
+        //isAllFeaturesSelected = false;
+        //isAllInsertionsSelected = false;
+        //isAllOriginsSelected = false;
 
         insertion_dropdown.SetActive(false);
         origin_dropdown.SetActive(false);
@@ -159,7 +159,7 @@ public class Occipital : MonoBehaviour
          }
      }*/
 
-    public void selectAllFeatures()
+    /*public void selectAllFeatures()
     {
         if (isAllFeaturesSelected == false)
         {
@@ -287,20 +287,20 @@ public class Occipital : MonoBehaviour
             originDeselectText.SetActive(false);
             originSelectText.SetActive(true);
         }
-    }
+    }*/
 
 
     private void insertionsButtonClickReset()
     {
         origAttach = true;
         onOriginsButtonClick();
-        isAllOriginsSelected = true;
-        selectAllOrigins();
+        //isAllOriginsSelected = true;
+        //selectAllOrigins();
 
         featureAttach = true;
         onFeaturesButtonClick();
-        isAllFeaturesSelected = true;
-        selectAllFeatures();
+        //isAllFeaturesSelected = true;
+        //selectAllFeatures();
     }
 
     public void onInsertionsButtonClick()
@@ -316,8 +316,8 @@ public class Occipital : MonoBehaviour
             featuresObj.SetActive(false);
             insertion_dropdown.SetActive(true);
 
-            insertionDown.SetActive(false);
-            insertionUp.SetActive(true);
+            //insertionDown.SetActive(false);
+            //insertionUp.SetActive(true);
 
             /// insertionBtn.GetComponent<Image>().sprite = enable;
 
@@ -332,8 +332,8 @@ public class Occipital : MonoBehaviour
             featuresObj.SetActive(false);
             insertion_dropdown.SetActive(false);
 
-            insertionDown.SetActive(true);
-            insertionUp.SetActive(false);
+            //insertionDown.SetActive(true);
+            //insertionUp.SetActive(false);
 
             //  insertionBtn.GetComponent<Image>().sprite = disable;
 
@@ -346,13 +346,13 @@ public class Occipital : MonoBehaviour
     {
         inserAttch = true;
         onInsertionsButtonClick();
-        isAllInsertionsSelected = true;
-        selectAllInsertions();
+        //isAllInsertionsSelected = true;
+        //selectAllInsertions();
 
         featureAttach = true;
         onFeaturesButtonClick();
-        isAllFeaturesSelected = true;
-        selectAllFeatures();
+        //isAllFeaturesSelected = true;
+        //selectAllFeatures();
     }
 
     public void onOriginsButtonClick()
@@ -368,8 +368,8 @@ public class Occipital : MonoBehaviour
             featuresObj.SetActive(false);
             origin_dropdown.SetActive(true);
 
-            originDown.SetActive(false);
-            originUp.SetActive(true);
+            //originDown.SetActive(false);
+            //originUp.SetActive(true);
             //  originBtn.GetComponent<Image>().sprite = enable;
 
             origAttach = true;
@@ -382,8 +382,8 @@ public class Occipital : MonoBehaviour
             featuresObj.SetActive(false);
             origin_dropdown.SetActive(false);
 
-            originDown.SetActive(true);
-            originUp.SetActive(false);
+            //originDown.SetActive(true);
+            //originUp.SetActive(false);
             // originBtn.GetComponent<Image>().sprite = disable;
 
             origAttach = false;
@@ -395,13 +395,13 @@ public class Occipital : MonoBehaviour
     {
         inserAttch = true;
         onInsertionsButtonClick();
-        isAllInsertionsSelected = true;
-        selectAllInsertions();
+        //isAllInsertionsSelected = true;
+        //selectAllInsertions();
 
         origAttach = true;
         onOriginsButtonClick();
-        isAllOriginsSelected = true;
-        selectAllOrigins();
+        //isAllOriginsSelected = true;
+        //selectAllOrigins();
 
     }
 
@@ -418,8 +418,8 @@ public class Occipital : MonoBehaviour
             featuresObj.SetActive(true);
             feature_dropdown.SetActive(true);
 
-            featuresDown.SetActive(false);
-            featuresUp.SetActive(true);
+            //featuresDown.SetActive(false);
+            //featuresUp.SetActive(true);
 
             //   featureBtn.GetComponent<Image>().sprite = enable;
             featureAttach = true;
@@ -433,8 +433,8 @@ public class Occipital : MonoBehaviour
             featuresObj.SetActive(false);
             feature_dropdown.SetActive(false);
 
-            featuresDown.SetActive(true);
-            featuresUp.SetActive(false);
+            //featuresDown.SetActive(true);
+            //featuresUp.SetActive(false);
 
             //   featureBtn.GetComponent<Image>().sprite = disable;
             featureAttach = false;

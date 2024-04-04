@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class MainHUB_UIManager : MonoBehaviour
 {
     public GameObject HandMenuBar, SystemsMenuBar, GrossAnatomyPanel, BodySystemsPanel, SkyboxPanel;
-    public GameObject SystemsButton, SkyboxButton, SystemsButtonPressed, SkyboxButtonPressed, GrossAnatomyButton, BodySystemsButton;
+    public GameObject SystemsButton, SkyboxButton, SystemsButtonPressed, SkyboxButtonPressed, GrossAnatomyButton, GrossAnatomyButtonPressed, BodySystemsButton, BodySystemsButtonPressed;
 
     private void Start()
     {
@@ -17,6 +17,8 @@ public class MainHUB_UIManager : MonoBehaviour
         GrossAnatomyPanel.SetActive(false);
         BodySystemsPanel.SetActive(false);
         SkyboxPanel.SetActive(false);
+        GrossAnatomyButtonPressed.SetActive(false);
+        BodySystemsButtonPressed.SetActive(false);
     }
 
     private void Update()
@@ -45,6 +47,10 @@ public class MainHUB_UIManager : MonoBehaviour
 
         SystemsMenuBar.SetActive(false);
         SkyboxPanel.SetActive(false);
+
+        GrossAnatomyButtonPressed.SetActive(false);
+        BodySystemsButtonPressed.SetActive(false);
+        SystemsMenuBar.SetActive(false);
     }
     public void OnSkyboxButtonClick()
     {
@@ -56,6 +62,11 @@ public class MainHUB_UIManager : MonoBehaviour
 
         SystemsMenuBar.SetActive(false);
         SkyboxPanel.SetActive(true);
+
+        GrossAnatomyButtonPressed.SetActive(false);
+        BodySystemsButtonPressed.SetActive(false);
+        GrossAnatomyPanel.SetActive(false);
+        BodySystemsPanel.SetActive(false);
     }
     public void OnSkyboxButtonPressedClick()
     {
@@ -67,42 +78,71 @@ public class MainHUB_UIManager : MonoBehaviour
 
         SystemsMenuBar.SetActive(false);
         SkyboxPanel.SetActive(false);
+
+        GrossAnatomyButtonPressed.SetActive(false);
+        BodySystemsButtonPressed.SetActive(false);
+        SystemsMenuBar.SetActive(false);
+        GrossAnatomyPanel.SetActive(false);
+        BodySystemsPanel.SetActive(false);
     }
 
     public void OnGrossAnatomyButtonClick()
     {
         GrossAnatomyPanel.SetActive(true);
         BodySystemsPanel.SetActive(false);
+
+        GrossAnatomyButtonPressed.SetActive(true);
+        BodySystemsButtonPressed.SetActive(false);
     }
     public void OnBodySystemsButtonClick()
     {
-        GrossAnatomyPanel.SetActive(true);
-        BodySystemsPanel.SetActive(false);
+        GrossAnatomyPanel.SetActive(false);
+        BodySystemsPanel.SetActive(true);
+
+        GrossAnatomyButtonPressed.SetActive(false);
+        BodySystemsButtonPressed.SetActive(true);
     }
 
     public void OnLowerLimbButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_LL");
+        SceneManager.LoadSceneAsync("DEFTXR_LowerLimb");
     }
     public void OnUpperLimbButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_UL");
+        SceneManager.LoadSceneAsync("DEFTXR_UpperLimb");
     }
+    public void OnThoraxButtonClick()
+    {
+        //loadingImage.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_Thorax");
+    }
+    public void OnAbdomenButtonClick()
+    {
+        //loadingImage.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_Abdomen");
+    }
+
+    public void OnHeadNeckButtonClick()
+    {
+        //loadingImage.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_Head&Neck");
+    }
+
     public void OnRespiratorySystemButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_WholeBodyRespiratorySystem");
+        SceneManager.LoadSceneAsync("DEFTXR_WholeBody_RespiratorySystem");
     }
     public void OnLymphaticSystemButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_WholeBodyLymphaticSystem");
+        SceneManager.LoadSceneAsync("DEFTXR_WholeBody_LymphaticSystem");
     }
     public void OnCirculatorySystemButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_WholeBodyCirculatorySystem");
+        SceneManager.LoadSceneAsync("DEFTXR_WholeBody_CirculatorySystem");
     }
 }

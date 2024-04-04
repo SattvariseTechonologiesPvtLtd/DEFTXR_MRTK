@@ -9,33 +9,33 @@ public class Ethmoid : MonoBehaviour
 
     public GameObject DefaultObj, featuresObj;
 
-    public GameObject featuresDown, featuresUp;
+    //public GameObject featuresDown, featuresUp;
 
     // public GameObject featureSelectBtn, insertionSelectBtn, originSelectBtn, ligamentSelectBtn;
 
     public bool attch, featureAttach = false;
 
-    public Sprite enable, disable;
+    //public Sprite enable, disable;
 
     public GameObject[] featuresList;
 
-    public bool isAllFeaturesSelected;
+    //public bool isAllFeaturesSelected;
 
     public GameObject feature_dropdown;
-    public GameObject featureSelectAllButtonTick;
-    public GameObject subButtonsParent;
+    //public GameObject featureSelectAllButtonTick;
+    //public GameObject subButtonsParent;
 
     public GameObject featureBtn;
 
-    public GameObject featureSelectText;
-    public GameObject featureDeselectText;
+    //public GameObject featureSelectText;
+    //public GameObject featureDeselectText;
 
 
     // Use this for initialization
     void Start()
     {
 
-        isAllFeaturesSelected = false;
+        //isAllFeaturesSelected = false;
         feature_dropdown.SetActive(false);
 
         //featureBtn.GetComponent<Image>().sprite = disable;
@@ -135,47 +135,7 @@ public class Ethmoid : MonoBehaviour
          }
      }*/
 
-    public void selectAllFeatures()
-    {
-        if (isAllFeaturesSelected == false)
-        {
-            featureSelectAllButtonTick.SetActive(true);
-
-            for (int j = 0; j < featuresList.Length; j++)
-            {
-                featuresList[j].SetActive(true);
-            }
-            foreach (Transform t in subButtonsParent.transform)
-            {
-                // t.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
-                t.Find("TickParent").transform.GetChild(0).gameObject.SetActive(true);
-
-            }
-            isAllFeaturesSelected = true;
-            featureDeselectText.SetActive(true);
-            featureSelectText.SetActive(false);
-        }
-        else
-        {
-            featureSelectAllButtonTick.SetActive(false);
-
-            for (int j = 0; j < featuresList.Length; j++)
-            {
-                featuresList[j].SetActive(false);
-            }
-
-            foreach (Transform s in subButtonsParent.transform)
-            {
-                // s.GetChild(1).transform.GetChild(0).gameObject.SetActive(false);
-                s.Find("TickParent").transform.GetChild(0).gameObject.SetActive(false);
-
-            }
-
-            isAllFeaturesSelected = false;
-            featureDeselectText.SetActive(false);
-            featureSelectText.SetActive(true);
-        }
-    }
+    
 
     private void featureButtonClickReset()
     {
@@ -193,8 +153,8 @@ public class Ethmoid : MonoBehaviour
             featuresObj.SetActive(true);
             feature_dropdown.SetActive(true);
 
-            featuresDown.SetActive(false);
-            featuresUp.SetActive(true);
+            //featuresDown.SetActive(false);
+            //featuresUp.SetActive(true);
 
             //   featureBtn.GetComponent<Image>().sprite = enable;
             featureAttach = true;
@@ -206,8 +166,8 @@ public class Ethmoid : MonoBehaviour
             featuresObj.SetActive(false);
             feature_dropdown.SetActive(false);
 
-            featuresDown.SetActive(true);
-            featuresUp.SetActive(false);
+            //featuresDown.SetActive(true);
+            //featuresUp.SetActive(false);
 
             //   featureBtn.GetComponent<Image>().sprite = disable;
             featureAttach = false;

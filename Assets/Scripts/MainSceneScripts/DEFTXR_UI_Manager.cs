@@ -405,9 +405,9 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
     public void CloseButtonNewClick()
     {
-        ChangeSceneGameManager.Instance.loginscreen = false;
-        ChangeSceneGameManager.Instance.grossanatomyscreen = true;
-        SceneManager.LoadScene("DEFTXR_Main");
+        //ChangeSceneGameManager.Instance.loginscreen = false;
+        //ChangeSceneGameManager.Instance.grossanatomyscreen = true;
+        SceneManager.LoadScene("DEFTXR_MainHUB");
     }
 
     public void closeToWelcomebutton()

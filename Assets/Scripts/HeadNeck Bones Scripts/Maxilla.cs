@@ -4,45 +4,45 @@ using UnityEngine;
 
 public class Maxilla : MonoBehaviour
 {
-    public GameObject zoneBObj;
+    //public GameObject zoneBObj;
     public GameObject originObj, DefaultObj, featuresObj;
 
-    public GameObject originDown, originUp, featuresDown, featuresUp;
+    //public GameObject originDown, originUp, featuresDown, featuresUp;
 
     public bool attch, origAttach, featureAttach = false;
 
-    public Sprite enable, disable;
+    //public Sprite enable, disable;
 
     public GameObject[] featuresList;
     public GameObject[] originsList;
 
 
-    public bool isAllFeaturesSelected;
-    public bool isAllOriginsSelected;
+    //public bool isAllFeaturesSelected;
+    //public bool isAllOriginsSelected;
 
     public GameObject feature_dropdown;
-    public GameObject featureSelectAllButtonTick;
-    public GameObject subButtonsParent;
+    //public GameObject featureSelectAllButtonTick;
+    // public GameObject subButtonsParent;
 
     public GameObject origin_dropdown;
-    public GameObject originsSelectAllButtonTick;
-    public GameObject originsSubButtonsParent;
+    //public GameObject originsSelectAllButtonTick;
+    //public GameObject originsSubButtonsParent;
 
     public GameObject originBtn;
     public GameObject featureBtn;
 
-    public GameObject featureSelectText;
-    public GameObject featureDeselectText;
+    //public GameObject featureSelectText;
+    //public GameObject featureDeselectText;
 
-    public GameObject originSelectText;
-    public GameObject originDeselectText;
+    // public GameObject originSelectText;
+    // public GameObject originDeselectText;
 
     // Use this for initialization
     void Start()
     {
-        isAllFeaturesSelected = false;
+        //isAllFeaturesSelected = false;
 
-        isAllOriginsSelected = false;
+        //isAllOriginsSelected = false;
         origin_dropdown.SetActive(false);
         feature_dropdown.SetActive(false);
 
@@ -58,7 +58,7 @@ public class Maxilla : MonoBehaviour
 
     }
 
-    public void selectAllFeatures()
+    /*public void selectAllFeatures()
     {
         if (isAllFeaturesSelected == false)
         {
@@ -139,15 +139,15 @@ public class Maxilla : MonoBehaviour
             originDeselectText.SetActive(false);
             originSelectText.SetActive(true);
         }
-    }
+    }*/
 
 
     private void originsButtonClickReset()
     {
         featureAttach = true;
         onFeaturesButtonClick();
-        isAllFeaturesSelected = true;
-        selectAllFeatures();
+        //isAllFeaturesSelected = true;
+        //selectAllFeatures();
     }
     public void onOriginsButtonClick()
     {
@@ -162,8 +162,8 @@ public class Maxilla : MonoBehaviour
             featuresObj.SetActive(false);
             origin_dropdown.SetActive(true);
 
-            originDown.SetActive(false);
-            originUp.SetActive(true);
+            //originDown.SetActive(false);
+            //originUp.SetActive(true);
 
             // originBtn.GetComponent<Image>().sprite = enable;
 
@@ -180,8 +180,8 @@ public class Maxilla : MonoBehaviour
             featuresObj.SetActive(false);
             origin_dropdown.SetActive(false);
 
-            originDown.SetActive(true);
-            originUp.SetActive(false);
+            //originDown.SetActive(true);
+            //originUp.SetActive(false);
 
             // originBtn.GetComponent<Image>().sprite = disable;
 
@@ -195,8 +195,8 @@ public class Maxilla : MonoBehaviour
 
         origAttach = true;
         onOriginsButtonClick();
-        isAllOriginsSelected = true;
-        selectAllOrigins();
+        //isAllOriginsSelected = true;
+        //selectAllOrigins();
 
     }
 
@@ -210,8 +210,8 @@ public class Maxilla : MonoBehaviour
             featuresObj.SetActive(true);
             feature_dropdown.SetActive(true);
 
-            featuresDown.SetActive(false);
-            featuresUp.SetActive(true);
+            //featuresDown.SetActive(false);
+            //featuresUp.SetActive(true);
 
             // featureBtn.GetComponent<Image>().sprite = enable;
 
@@ -225,8 +225,8 @@ public class Maxilla : MonoBehaviour
             featuresObj.SetActive(false);
             feature_dropdown.SetActive(false);
 
-            featuresDown.SetActive(true);
-            featuresUp.SetActive(false);
+            //featuresDown.SetActive(true);
+            //featuresUp.SetActive(false);
 
             // featureBtn.GetComponent<Image>().sprite = disable;
 
