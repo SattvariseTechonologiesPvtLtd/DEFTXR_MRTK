@@ -7,7 +7,9 @@ public class MaterialFadeController : MonoBehaviour
     private Material[] originalMaterials;
     private Material[] transparentMaterials;
 
-    private Color targetColor = new Color(1f, 1f, 1f, 0.2f); // White with 50% transparency
+    private Color targetColor = new Color(1f, 1f, 1f, 0.3f); // White with 50% transparency
+
+    public GameObject FadeButtonPressed;
 
     private void Start()
     {
@@ -21,13 +23,15 @@ public class MaterialFadeController : MonoBehaviour
             transparentMaterials[i] = new Material(originalMaterials[i]);
             transparentMaterials[i].shader = Shader.Find("Unlit/TransparentTexture");
         }
+
+        FadeButtonPressed.SetActive(false);
     }
 
     private void Update()
     {
         if (isFading)
         {
-            float lerpSpeed = 0.1f;
+            float lerpSpeed = 1f;
 
             // Lerping the color for each material
             for (int i = 0; i < transparentMaterials.Length; i++)
@@ -55,5 +59,7 @@ public class MaterialFadeController : MonoBehaviour
         {
             meshRenderer.materials = originalMaterials;
         }
+
+        FadeButtonPressed.SetActive(!FadeButtonPressed.activeSelf);
     }
 }
