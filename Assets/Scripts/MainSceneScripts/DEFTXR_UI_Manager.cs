@@ -536,9 +536,9 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 UndoButton.SetActive(true);
 
                 LayerButton.SetActive(false);
-                LayerButton.GetComponent<Interactable>().enabled = true;
+                //LayerButton.GetComponent<Interactable>().enabled = true;
                 SkyboxButton.SetActive(true);
-                SkyboxButton.GetComponent<Interactable>().enabled = true;
+                //SkyboxButton.GetComponent<Interactable>().enabled = true;
                 LayerButtonPressed.SetActive(true);
                 SkyboxButtonPressed.SetActive(false);
 
@@ -1084,9 +1084,9 @@ public class DEFTXR_UI_Manager : MonoBehaviour
                 UndoButton.SetActive(true);
 
                 LayerButton.SetActive(true);
-                LayerButton.GetComponent<BoxCollider>().enabled = false;
+                //LayerButton.GetComponent<BoxCollider>().enabled = false;
                 SkyboxButton.SetActive(true);
-                SkyboxButton.GetComponent<BoxCollider>().enabled = false;
+                //SkyboxButton.GetComponent<BoxCollider>().enabled = false;
                 LayerButtonPressed.SetActive(false);
                 SkyboxButtonPressed.SetActive(false);
                 IsolateButtonPressed.SetActive(true);
