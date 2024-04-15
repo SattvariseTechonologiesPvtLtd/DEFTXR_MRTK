@@ -167,6 +167,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         GizmoButtonPressed.SetActive(false);
         IsolateButtonPressed.SetActive(false);
 
+
         //XButtonHighLight.SetActive(false);
         //YButtonHighLight.SetActive(false);
         //AButtonHighLight.SetActive(false);
@@ -196,6 +197,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     {
 
     }
+
     // Update is called once per frame
     void Update()
     {
