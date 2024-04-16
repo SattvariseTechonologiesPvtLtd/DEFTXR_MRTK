@@ -45,6 +45,12 @@ public class AttachMRTK : MonoBehaviour
         PreviousCurrentObjects.Instance.AssignObjects(selected_Object);
 
         Debug.Log("" + selected_Object.name);
+
+        selected_Object.AddComponent<Outline>();
+
+        var outline = selected_Object.AddComponent<Outline>();
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.OutlineWidth = 5;
     }
 
     public void attachMRTKToIsolate(GameObject selected_Object)

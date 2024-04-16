@@ -43,17 +43,18 @@ public class PreviousCurrentObjects : MonoBehaviour
     {
         if(obj.GetComponent<BoundsControl>() != null)
         {
-            obj.GetComponent<BoundsControl>().HandlesActive = true;
+            //obj.GetComponent<BoundsControl>().HandlesActive = true;
         }
-        
+        obj.GetComponent<Outline>().enabled = true;
     }
 
     private void DisableHandles(GameObject obj)
     {
         if (obj.GetComponent<BoundsControl>() != null)
         {
-            obj.GetComponent<BoundsControl>().HandlesActive = false;
+            //obj.GetComponent<BoundsControl>().HandlesActive = false;
         }
+        obj.GetComponent<Outline>().enabled = false;
     }
 
     public void clearObjData()
