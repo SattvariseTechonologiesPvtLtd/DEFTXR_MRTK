@@ -12,7 +12,7 @@ public class AttachMRTK : MonoBehaviour
     }
 
     public GameObject BoundingBox;
-    public double DragToggleThreshold = 0.005;
+    public double DragToggleThreshold = 0.002;
 
     public void attachMRTK(GameObject selected_Object)
     {
@@ -22,7 +22,7 @@ public class AttachMRTK : MonoBehaviour
         /*----------- Bounds Control Script and Their Properties -----------*/
         var boundsControl = selected_Object.AddComponent<BoundsControl>();
         boundsControl.BoundsVisualsPrefab = BoundingBox;
-        boundsControl.HandlesActive = true;
+        boundsControl.HandlesActive = false;
         boundsControl.IncludeInactiveObjects = true;
         boundsControl.OverrideBounds = true;
         boundsControl.FlattenMode = FlattenMode.Never;
@@ -45,12 +45,6 @@ public class AttachMRTK : MonoBehaviour
         PreviousCurrentObjects.Instance.AssignObjects(selected_Object);
 
         Debug.Log("" + selected_Object.name);
-
-        selected_Object.AddComponent<Outline>();
-
-        var outline = selected_Object.AddComponent<Outline>();
-        outline.OutlineMode = Outline.Mode.OutlineVisible;
-        outline.OutlineWidth = 5;
     }
 
     public void attachMRTKToIsolate(GameObject selected_Object)
