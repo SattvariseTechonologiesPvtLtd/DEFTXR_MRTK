@@ -12,19 +12,21 @@ public class AttachMRTK : MonoBehaviour
     }
 
     public GameObject BoundingBox;
-    public double DragToggleThreshold = 0.002;
+    public double DragToggleThreshold = 0.005;
 
     public void attachMRTK(GameObject selected_Object)
     {
+
         /*------------ Object Manipulator Script and Their Properties -------------*/
-        selected_Object.AddComponent<ObjectManipulator>().EnableConstraints = true;
+        selected_Object.AddComponent<ObjectManipulator>();
+        selected_Object.GetComponent<ObjectManipulator>().EnableConstraints = true;
 
         /*----------- Bounds Control Script and Their Properties -----------*/
         var boundsControl = selected_Object.AddComponent<BoundsControl>();
         boundsControl.BoundsVisualsPrefab = BoundingBox;
         boundsControl.HandlesActive = false;
-        boundsControl.IncludeInactiveObjects = true;
-        boundsControl.OverrideBounds = true;
+        boundsControl.IncludeInactiveObjects = false;
+        boundsControl.OverrideBounds = false;
         boundsControl.FlattenMode = FlattenMode.Never;
         boundsControl.BoundsCalculationMethod = BoundsCalculator.BoundsCalculationMethod.ColliderOnly;
         boundsControl.BoundsOverride = selected_Object.transform;

@@ -3,6 +3,8 @@ using System;
 using TMPro;
 using UnityEngine.UI;
 using MixedReality.Toolkit.SpatialManipulation;
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class myCollisionBehaviour : MonoBehaviour
 {
@@ -30,10 +32,14 @@ public class myCollisionBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("" + other.gameObject.name);
+
         if (String.Compare(other.gameObject.name, "TouchPos") == 0)
         {
+           
             if (String.Compare(IntractionManager.Instance.selectObjName, "") == 0)
             {
+
                 IntractionManager.Instance.selectObjName = this.gameObject.name;
                 DEFTXR_UI_Manager.Instance.currentIsolatedObject = this.gameObject;
                 DEFTXR_UI_Manager.Instance.currentSelectObject = this.gameObject;
@@ -48,7 +54,6 @@ public class myCollisionBehaviour : MonoBehaviour
                 if (myLable != null)
                 {
                     myLable.SetActive(true);
-
                     DEFTXR_UI_Manager.Instance.HideButton.SetActive(true);
                     //DEFTXR_UI_Manager.Instance.UndoButton.SetActive(true);
 
@@ -157,17 +162,28 @@ public class myCollisionBehaviour : MonoBehaviour
             }
 
             //Attach MRTK Components
-            if (isAttach == false && DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
+            /*if (isAttach == false && DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
             {
-                AttachMRTK.Instance.attachMRTK(this.gameObject); // Attach them again
-                isAttach = true;            
+                if (DEFTXR_UI_Manager.Instance.handref.isPinchedPublic == true)
+                {
+                    Debug.Log("Pinchedddd");
+                    AttachMRTK.Instance.attachMRTK(this.gameObject); // Attach them again
+                    isAttach = true;
+                }
+                else
+                {
+                    Debug.Log("Not pincheddddd");
+                }
+
+                         
             }
             else
             {
                 PreviousCurrentObjects.Instance.AssignObjects(this.gameObject);
-            }
+            }*/
         }
     }
+
     // Use this for initialization
     void Start()
     {
