@@ -106,43 +106,43 @@ public class MainHUB_UIManager : MonoBehaviour
     public void OnLowerLimbButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_LowerLimb");
+        SceneManager.LoadSceneAsync("DEFTXR_LowerLimb_Final");
     }
     public void OnUpperLimbButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_UpperLimb");
+        SceneManager.LoadSceneAsync("DEFTXR_UpperLimb_Final");
     }
     public void OnThoraxButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_Thorax");
+        SceneManager.LoadSceneAsync("DEFTXR_Thorax_Final");
     }
     public void OnAbdomenButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_Abdomen");
+        SceneManager.LoadSceneAsync("DEFTXR_Abdomen_Final");
     }
 
     public void OnHeadNeckButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_Head&Neck");
+        SceneManager.LoadSceneAsync("DEFTXR_Head&Neck_Final");
     }
 
     public void OnRespiratorySystemButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_WholeBody_RespiratorySystem");
+        SceneManager.LoadSceneAsync("DEFTXR_WholeBody_RespiratorySystem_Final");
     }
     public void OnLymphaticSystemButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_WholeBody_LymphaticSystem");
+        SceneManager.LoadSceneAsync("DEFTXR_WholeBody_LymphaticSystem_Final");
     }
     public void OnCirculatorySystemButtonClick()
     {
         //loadingImage.SetActive(true);
-        SceneManager.LoadSceneAsync("DEFTXR_WholeBody_CirculatorySystem");
+        SceneManager.LoadSceneAsync("DEFTXR_WholeBody_CirculatorySystem_Final");
     }
 }
