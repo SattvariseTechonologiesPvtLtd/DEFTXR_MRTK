@@ -44,7 +44,7 @@ public class isolatedMusclesManager : MonoBehaviour
         //DEFTXR_UI_Manager.Instance.isolateArteriesBtn.GetComponent<toggleSelectionImage>().updatedSelection(true);
     }
 
-    void OnHorizontalSliderChanged(float value)
+    /*void OnHorizontalSliderChanged(float value)
     {
         // How much we've changed
 
@@ -91,9 +91,9 @@ public class isolatedMusclesManager : MonoBehaviour
 
         }
 
-    }
+    }*/
 
-    void OnVerticleSliderChanged(float value)
+    /*void OnVerticleSliderChanged(float value)
     {
 
         if (value == 0.5f)
@@ -138,7 +138,7 @@ public class isolatedMusclesManager : MonoBehaviour
 
         }
 
-    }
+    }*/
     // Update is called once per frame
     void Update()
     {
@@ -147,7 +147,7 @@ public class isolatedMusclesManager : MonoBehaviour
 
 
 
-    public void onMusclesButtonClick()
+    /*public void onMusclesButtonClick()
     {
         if (isMusclesOn == false)
         {
@@ -208,7 +208,7 @@ public class isolatedMusclesManager : MonoBehaviour
             DEFTXR_UI_Manager.Instance.isolateBoneBtn.GetComponent<toggleSelectionImage>().updatedSelection(false);
             isBonesOn = false;
         }
-    }
+    }*/
 
     public void varticleRotateButtonClick()
     {
@@ -235,7 +235,6 @@ public class isolatedMusclesManager : MonoBehaviour
 
     public void hideButtonClick()
     {
-
         parts.Add(DEFTXR_UI_Manager.Instance.currentSelectObject);
         index++;
         DEFTXR_UI_Manager.Instance.currentSelectObject.SetActive(false);

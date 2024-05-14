@@ -159,19 +159,19 @@ public class AssetManagementScript : MonoBehaviour
         if (isolated_object != null)
         {
             // Reset rotation to the original rotation
-            isolated_object.transform.rotation = originalRotation;
+            //isolated_object.transform.rotation = originalRotation;
 
             // Reset scale to the original scale
-            isolated_object.transform.localScale = originalScale;
+            //isolated_object.transform.localScale = originalScale;
 
             if (DEFTXR_UI_Manager.Instance.isIsolatedOn == true)
             {
                 AttachMRTK.Instance.detachMRTKFromIsolate(AssetManagementScript.Instance.isolated_object);
-                isolated_object.GetComponent<BoxCollider>().enabled = false;
+                //isolated_object.GetComponent<BoxCollider>().enabled = false;
             }
 
-            DEFTXR_UI_Manager.Instance.GizmoButtonPressed.SetActive(false);
-            DEFTXR_UI_Manager.Instance.GizmoButton.SetActive(true);
+            //DEFTXR_UI_Manager.Instance.GizmoButtonPressed.SetActive(false);
+            //DEFTXR_UI_Manager.Instance.GizmoButton.SetActive(true);
 
         }
     }

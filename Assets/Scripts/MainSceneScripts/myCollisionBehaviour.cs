@@ -55,9 +55,6 @@ public class myCollisionBehaviour : MonoBehaviour
                 {
                     myLable.SetActive(true);
                     DEFTXR_UI_Manager.Instance.HideButton.SetActive(true);
-                    //DEFTXR_UI_Manager.Instance.UndoButton.SetActive(true);
-
-                    //DEFTXR_UI_Manager.Instance.BButtonHighLight.SetActive(true);
                     DEFTXR_UI_Manager.Instance.FeaturesUIPanel.SetActive(true);
 
                     if (myEnglishName != null && myLatinName != null)
@@ -160,27 +157,6 @@ public class myCollisionBehaviour : MonoBehaviour
                     }
                 }
             }
-
-            //Attach MRTK Components
-            /*if (isAttach == false && DEFTXR_UI_Manager.Instance.isIsolatedOn == false)
-            {
-                if (DEFTXR_UI_Manager.Instance.handref.isPinchedPublic == true)
-                {
-                    Debug.Log("Pinchedddd");
-                    AttachMRTK.Instance.attachMRTK(this.gameObject); // Attach them again
-                    isAttach = true;
-                }
-                else
-                {
-                    Debug.Log("Not pincheddddd");
-                }
-
-                         
-            }
-            else
-            {
-                PreviousCurrentObjects.Instance.AssignObjects(this.gameObject);
-            }*/
         }
     }
 

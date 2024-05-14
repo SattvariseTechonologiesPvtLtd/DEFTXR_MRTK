@@ -145,4 +145,20 @@ public class MainHUB_UIManager : MonoBehaviour
         //loadingImage.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_WholeBody_CirculatorySystem_Final");
     }
+
+    public void OnSkeletalSystemButtonClick()
+    {
+        //loadingImage.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_SkeletalSystem_Final");
+    }
+    public void OnMusclularSystemButtonClick()
+    {
+        //loadingImage.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_MuscularSystem_Final");
+    }
+    public void OnNervousSystemButtonClick()
+    {
+        //loadingImage.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_NervousSystem_Final");
+    }
 }
