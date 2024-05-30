@@ -161,4 +161,20 @@ public class MainHUB_UIManager : MonoBehaviour
         //loadingImage.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_NervousSystem_Final");
     }
+
+    public void OnFullBodyDissectionButtonClick()
+    {
+        //loadingImage.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_FullBodyDissection_Final");
+    }
+    public void OnCrossSectionButtonClick()
+    {
+        //loadingImage.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_CutSections_Final");
+    }
+    public void OnSpacesAndTrianglesButtonClick()
+    {
+        //loadingImage.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_Spaces&Triangles_Final");
+    }
 }

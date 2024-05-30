@@ -152,8 +152,6 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        MenuParentObject.SetActive(false);
-
     }
 
     public void ToggleHeadNeck()
@@ -182,19 +180,18 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
-
-        MenuButton.SetActive(true);
-        MenuButtonPressed.SetActive(false);
+        MenuButton.SetActive(false);
+        MenuButtonPressed.SetActive(true);
 
         MainUIPanel.SetActive(true);
-        //HandMenuBar.SetActive(false);
-        LayersUIPanel.SetActive(false);
+        HandMenuBar.SetActive(true);
+        LayersUIPanel.SetActive(true);
         SkyboxUIPanel.SetActive(false);
-        FeaturesUIPanel.SetActive(false);
+        FeaturesUIPanel.SetActive(true);
 
-        LayerButton.SetActive(true);
+        LayerButton.SetActive(false);
         SkyboxButton.SetActive(true);
-        LayerButtonPressed.SetActive(false);
+        LayerButtonPressed.SetActive(true);
         SkyboxButtonPressed.SetActive(false);
 
         GizmoButton.SetActive(true);
@@ -212,6 +209,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         //BButtonHighLight.SetActive(false);
         //MenuButtonHighLight.SetActive(true);
     }
+
     public void OnMenuButtonClick()
     {
         MenuParentObject.SetActive(true);
@@ -1705,15 +1703,18 @@ public class DEFTXR_UI_Manager : MonoBehaviour
         RightSideButton.SetActive(true);
         LeftSideButton.SetActive(false);
 
+        MenuButton.SetActive(false);
+        MenuButtonPressed.SetActive(true);
+
         //UI Changes
         MainUIPanel.SetActive(true);
         HandMenuBar.SetActive(true);
-        LayersUIPanel.SetActive(false);
+        LayersUIPanel.SetActive(true);
         SkyboxUIPanel.SetActive(false);
 
-        LayerButton.SetActive(true);
+        LayerButton.SetActive(false);
         SkyboxButton.SetActive(true);
-        LayerButtonPressed.SetActive(false);
+        LayerButtonPressed.SetActive(true);
         SkyboxButtonPressed.SetActive(false);
 
         FeaturesUIPanel.SetActive(true);

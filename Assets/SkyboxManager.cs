@@ -19,7 +19,7 @@ public class SkyboxManager : MonoBehaviour
     public void Start()
     {
         BeachButton.SetActive(true);
-        BeachPressedButton.SetActive(true);
+        BeachPressedButton.SetActive(false);
         BarrenLandButton.SetActive(true);
         BarrenLandPressedButton.SetActive(false);
         BlockButton.SetActive(true);
@@ -29,10 +29,10 @@ public class SkyboxManager : MonoBehaviour
         ScifiButton.SetActive(true);
         ScifiPressedButton.SetActive(false);
 
-        PassThroughButtonPressed.SetActive(false);
-        PassThroughObj.SetActive(false);
-        MainCamera.SetActive(true);
-        PassThroughCamera.SetActive(false);
+        PassThroughButtonPressed.SetActive(true);
+        PassThroughObj.SetActive(true);
+        MainCamera.SetActive(false);
+        PassThroughCamera.SetActive(true);
     }
 
     public void OnBeachSkyboxButtonClick()

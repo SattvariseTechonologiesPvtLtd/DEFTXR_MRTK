@@ -36,7 +36,13 @@ public class myCollisionBehaviour : MonoBehaviour
 
         if (String.Compare(other.gameObject.name, "TouchPos") == 0)
         {
-           
+            // Enable the Outline component
+            var outline = this.gameObject.GetComponent<OutlineEffect>();
+            if (outline != null)
+            {
+                outline.enabled = true;
+            }
+
             if (String.Compare(IntractionManager.Instance.selectObjName, "") == 0)
             {
 
@@ -172,6 +178,13 @@ public class myCollisionBehaviour : MonoBehaviour
 
         }
         myOriginalMat = this.gameObject.GetComponent<Renderer>().material;
+
+        // Disable the Outline component from start
+        var outline = this.gameObject.GetComponent<OutlineEffect>();
+        if (outline != null)
+        {
+            outline.enabled = false;
+        }
     }
 
     void changeSelectionMaterialProperties(Material mat)
@@ -245,6 +258,30 @@ public class myCollisionBehaviour : MonoBehaviour
         }
     }
     // Update is called once per frame
+    private void OnTriggerExit(Collider other)
+    {
+        if (String.Compare(other.gameObject.name, "TouchPos") == 0)
+        {
+            // Disable the Outline component
+            var outline = this.gameObject.GetComponent<OutlineEffect>();
+            if (outline != null)
+            {
+                outline.enabled = false;
+            }
+
+            // Additional code to handle when the object is no longer touching "TouchPos"
+            if (myLable != null)
+            {
+                myLable.SetActive(false);
+            }
+
+            IntractionManager.Instance.selectObjName = "";
+            DEFTXR_UI_Manager.Instance.currentIsolatedObject = null;
+            DEFTXR_UI_Manager.Instance.currentSelectObject = null;
+            DEFTXR_UI_Manager.Instance.currentSelectedAssetNo = -1;
+        }
+    }
+
     void Update()
     {
         if (string.Equals(this.gameObject.name, IntractionManager.Instance.selectObjName) == false)
