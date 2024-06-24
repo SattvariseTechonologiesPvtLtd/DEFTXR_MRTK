@@ -37,11 +37,11 @@ public class myCollisionBehaviour : MonoBehaviour
         if (String.Compare(other.gameObject.name, "TouchPos") == 0)
         {
             // Enable the Outline component
-            var outline = this.gameObject.GetComponent<OutlineEffect>();
+            /*var outline = this.gameObject.GetComponent<OutlineEffect>();
             if (outline != null)
             {
                 outline.enabled = true;
-            }
+            }*/
 
             if (String.Compare(IntractionManager.Instance.selectObjName, "") == 0)
             {
@@ -262,12 +262,12 @@ public class myCollisionBehaviour : MonoBehaviour
     {
         if (String.Compare(other.gameObject.name, "TouchPos") == 0)
         {
-            // Disable the Outline component
+            /*// Disable the Outline component
             var outline = this.gameObject.GetComponent<OutlineEffect>();
             if (outline != null)
             {
                 outline.enabled = false;
-            }
+            }*/
         }
     }
 
