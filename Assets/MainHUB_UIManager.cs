@@ -4,14 +4,17 @@ using UnityEngine;
 using Nova;
 using NovaSamples;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MainHUB_UIManager : MonoBehaviour
 {
-    public GameObject HandMenuBar, SystemsMenuBar, GrossAnatomyPanel, BodySystemsPanel, SkyboxPanel;
+    public GameObject loadingImage, HandMenuBar, SystemsMenuBar, GrossAnatomyPanel, BodySystemsPanel, SkyboxPanel;
     public GameObject SystemsButton, SkyboxButton, SystemsButtonPressed, SkyboxButtonPressed, GrossAnatomyButton, GrossAnatomyButtonPressed, BodySystemsButton, BodySystemsButtonPressed;
 
     private void Start()
     {
+        loadingImage.SetActive(false);
+        //loadingImage2.SetActive(false);
         HandMenuBar.SetActive(true);
         SystemsMenuBar.SetActive(false);
         GrossAnatomyPanel.SetActive(false);
@@ -51,6 +54,10 @@ public class MainHUB_UIManager : MonoBehaviour
         GrossAnatomyButtonPressed.SetActive(false);
         BodySystemsButtonPressed.SetActive(false);
         SystemsMenuBar.SetActive(false);
+
+        GrossAnatomyPanel.SetActive(false);
+        BodySystemsPanel.SetActive(false);
+        SkyboxPanel.SetActive(false);
     }
     public void OnSkyboxButtonClick()
     {
@@ -82,6 +89,7 @@ public class MainHUB_UIManager : MonoBehaviour
         GrossAnatomyButtonPressed.SetActive(false);
         BodySystemsButtonPressed.SetActive(false);
         SystemsMenuBar.SetActive(false);
+
         GrossAnatomyPanel.SetActive(false);
         BodySystemsPanel.SetActive(false);
     }
@@ -102,79 +110,93 @@ public class MainHUB_UIManager : MonoBehaviour
         GrossAnatomyButtonPressed.SetActive(false);
         BodySystemsButtonPressed.SetActive(true);
     }
-
     public void OnLowerLimbButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_LowerLimb_Final");
     }
     public void OnUpperLimbButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_UpperLimb_Final");
     }
+
     public void OnThoraxButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_Thorax_Final");
     }
     public void OnAbdomenButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_Abdomen_Final");
     }
 
     public void OnHeadNeckButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_Head&Neck_Final");
     }
 
     public void OnRespiratorySystemButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_WholeBody_RespiratorySystem_Final");
     }
     public void OnLymphaticSystemButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_WholeBody_LymphaticSystem_Final");
     }
     public void OnCirculatorySystemButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_WholeBody_CirculatorySystem_Final");
     }
 
     public void OnSkeletalSystemButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_SkeletalSystem_Final");
     }
     public void OnMusclularSystemButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_MuscularSystem_Final");
     }
     public void OnNervousSystemButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_NervousSystem_Final");
     }
 
     public void OnFullBodyDissectionButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_FullBodyDissection_Final");
     }
     public void OnCrossSectionButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_CutSections_Final");
     }
     public void OnSpacesAndTrianglesButtonClick()
     {
-        //loadingImage.SetActive(true);
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_Spaces&Triangles_Final");
-    }
+    } 
 }

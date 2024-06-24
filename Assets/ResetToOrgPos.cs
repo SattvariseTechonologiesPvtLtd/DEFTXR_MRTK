@@ -68,13 +68,26 @@ public class ResetToOrgPos : MonoBehaviour
             BoundsControl boundsControl = obj.GetComponent<BoundsControl>();
             if (boundsControl != null)
             {
+                boundsControl.HandlesActive = true;
                 boundsControl.HandlesActive = false;
             }
         }
 
-        // Recursively reset properties of child objects
+        // Check for child objects named "BoundingBoxWithHandles(Clone)"
         foreach (Transform child in obj)
         {
+            /*if (child.name == "BoundingBoxWithHandles(Clone)")
+            {
+                // Destroy or remove the child object
+                child.gameObject.SetActive(false);
+                //Destroy(child.gameObject); // Use DestroyImmediate(child.gameObject) if you need to remove it immediately
+            }
+            else
+            {
+                // Recursively reset properties of other child objects
+                ResetObjectProperties(child);
+            }*/
+            // Recursively reset properties of other child objects
             ResetObjectProperties(child);
         }
     }

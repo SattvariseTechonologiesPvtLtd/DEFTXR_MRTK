@@ -10,7 +10,7 @@ public class OutlineEffect : MonoBehaviour
     private Material originalMaterial;
     private Material outlineMaterial;
 
-    void Awake()
+    /*void Awake()
     {
         objectRenderer = GetComponent<Renderer>();
         originalMaterial = objectRenderer.material;
@@ -59,5 +59,5 @@ public class OutlineEffect : MonoBehaviour
             outlineMaterial.SetColor("_OutlineColor", outlineColor);
             outlineMaterial.SetFloat("_OutlineThickness", outlineThickness);
         }
-    }
+    }*/
 }

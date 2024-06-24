@@ -268,17 +268,6 @@ public class myCollisionBehaviour : MonoBehaviour
             {
                 outline.enabled = false;
             }
-
-            // Additional code to handle when the object is no longer touching "TouchPos"
-            if (myLable != null)
-            {
-                myLable.SetActive(false);
-            }
-
-            IntractionManager.Instance.selectObjName = "";
-            DEFTXR_UI_Manager.Instance.currentIsolatedObject = null;
-            DEFTXR_UI_Manager.Instance.currentSelectObject = null;
-            DEFTXR_UI_Manager.Instance.currentSelectedAssetNo = -1;
         }
     }
 
