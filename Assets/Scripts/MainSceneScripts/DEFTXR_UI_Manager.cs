@@ -1564,7 +1564,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
 
     public void OnGizmoButtonClick()
     {
-        /*GizmoButton.SetActive(false);
+        GizmoButton.SetActive(false);
         GizmoButtonPressed.SetActive(true);
 
         if (region == Region.lowerLimb && isIsolatedOn == false)
@@ -1573,7 +1573,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
             completelowerBody.GetComponent<BoundsControl>().enabled = true;
             completelowerBody.GetComponent<ObjectManipulator>().enabled = true;
             //completelowerBody.GetComponent<BoxCollider>().enabled = true;
-        }*/
+        }
         /*if (isIsolatedOn == true)
         {
             AttachMRTK.Instance.attachMRTKToIsolate(AssetManagementScript.Instance.isolated_object);
@@ -1581,7 +1581,7 @@ public class DEFTXR_UI_Manager : MonoBehaviour
     }
     public void OnGizmoPressedButtonClick()
     {
-        /*GizmoButton.SetActive(true);
+        GizmoButton.SetActive(true);
         GizmoButtonPressed.SetActive(false);
 
         if (region == Region.lowerLimb && isIsolatedOn == false)
@@ -1590,8 +1590,9 @@ public class DEFTXR_UI_Manager : MonoBehaviour
             completelowerBody.GetComponent<BoundsControl>().HandlesActive = false;
             completelowerBody.GetComponent<BoundsControl>().enabled = false;
             completelowerBody.GetComponent<ObjectManipulator>().enabled = false;
+            completelowerBody.GetComponent<MinMaxScaleConstraint>().enabled = false;
             //completelowerBody.GetComponent<BoxCollider>().enabled = false;
-        }*/
+        }
        /* if (isIsolatedOn == true)
         {
             AttachMRTK.Instance.detachMRTKFromIsolate(AssetManagementScript.Instance.isolated_object);

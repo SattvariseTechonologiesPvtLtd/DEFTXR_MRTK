@@ -198,5 +198,23 @@ public class MainHUB_UIManager : MonoBehaviour
         loadingImage.SetActive(true);
         //loadingImage2.SetActive(true);
         SceneManager.LoadSceneAsync("DEFTXR_Spaces&Triangles_Final");
-    } 
+    }
+    public void OnOrgansButtonClick()
+    {
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_Organs_Final");
+    }
+    public void OnMicroAnatomysButtonClick()
+    {
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_MicroAnatomy_Final");
+    }
+    public void OnJointsButtonClick()
+    {
+        loadingImage.SetActive(true);
+        //loadingImage2.SetActive(true);
+        SceneManager.LoadSceneAsync("DEFTXR_Joints_Final");
+    }
 }
